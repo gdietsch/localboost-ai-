@@ -3,6 +3,8 @@ import { query } from '../models/db.js';
 
 const router = Router();
 
+const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
+
 // GET /api/businesses?email=xxx - Get businesses by email
 router.get('/', async (req, res) => {
   try {
@@ -15,7 +17,7 @@ router.get('/', async (req, res) => {
       `SELECT b.id, b.name, b.website, b.category, b.email, b.created_at,
               (SELECT COUNT(*) FROM audits a WHERE a.business_id = b.id) as audit_count
        FROM businesses b
-       WHERE b.email = '${email.replace(/'/g, "''")}'
+       WHERE b.email = ${safe(email)}
        ORDER BY b.created_at DESC`
     );
 
@@ -27,7 +29,7 @@ router.get('/', async (req, res) => {
     const result = [];
     for (const biz of businesses) {
       const audits = query(
-        `SELECT id, status, created_at FROM audits WHERE business_id = ${biz.id} ORDER BY created_at DESC`
+        `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} ORDER BY created_at DESC`
       );
       result.push({ ...biz, audits: audits || [] });
     }
