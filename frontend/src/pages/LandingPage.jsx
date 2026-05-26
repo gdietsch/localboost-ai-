@@ -1,88 +1,16 @@
 import { Link } from 'react-router-dom';
-
-const targets = [
-  'Home Cleaners', 'Dentists', 'Med Spas', 'Gyms',
-  'Landscapers', 'Barbers', 'Photographers', 'Restaurants',
-];
-
-const steps = [
-  {
-    number: '1',
-    title: 'Connect',
-    desc: 'Tell us about your business — name, website, and industry. We\'ll scan your entire online presence in seconds.',
-    icon: '🔗',
-  },
-  {
-    number: '2',
-    title: 'Generate',
-    desc: 'Our AI creates a full marketing plan with social posts, Google Business content, emails, and review templates.',
-    icon: '⚡',
-  },
-  {
-    number: '3',
-    title: 'Grow',
-    desc: 'Get weekly automated content, review management, lead follow-ups, and performance reports delivered to your inbox.',
-    icon: '📈',
-  },
-];
-
-const features = [
-  'Website & competitor audit',
-  '12 social media post ideas/month',
-  '4 Google Business posts/month',
-  '2 email campaign drafts/month',
-  '5 review reply templates',
-  '30-day marketing plan',
-  'Weekly performance reports',
-  'Lead follow-up automation',
-];
-
-const testimonials = [
-  {
-    name: 'Sarah Johnson',
-    business: 'Sparkle Clean Homes, Austin TX',
-    quote: 'We went from 2 bookings a week to 14 after the first month. The automated content is a game-changer for our small team.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face',
-  },
-  {
-    name: 'Mike Torres',
-    business: 'Torres Landscaping, Phoenix AZ',
-    quote: 'I was spending 10 hours a week on marketing. Now the AI does it all and I just approve. Best $149 I spend every month.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-  },
-  {
-    name: 'Dr. Emily Chen',
-    business: 'Bright Smile Dental, Portland OR',
-    quote: 'The audit found 7 issues with my Google Business profile I didn\'t know about. Fixed them and calls went up 40%. Incredible.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-  },
-];
-
-const stats = [
-  { number: '500+', label: 'Businesses Audited' },
-  { number: '98%', label: 'Satisfaction Rate' },
-  { number: '3.2x', label: 'Average Lead Growth' },
-];
-
-const trustBadges = [
-  { label: '256-bit SSL Encrypted', icon: '🔒' },
-  { label: 'Google Partner Ready', icon: '⭐' },
-  { label: '30-Day Money Back', icon: '🛡️' },
-];
+import { targets, steps, features, testimonials, stats, trustImages } from '../content/landingContent.js';
 
 export default function LandingPage() {
   return (
     <div>
       {/* ===== HERO SECTION ===== */}
       <section className="relative overflow-hidden bg-gray-900 text-white min-h-[85vh] flex items-center">
-        {/* Background image with overlay */}
+        {/* Background image with overlay — local generated photo */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80')",
+            backgroundImage: "url('/images/hero-cleaner.png')",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/60" />
@@ -122,11 +50,14 @@ export default function LandingPage() {
             {/* Social proof mini-bar */}
             <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-gray-400">
               <div className="flex -space-x-2">
-                {['https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop&crop=face',
-                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face',
-                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=40&h=40&fit=crop&crop=face',
-                ].map((url, i) => (
-                  <img key={i} src={url} alt="" className="w-8 h-8 rounded-full border-2 border-gray-800" />
+                {['#pink-500', '#blue-500', '#purple-500'].map((color, i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 rounded-full border-2 border-gray-800 flex items-center justify-center text-[10px] font-bold text-white"
+                    style={{ backgroundColor: color.replace('#', '') }}
+                  >
+                    {['SJ', 'MT', 'EC'][i]}
+                  </div>
                 ))}
               </div>
               <span><strong className="text-white">500+</strong> business owners trust LocalBoost</span>
@@ -246,12 +177,9 @@ export default function LandingPage() {
                 </div>
                 <p className="text-gray-600 leading-relaxed mb-6 flex-1">"{t.quote}"</p>
                 <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <img
-                    src={t.avatar}
-                    alt={t.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                    loading="lazy"
-                  />
+                  <div className={`w-12 h-12 rounded-full ${t.color} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+                    {t.initials}
+                  </div>
                   <div>
                     <div className="font-semibold text-gray-900">{t.name}</div>
                     <div className="text-sm text-gray-500">{t.business}</div>
@@ -336,7 +264,7 @@ export default function LandingPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80')",
+            backgroundImage: "url('/images/sparkling-kitchen.png')",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900/95 to-brand-900/80" />
@@ -432,14 +360,20 @@ export default function LandingPage() {
       {/* ===== FOOTER ===== */}
       <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Trust Badges */}
+          {/* Trust Badges with local images */}
           <div className="flex flex-wrap justify-center gap-8 mb-10">
-            {trustBadges.map((badge) => (
-              <div key={badge.label} className="flex items-center gap-2 text-sm">
-                <span className="text-lg">{badge.icon}</span>
-                <span>{badge.label}</span>
-              </div>
+            {trustImages.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt="Trust badge"
+                className="h-12 opacity-80 hover:opacity-100 transition-opacity"
+              />
             ))}
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="text-lg">🛡️</span>
+              <span>30-Day Money Back</span>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-10 text-center md:text-left">
