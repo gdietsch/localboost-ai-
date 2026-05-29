@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import auditRoutes from './routes/audit.js';
 import businessRoutes from './routes/business.js';
+import stripeRoutes from './routes/payments.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,6 +14,11 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
+
+// Stripe webhook needs raw body — mount BEFORE json parser
+app.use('/api/stripe', stripeRoutes);
+
+// JSON parser for all other routes
 app.use(express.json());
 
 // API routes

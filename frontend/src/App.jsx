@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import AuditForm from './pages/AuditForm';
 import AuditResult from './pages/AuditResult';
 import Dashboard from './pages/Dashboard';
+import StripeCheckout from './pages/StripeCheckout';
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
           <Route path="/audit/new" element={<AuditForm />} />
           <Route path="/audit/:id" element={<AuditResult />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/checkout" element={<StripeCheckout />} />
+          <Route path="/checkout/:type" element={<StripeCheckout />} />
         </Routes>
       </main>
       <footer className="bg-gray-100 border-t py-6 text-center text-sm text-gray-500">

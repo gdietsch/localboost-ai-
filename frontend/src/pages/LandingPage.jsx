@@ -6,7 +6,6 @@ export default function LandingPage() {
     <div>
       {/* ===== HERO SECTION ===== */}
       <section className="relative overflow-hidden bg-gray-900 text-white min-h-[85vh] flex items-center">
-        {/* Background image with overlay — local generated photo */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -33,10 +32,10 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to="/audit/new"
+                to="/checkout/audit"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-500 text-white font-semibold text-lg hover:bg-brand-400 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
               >
-                Start Your Free Audit
+                Buy Audit — $49
                 <span className="ml-2 text-brand-200">→</span>
               </Link>
               <a
@@ -46,8 +45,6 @@ export default function LandingPage() {
                 See Pricing
               </a>
             </div>
-
-            {/* Social proof mini-bar */}
             <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-gray-400">
               <div className="flex -space-x-2">
                 {['#pink-500', '#blue-500', '#purple-500'].map((color, i) => (
@@ -217,10 +214,10 @@ export default function LandingPage() {
                 ))}
               </ul>
               <Link
-                to="/audit/new"
+                to="/checkout/audit"
                 className="w-full text-center bg-gray-100 text-gray-800 py-3.5 rounded-xl font-semibold hover:bg-gray-200 hover:-translate-y-0.5 transition-all"
               >
-                Get Started
+                Buy Audit — $49
               </Link>
             </div>
 
@@ -249,10 +246,10 @@ export default function LandingPage() {
                 ))}
               </ul>
               <Link
-                to="/audit/new"
+                to="/checkout/subscription"
                 className="w-full text-center bg-brand-600 text-white py-3.5 rounded-xl font-semibold hover:bg-brand-700 hover:-translate-y-0.5 transition-all shadow-lg"
               >
-                Start Free Audit
+                Subscribe — $149/month
               </Link>
             </div>
           </div>
@@ -338,10 +335,10 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/audit/new"
+              to="/checkout/audit"
               className="inline-flex items-center justify-center bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-2xl"
             >
-              Start Your Free Audit — $49
+              Buy Audit — $49
               <span className="ml-2">→</span>
             </Link>
             <a
@@ -360,15 +357,10 @@ export default function LandingPage() {
       {/* ===== FOOTER ===== */}
       <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Trust Badges with local images */}
+          {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-8 mb-10">
             {trustImages.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt="Trust badge"
-                className="h-12 opacity-80 hover:opacity-100 transition-opacity"
-              />
+              <img key={i} src={src} alt="Trust badge" className="h-12 opacity-80 hover:opacity-100 transition-opacity" />
             ))}
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="text-lg">🛡️</span>

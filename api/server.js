@@ -9,6 +9,12 @@ const { query, execute } = require('./db.js');
 const app = express();
 
 app.use(cors());
+
+// Stripe webhook needs raw body — mount BEFORE json parser
+const stripeRouter = require('./routes/payments.js');
+app.use('/api/stripe', stripeRouter);
+
+// JSON body parser for all other routes
 app.use(express.json());
 
 const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
@@ -197,9 +203,16 @@ app.get('/businesses', async (req, res) => {
   }
 });
 
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'localboost-api' });
+// Serve static frontend for non-API routes
+const frontendDist = require('path').join(__dirname, '../frontend/dist');
+app.use(express.static(frontendDist));
+
+// SPA fallback
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
+  res.sendFile(require('path').join(frontendDist, 'index.html'));
 });
 
 module.exports = app;
