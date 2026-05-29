@@ -6,6 +6,7 @@ const { createClient } = require('@libsql/client');
 
 const db = createClient({
   url: process.env.TEAM_DB_URL || 'libsql://agent-team-b739afa0-cto.aws-us-west-2.turso.io',
+  authToken: process.env.TEAM_DB_AUTH_TOKEN || '',
 });
 
 /**
@@ -45,3 +46,9 @@ async function execute(sql) {
 }
 
 module.exports = { query, execute };
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
