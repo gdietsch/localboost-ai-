@@ -14,7 +14,7 @@ app.use(express.json());
 const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
 // POST /audits - Create a new audit
-app.post('/api/audits', async (req, res) => {
+app.post('/audits', async (req, res) => {
   try {
     const { name, website, category, email } = req.body;
     if (!name || !website || !category || !email) {
@@ -60,7 +60,7 @@ app.post('/api/audits', async (req, res) => {
 });
 
 // GET /audits/:id - Get audit details
-app.get('/api/audits/:id', async (req, res) => {
+app.get('/audits/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const audits = await query(
@@ -87,7 +87,7 @@ app.get('/api/audits/:id', async (req, res) => {
 });
 
 // POST /audits/:id/generate - Generate audit content
-app.post('/api/audits/:id/generate', async (req, res) => {
+app.post('/audits/:id/generate', async (req, res) => {
   try {
     const { id } = req.params;
     await execute(`UPDATE audits SET status = 'generating' WHERE id = ${safe(id)}`);
@@ -153,7 +153,7 @@ app.post('/api/audits/:id/generate', async (req, res) => {
 });
 
 // PATCH /audits/content/:id/status - Update content item status
-app.patch('/api/audits/content/:id/status', async (req, res) => {
+app.patch('/audits/content/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -169,7 +169,7 @@ app.patch('/api/audits/content/:id/status', async (req, res) => {
 });
 
 // GET /businesses?email=xxx
-app.get('/api/businesses', async (req, res) => {
+app.get('/businesses', async (req, res) => {
   try {
     const { email } = req.query;
     if (!email) return res.status(400).json({ error: 'Email parameter is required' });
@@ -198,7 +198,7 @@ app.get('/api/businesses', async (req, res) => {
 });
 
 // Health check
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'localboost-api' });
 });
 
