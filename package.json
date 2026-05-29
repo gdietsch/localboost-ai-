@@ -2,17 +2,14 @@
   "name": "localboost-app",
   "version": "1.0.0",
   "private": true,
-  "description": "LocalBoost AI — AI-powered marketing for local service businesses",
   "scripts": {
-    "build": "cd frontend && npm run build",
-    "dev": "cd backend && npm run dev",
-    "start": "cd backend && npm start",
-    "deploy": "npx vercel --prod"
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "node backend/src/server.js",
+    "start": "node api/server.js"
   },
   "dependencies": {
     "@libsql/client": "^0.14.0",
     "cors": "^2.8.5",
     "express": "^4.18.2"
-  },
-  "type": "commonjs"
+  }
 }
