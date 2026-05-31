@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import auditRoutes from './routes/audit.js';
 import businessRoutes from './routes/business.js';
 import stripeRoutes from './routes/payments.js';
+import schedulerRoutes from './routes/scheduler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,16 +25,15 @@ app.use(express.json());
 // API routes
 app.use('/api/audits', auditRoutes);
 app.use('/api/businesses', businessRoutes);
+app.use('/api/scheduler', schedulerRoutes);
 
 // Serve static frontend files
 const frontendDist = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(frontendDist));
 
-// SPA fallback - serve index.html for all non-API routes
+// SPA fallback
 app.get('*', (req, res) => {
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'API endpoint not found' });
-  }
+  if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API endpoint not found' });
   res.sendFile(path.join(frontendDist, 'index.html'));
 });
 
