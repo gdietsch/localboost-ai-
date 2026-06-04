@@ -15,6 +15,29 @@ app.use('/api/stripe', require('./routes/payments.js'));
 // JSON body parser for all other routes
 app.use(express.json());
 
+// GET /api/health — Health check endpoint (no auth required)
+app.get('/api/health', async (req, res) => {
+  try {
+    const result = await query('SELECT 1 as ok');
+    const dbOk = result && result.length > 0 && result[0].ok === 1;
+    res.json({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      database: dbOk ? 'connected' : 'error',
+      version: '1.0.0',
+    });
+  } catch (err) {
+    res.status(503).json({
+      status: 'degraded',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      database: 'disconnected',
+      error: err.message,
+    });
+  }
+});
+
 const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
 
 // POST /audits - Create a new audit
