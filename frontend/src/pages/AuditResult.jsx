@@ -20,7 +20,6 @@ export default function AuditResult() {
           setAudit(data);
           setLoading(false);
           if (data.status === 'pending' || data.status === 'generating') {
-            // Poll until complete
             setTimeout(fetchAudit, 2000);
           }
         }
@@ -36,10 +35,8 @@ export default function AuditResult() {
     return () => { cancelled = true; };
   }, [id]);
 
-  // Generate mock content for display (in production, AI generates this)
   useEffect(() => {
     if (audit && audit.status === 'pending') {
-      // Instead of waiting, auto-generate content after a brief delay
       const timer = setTimeout(async () => {
         try {
           await fetch(`/api/audits/${id}/generate`, { method: 'POST' });
@@ -69,9 +66,7 @@ export default function AuditResult() {
         <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-6">
           <h2 className="text-xl font-semibold mb-2">Oops!</h2>
           <p>{error}</p>
-          <Link to="/audit/new" className="text-brand-600 hover:underline mt-4 inline-block">
-            Try again
-          </Link>
+          <Link to="/audit/new" className="text-brand-600 hover:underline mt-4 inline-block">Try again</Link>
         </div>
       </div>
     );
@@ -104,54 +99,29 @@ export default function AuditResult() {
         <p className="text-gray-500">for <strong>{audit.business_name}</strong></p>
       </div>
 
-      {/* 30-Day Marketing Plan */}
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">30-Day Marketing Plan</h2>
-        <div className="grid gap-3">
-          {planItems.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
-        </div>
+        <div className="grid gap-3">{planItems.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
       </section>
 
-      {/* Social Media Posts */}
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">Social Media Post Ideas</h2>
-        <div className="grid gap-3">
-          {socialPosts.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
-        </div>
+        <div className="grid gap-3">{socialPosts.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
       </section>
 
-      {/* Google Business Posts */}
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">Google Business Posts</h2>
-        <div className="grid gap-3">
-          {googlePosts.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
-        </div>
+        <div className="grid gap-3">{googlePosts.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
       </section>
 
-      {/* Emails */}
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">Email Campaign Drafts</h2>
-        <div className="grid gap-3">
-          {emails.map((item) => (
-            <ContentCard key={item.id} item={item} isEmail />
-          ))}
-        </div>
+        <div className="grid gap-3">{emails.map((item) => (<ContentCard key={item.id} item={item} isEmail />))}</div>
       </section>
 
-      {/* Review Replies */}
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4">Review Reply Templates</h2>
-        <div className="grid gap-3">
-          {reviews.map((item) => (
-            <ContentCard key={item.id} item={item} />
-          ))}
-        </div>
+        <div className="grid gap-3">{reviews.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
       </section>
     </div>
   );
@@ -159,17 +129,26 @@ export default function AuditResult() {
 
 function ContentCard({ item, isEmail }) {
   const [status, setStatus] = useState(item.status);
+  const [updating, setUpdating] = useState(false);
 
   async function updateStatus(newStatus) {
+    setUpdating(true);
     try {
       const res = await fetch(`/api/audits/content/${item.id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
       });
-      if (res.ok) setStatus(newStatus);
+      if (res.ok) {
+        setStatus(newStatus);
+      } else {
+        const err = await res.json().catch(() => ({}));
+        alert(`Failed to update: ${err.error || 'Unknown error'}`);
+      }
     } catch (e) {
-      // ignore
+      alert('Network error. Please try again.');
+    } finally {
+      setUpdating(false);
     }
   }
 
@@ -191,23 +170,25 @@ function ContentCard({ item, isEmail }) {
       <div className="flex gap-2 mt-3">
         <button
           onClick={() => updateStatus('approved')}
+          disabled={updating}
           className={`text-xs px-3 py-1.5 rounded-lg font-medium transition ${
             status === 'approved'
               ? 'bg-green-100 text-green-700 cursor-default'
               : 'bg-gray-100 text-gray-700 hover:bg-green-100 hover:text-green-700'
-          }`}
+          } disabled:opacity-50`}
         >
-          👍 Approve
+          {updating ? '...' : '👍 Approve'}
         </button>
         <button
           onClick={() => updateStatus('needs_revision')}
+          disabled={updating}
           className={`text-xs px-3 py-1.5 rounded-lg font-medium transition ${
             status === 'needs_revision'
               ? 'bg-yellow-100 text-yellow-700 cursor-default'
               : 'bg-gray-100 text-gray-700 hover:bg-yellow-100 hover:text-yellow-700'
-          }`}
+          } disabled:opacity-50`}
         >
-          🔄 Needs Revision
+          {updating ? '...' : '🔄 Needs Revision'}
         </button>
         <button
           onClick={() => { navigator.clipboard.writeText(item.body); }}

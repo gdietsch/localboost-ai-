@@ -1,6 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
+  const location = useLocation();
+
+  function scrollToPricing(e) {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      // Already on landing page, just scroll
+      const el = document.getElementById('pricing');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to landing page with pricing hash
+      window.location.href = '/#pricing';
+    }
+  }
+
   return (
     <nav className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +27,11 @@ export default function Navbar() {
             <Link to="/dashboard" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
               Dashboard
             </Link>
-            <a href="#pricing" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+            <a
+              href="#pricing"
+              onClick={scrollToPricing}
+              className="text-sm font-medium text-gray-600 hover:text-brand-600 transition cursor-pointer"
+            >
               Pricing
             </a>
             <Link

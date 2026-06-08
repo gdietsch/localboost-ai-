@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom';
 import { targets, steps, features, testimonials, stats, trustImages } from '../content/landingContent.js';
 
 export default function LandingPage() {
+  function scrollToPricing(e) {
+    e.preventDefault();
+    const el = document.getElementById('pricing');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <div>
       {/* ===== HERO SECTION ===== */}
@@ -40,6 +46,7 @@ export default function LandingPage() {
               </Link>
               <a
                 href="#pricing"
+                onClick={scrollToPricing}
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-all hover:-translate-y-0.5"
               >
                 See Pricing
@@ -343,6 +350,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#pricing"
+              onClick={scrollToPricing}
               className="inline-flex items-center justify-center border-2 border-white/30 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 hover:-translate-y-0.5 transition-all"
             >
               Compare Plans
@@ -381,7 +389,7 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold text-white mb-3">Product</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#pricing" className="hover:text-white transition">Pricing</a></li>
+                <li><a href="#pricing" onClick={scrollToPricing} className="hover:text-white transition">Pricing</a></li>
                 <li><Link to="/audit/new" className="hover:text-white transition">Free Audit</Link></li>
                 <li><Link to="/dashboard" className="hover:text-white transition">Dashboard</Link></li>
               </ul>
