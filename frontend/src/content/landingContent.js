@@ -1,6 +1,8 @@
 export const targets = [
-  'Home Cleaners', 'Dentists', 'Med Spas', 'Gyms',
+  'Home Cleaners', 'Pet Services', 'Dentists', 'Plastic Surgery',
+  'Med Spas', 'Beauty Salons', 'Nail Salons', 'Gyms/Fitness',
   'Landscapers', 'Barbers', 'Photographers', 'Restaurants',
+  'Real Estate Agents', 'Massage Therapy', 'Chiropractors', 'Veterinarians',
 ];
 
 export const steps = [

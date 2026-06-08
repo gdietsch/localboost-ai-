@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import AuditForm from './pages/AuditForm';
+import AuditPreview from './pages/AuditPreview';
 import AuditResult from './pages/AuditResult';
 import Dashboard from './pages/Dashboard';
 import StripeCheckout from './pages/StripeCheckout';
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/audit/new" element={<AuditForm />} />
+          <Route path="/audit/preview/:id" element={<AuditPreview />} />
           <Route path="/audit/:id" element={<AuditResult />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/checkout" element={<StripeCheckout />} />
