@@ -172,6 +172,9 @@ app.get('/businesses', async (req, res) => {
 // Phase 2: Scheduler routes
 app.use('/api/scheduler', require('./routes/scheduler.js'));
 
+// Phase 3: Analysis routes
+app.use('/api/analysis', require('./routes/analysis.js'));
+
 // Serve static frontend
 const frontendDist = require('path').join(__dirname, '../frontend/dist');
 app.use(express.static(frontendDist));
@@ -182,4 +185,9 @@ app.get('*', (req, res) => {
   res.sendFile(require('path').join(frontendDist, 'index.html'));
 });
 
-module.exports = app;
+module.exports = app;/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'

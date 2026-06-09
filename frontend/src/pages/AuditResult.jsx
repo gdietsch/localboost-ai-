@@ -1,10 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
+function getGrade(score) {
+  if (score >= 90) return { letter: 'A', color: 'bg-green-500', textColor: 'text-green-700', bgColor: 'bg-green-100' };
+  if (score >= 80) return { letter: 'B', color: 'bg-blue-500', textColor: 'text-blue-700', bgColor: 'bg-blue-100' };
+  if (score >= 70) return { letter: 'C', color: 'bg-yellow-500', textColor: 'text-yellow-700', bgColor: 'bg-yellow-100' };
+  if (score >= 60) return { letter: 'D', color: 'bg-orange-500', textColor: 'text-orange-700', bgColor: 'bg-orange-100' };
+  return { letter: 'F', color: 'bg-red-500', textColor: 'text-red-700', bgColor: 'bg-red-100' };
+}
+
+const categoryConfig = {
+  websiteHealth: { label: 'Website Health', icon: '🚀' },
+  googleBusiness: { label: 'Google Business Profile', icon: '📍' },
+  competitorPosition: { label: 'Competitor Position', icon: '📊' },
+  revenueOpportunity: { label: 'Revenue Opportunity', icon: '💰' },
+  contentReadiness: { label: 'Content Readiness', icon: '📱' },
+};
+
 export default function AuditResult() {
   const { id } = useParams();
   const [audit, setAudit] = useState(null);
-  const [busy, setBusy] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -13,21 +28,15 @@ export default function AuditResult() {
 
     async function fetchAudit() {
       try {
-        const res = await fetch(`/api/audits/${id}`);
+        const res = await fetch(`/api/analysis/${id}/results`);
         if (!res.ok) throw new Error('Audit not found');
         const data = await res.json();
         if (!cancelled) {
           setAudit(data);
           setLoading(false);
-          if (data.status === 'pending' || data.status === 'generating') {
-            setTimeout(fetchAudit, 2000);
-          }
         }
       } catch (err) {
-        if (!cancelled) {
-          setError(err.message);
-          setLoading(false);
-        }
+        if (!cancelled) { setError(err.message); setLoading(false); }
       }
     }
 
@@ -35,27 +44,11 @@ export default function AuditResult() {
     return () => { cancelled = true; };
   }, [id]);
 
-  useEffect(() => {
-    if (audit && audit.status === 'pending') {
-      const timer = setTimeout(async () => {
-        try {
-          await fetch(`/api/audits/${id}/generate`, { method: 'POST' });
-        } catch (e) {
-          // ignore
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [audit, id]);
-
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-96 mx-auto"></div>
-        </div>
-        <p className="text-gray-500 mt-6">Loading your audit...</p>
+        <div className="w-16 h-16 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-gray-500">Loading your report...</p>
       </div>
     );
   }
@@ -72,130 +65,162 @@ export default function AuditResult() {
     );
   }
 
-  if (!audit || audit.status !== 'complete') {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-        <div className="mb-6">
-          <div className="w-16 h-16 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin mx-auto"></div>
-        </div>
-        <h2 className="text-2xl font-bold mb-2">Generating Your Audit</h2>
-        <p className="text-gray-500">Our AI is analyzing your business and creating your marketing plan...</p>
-        <p className="text-sm text-gray-400 mt-4">This usually takes about 30 seconds.</p>
-      </div>
-    );
-  }
+  if (!audit) return null;
 
-  const planItems = audit.content?.filter(c => c.type === 'task') || [];
-  const socialPosts = audit.content?.filter(c => c.type === 'social_post') || [];
-  const googlePosts = audit.content?.filter(c => c.type === 'google_post') || [];
-  const emails = audit.content?.filter(c => c.type === 'email') || [];
-  const reviews = audit.content?.filter(c => c.type === 'review_reply') || [];
+  const items = audit.content || [];
+  const scoreItem = items.find(i => i.title?.startsWith('Overall Score'));
+  const findings = items.filter(i => i.title?.startsWith('🔴') || i.title?.startsWith('🟡'));
+  const tasks = items.filter(i => i.type === 'task' && !i.title?.startsWith('Overall') && !i.title?.startsWith('🔴') && !i.title?.startsWith('🟡'));
+  const socialPosts = items.filter(i => i.type === 'social_post');
+  const googlePosts = items.filter(i => i.type === 'google_post');
+  const emails = items.filter(i => i.type === 'email');
+  const reviews = items.filter(i => i.type === 'review_reply');
+
+  // Estimate scores from findings
+  const totalFindings = findings.length;
+  const highIssues = findings.filter(f => f.title?.startsWith('🔴')).length;
+  const medIssues = findings.filter(f => f.title?.startsWith('🟡')).length;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="mb-8">
+    <div className="max-5xl mx-auto px-4 py-10 bg-gray-50 min-h-screen">
+      <div className="max-w-5xl mx-auto">
         <Link to="/dashboard" className="text-brand-600 hover:underline text-sm">&larr; Back to Dashboard</Link>
-        <h1 className="text-3xl font-bold mt-2">Your Marketing Audit</h1>
-        <p className="text-gray-500">for <strong>{audit.business_name}</strong></p>
-      </div>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">30-Day Marketing Plan</h2>
-        <div className="grid gap-3">{planItems.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
-      </section>
+        {/* Report Header */}
+        <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6 mt-4">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className={`w-24 h-24 rounded-2xl flex items-center justify-center text-4xl font-bold text-white ${scoreItem ? getGrade(75).color : 'bg-gray-300'}`}>
+              {scoreItem ? getGrade(75).letter : '?'}
+            </div>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold mb-1">Marketing Audit Report</h1>
+              <p className="text-gray-500 mb-2">for <strong>{audit.name}</strong> · {audit.category}</p>
+              {scoreItem && <p className="text-gray-600 text-sm">{scoreItem.body}</p>}
+            </div>
+            <div className="text-right text-sm text-gray-400">
+              <p>Generated {new Date().toLocaleDateString()}</p>
+              <p className="font-semibold text-brand-600">Paid Report</p>
+            </div>
+          </div>
+        </div>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Social Media Post Ideas</h2>
-        <div className="grid gap-3">{socialPosts.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
-      </section>
+        {/* Executive Summary */}
+        <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6">
+          <h2 className="text-xl font-bold mb-4">📋 Executive Summary</h2>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            We analyzed <strong>{audit.name}</strong>'s online presence and found <strong>{totalFindings} key issues</strong>
+            {highIssues > 0 ? `, including ${highIssues} critical problems` : ''} that are impacting your ability to attract new customers.
+          </p>
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="bg-red-50 rounded-xl p-4">
+              <div className="text-2xl font-bold text-red-600">{highIssues}</div>
+              <div className="text-xs text-red-600">Critical Issues</div>
+            </div>
+            <div className="bg-yellow-50 rounded-xl p-4">
+              <div className="text-2xl font-bold text-yellow-600">{medIssues}</div>
+              <div className="text-xs text-yellow-600">Improvements</div>
+            </div>
+            <div className="bg-green-50 rounded-xl p-4">
+              <div className="text-2xl font-bold text-green-600">{totalFindings > 0 ? `${Math.round((totalFindings - highIssues - medIssues) / totalFindings * 100) || 0}%` : 'N/A'}</div>
+              <div className="text-xs text-green-600">Opportunity Score</div>
+            </div>
+          </div>
+        </div>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Google Business Posts</h2>
-        <div className="grid gap-3">{googlePosts.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
-      </section>
+        {/* Critical Findings */}
+        {findings.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6">
+            <h2 className="text-xl font-bold mb-4">🔍 Key Findings</h2>
+            <div className="space-y-3">
+              {findings.slice(0, 6).map((item, i) => (
+                <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50">
+                  <span className="text-lg mt-0.5">{item.title?.startsWith('🔴') ? '🔴' : '🟡'}</span>
+                  <div>
+                    <p className="font-medium text-gray-800">{item.title?.replace(/^[🔴🟡]\s*/, '')}</p>
+                    <p className="text-sm text-gray-500">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Email Campaign Drafts</h2>
-        <div className="grid gap-3">{emails.map((item) => (<ContentCard key={item.id} item={item} isEmail />))}</div>
-      </section>
+        {/* 30-Day Action Plan */}
+        {tasks.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6">
+            <h2 className="text-xl font-bold mb-4">📋 30-Day Action Plan</h2>
+            <div className="space-y-3">
+              {tasks.map((item) => (
+                <div key={item.id} className="border-l-4 border-brand-400 pl-4 py-2">
+                  <h3 className="font-semibold text-gray-800">{item.title}</h3>
+                  <p className="text-sm text-gray-600 whitespace-pre-wrap">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Review Reply Templates</h2>
-        <div className="grid gap-3">{reviews.map((item) => (<ContentCard key={item.id} item={item} />))}</div>
-      </section>
-    </div>
-  );
-}
+        {/* Revenue Opportunity */}
+        <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 mb-6 text-white">
+          <h2 className="text-xl font-bold mb-3">💰 Revenue Opportunity</h2>
+          <p className="text-brand-100 mb-4">
+            Based on our analysis, addressing the issues we found could significantly increase your monthly revenue.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold">{totalFindings}</div>
+              <div className="text-sm text-brand-200">Issues to Fix</div>
+            </div>
+            <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold">{highIssues + medIssues}</div>
+              <div className="text-sm text-brand-200">Priority Actions</div>
+            </div>
+            <div className="bg-white/10 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold">${(highIssues * 800 + medIssues * 300).toLocaleString()}+</div>
+              <div className="text-sm text-brand-200">Est. Monthly Upside</div>
+            </div>
+          </div>
+        </div>
 
-function ContentCard({ item, isEmail }) {
-  const [status, setStatus] = useState(item.status);
-  const [updating, setUpdating] = useState(false);
+        {/* Content Library */}
+        <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6">
+          <h2 className="text-xl font-bold mb-4">📱 Content Library</h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            {socialPosts.length > 0 && (
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="font-semibold text-gray-700 mb-2">📸 Social Posts ({socialPosts.length})</p>
+                <p className="text-sm text-gray-500">{socialPosts[0]?.title}</p>
+              </div>
+            )}
+            {googlePosts.length > 0 && (
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="font-semibold text-gray-700 mb-2">🔍 Google Posts ({googlePosts.length})</p>
+                <p className="text-sm text-gray-500">{googlePosts[0]?.title}</p>
+              </div>
+            )}
+            {emails.length > 0 && (
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="font-semibold text-gray-700 mb-2">✉️ Email Drafts ({emails.length})</p>
+                <p className="text-sm text-gray-500">{emails[0]?.title}</p>
+              </div>
+            )}
+            {reviews.length > 0 && (
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="font-semibold text-gray-700 mb-2">⭐ Review Templates ({reviews.length})</p>
+                <p className="text-sm text-gray-500">{reviews[0]?.title}</p>
+              </div>
+            )}
+          </div>
+        </div>
 
-  async function updateStatus(newStatus) {
-    setUpdating(true);
-    try {
-      const res = await fetch(`/api/audits/content/${item.id}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (res.ok) {
-        setStatus(newStatus);
-      } else {
-        const err = await res.json().catch(() => ({}));
-        alert(`Failed to update: ${err.error || 'Unknown error'}`);
-      }
-    } catch (e) {
-      alert('Network error. Please try again.');
-    } finally {
-      setUpdating(false);
-    }
-  }
-
-  return (
-    <div className={`bg-white rounded-xl border p-5 ${status === 'approved' ? 'border-green-300 ring-1 ring-green-200' : 'border-gray-200'}`}>
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="font-semibold text-gray-800">{item.title}</h3>
-        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-          status === 'approved' ? 'bg-green-100 text-green-700' :
-          status === 'needs_revision' ? 'bg-yellow-100 text-yellow-700' :
-          'bg-gray-100 text-gray-600'
-        }`}>
-          {status === 'needs_revision' ? 'Needs Revision' : status === 'approved' ? 'Approved' : 'Draft'}
-        </span>
-      </div>
-      <div className={`text-gray-600 text-sm whitespace-pre-wrap ${isEmail ? 'bg-gray-50 rounded-lg p-4 border' : ''}`}>
-        {item.body}
-      </div>
-      <div className="flex gap-2 mt-3">
-        <button
-          onClick={() => updateStatus('approved')}
-          disabled={updating}
-          className={`text-xs px-3 py-1.5 rounded-lg font-medium transition ${
-            status === 'approved'
-              ? 'bg-green-100 text-green-700 cursor-default'
-              : 'bg-gray-100 text-gray-700 hover:bg-green-100 hover:text-green-700'
-          } disabled:opacity-50`}
-        >
-          {updating ? '...' : '👍 Approve'}
-        </button>
-        <button
-          onClick={() => updateStatus('needs_revision')}
-          disabled={updating}
-          className={`text-xs px-3 py-1.5 rounded-lg font-medium transition ${
-            status === 'needs_revision'
-              ? 'bg-yellow-100 text-yellow-700 cursor-default'
-              : 'bg-gray-100 text-gray-700 hover:bg-yellow-100 hover:text-yellow-700'
-          } disabled:opacity-50`}
-        >
-          {updating ? '...' : '🔄 Needs Revision'}
-        </button>
-        <button
-          onClick={() => { navigator.clipboard.writeText(item.body); }}
-          className="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition"
-        >
-          📋 Copy
-        </button>
+        {/* CTA */}
+        <div className="text-center py-8">
+          <p className="text-gray-500 mb-4">Want the full breakdown with screenshots and competitor analysis?</p>
+          <Link to="/dashboard"
+            className="inline-block bg-brand-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-700 transition shadow-lg">
+            View All Reports
+          </Link>
+        </div>
       </div>
     </div>
   );
