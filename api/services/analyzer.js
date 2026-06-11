@@ -11,6 +11,10 @@ const { query, execute } = require('../db.js');
  * @returns {Object} Analysis report with scores, findings, screenshots
  */
 async function analyzeWebsite(website, answers) {
+  // Normalize URL — prepend https:// if missing
+  if (website && !website.startsWith('http://') && !website.startsWith('https://')) {
+    website = 'https://' + website;
+  }
   const startTime = Date.now();
   const report = {
     url: website,
@@ -147,4 +151,9 @@ function getGrade(score) {
   return 'F';
 }
 
-module.exports = { analyzeWebsite, saveAnalysis, getGrade };
+module.exports = { analyzeWebsite, saveAnalysis, getGrade };/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'
+/home/engine/.bashrc: line 1: syntax error near unexpected token `('
+/home/engine/.bashrc: line 1: `. /etc/profile.d/workload-containment.shn# ~/.bashrc: executed by bash(1) for non-login shells.'

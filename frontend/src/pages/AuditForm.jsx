@@ -27,6 +27,15 @@ export default function AuditForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  function normalizeUrl(url) {
+    if (!url) return url;
+    url = url.trim();
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
+    return url;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
@@ -43,7 +52,7 @@ export default function AuditForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: form.name, website: form.website,
+          name: form.name, website: normalizeUrl(form.website),
           category: form.category, email: form.email,
         }),
       });
@@ -62,7 +71,7 @@ export default function AuditForm() {
             source: form.source,
             monthlyCustomers: form.monthlyCustomers,
             avgValue: form.avgValue,
-            competitors: [form.competitor1, form.competitor2].filter(Boolean).join(', '),
+            competitors: [normalizeUrl(form.competitor1), normalizeUrl(form.competitor2)].filter(Boolean).join(', '),
             challenge: form.challenge,
           },
         },
@@ -100,7 +109,7 @@ export default function AuditForm() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Website URL *</label>
-              <input type="url" name="website" value={form.website} onChange={handleChange} placeholder="e.g. https://sparkleclean.com"
+              <input type="text" name="website" value={form.website} onChange={handleChange} placeholder="e.g. mypetsloveit.com"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" required />
             </div>
             <div>
@@ -151,12 +160,12 @@ export default function AuditForm() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Top competitor (website)</label>
-              <input type="text" name="competitor1" value={form.competitor1} onChange={handleChange} placeholder="e.g. https://competitor.com"
+              <input type="text" name="competitor1" value={form.competitor1} onChange={handleChange} placeholder="e.g. competitor.com"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Second competitor (optional)</label>
-              <input type="text" name="competitor2" value={form.competitor2} onChange={handleChange} placeholder="e.g. https://competitor2.com"
+              <input type="text" name="competitor2" value={form.competitor2} onChange={handleChange} placeholder="e.g. competitor2.com"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
             </div>
             <div>
