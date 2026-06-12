@@ -1,15 +1,19 @@
 /**
  * SendGrid email service for LocalBoost AI (CommonJS - Vercel).
  */
-const sgMail = require('@sendgrid/mail');
-
+let sgMail = null;
 const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@localboost.ai';
 const APP_URL = process.env.APP_URL || 'http://localhost:3001';
 
 function init() {
-  const apiKey = process.env.SENDGRID_API_KEY;
-  if (apiKey) {
-    sgMail.setApiKey(apiKey);
+  try {
+    sgMail = require('@sendgrid/mail');
+    const apiKey = process.env.SENDGRID_API_KEY;
+    if (apiKey) {
+      sgMail.setApiKey(apiKey);
+    }
+  } catch (err) {
+    console.error('SendGrid init failed (email service disabled):', err.message);
   }
 }
 
