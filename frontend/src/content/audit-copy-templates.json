@@ -1,0 +1,74 @@
+{
+  "home-cleaning": {
+    "Website Health": {
+      "issue": "Slow load time & weak CTAs",
+      "revenueImpact": "~$800/mo in missed bookings"
+    },
+    "Google Business Profile": {
+      "issue": "Incomplete profile & low photo count",
+      "revenueImpact": "~$600/mo in missed calls"
+    },
+    "Competitor Position": {
+      "issue": "Competitors dominate local search",
+      "revenueImpact": "~$500/mo lost to rivals"
+    },
+    "Revenue Opportunity": {
+      "issue": "Low recurring customer conversion",
+      "revenueImpact": "~$500/mo in untapped revenue"
+    }
+  },
+  "dental": {
+    "Website Health": {
+      "issue": "No online appointment booking",
+      "revenueImpact": "~$2,500/mo in lost patients"
+    },
+    "Google Business Profile": {
+      "issue": "Low review response rate",
+      "revenueImpact": "~$1,200/mo in trust gap"
+    },
+    "Competitor Position": {
+      "issue": "Outranked for 'Dentist near me'",
+      "revenueImpact": "~$3,000/mo lost to competitors"
+    },
+    "Revenue Opportunity": {
+      "issue": "Poor mobile experience",
+      "revenueImpact": "~$1,500/mo in missed leads"
+    }
+  },
+  "landscaping": {
+    "Website Health": {
+      "issue": "Missing before/after gallery",
+      "revenueImpact": "~$1,200/mo in missed projects"
+    },
+    "Google Business Profile": {
+      "issue": "Inactive GBP posting",
+      "revenueImpact": "~$400/mo in local visibility"
+    },
+    "Competitor Position": {
+      "issue": "No schema markup for local SEO",
+      "revenueImpact": "~$800/mo in search traffic"
+    },
+    "Revenue Opportunity": {
+      "issue": "Inefficient lead capture forms",
+      "revenueImpact": "~$600/mo in lost estimates"
+    }
+  },
+  "default": {
+    "Website Health": {
+      "issue": "Low performance & conversion leaks",
+      "revenueImpact": "~$800/mo in missed leads"
+    },
+    "Google Business Profile": {
+      "issue": "Profile optimization required",
+      "revenueImpact": "~$600/mo in missed calls"
+    },
+    "Competitor Position": {
+      "issue": "Market share being lost to rivals",
+      "revenueImpact": "~$500/mo lost to competitors"
+    },
+    "Revenue Opportunity": {
+      "issue": "Untapped revenue from site traffic",
+      "revenueImpact": "~$500/mo in growth potential"
+    }
+  }
+}

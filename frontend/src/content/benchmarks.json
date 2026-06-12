@@ -1,0 +1,74 @@
+{
+  "home-cleaning": {
+    "avgMonthlyTraffic": 500,
+    "targetCVR": 0.05,
+    "avgCustomerValue": 250,
+    "leadToSaleRate": 0.40,
+    "targetReviews": 50,
+    "mobileShare": 0.65
+  },
+  "pet-services": {
+    "avgMonthlyTraffic": 750,
+    "targetCVR": 0.07,
+    "avgCustomerValue": 150,
+    "leadToSaleRate": 0.50,
+    "targetReviews": 75,
+    "mobileShare": 0.70
+  },
+  "dental": {
+    "avgMonthlyTraffic": 1000,
+    "targetCVR": 0.03,
+    "avgCustomerValue": 1200,
+    "leadToSaleRate": 0.30,
+    "targetReviews": 150,
+    "mobileShare": 0.55
+  },
+  "med-spa": {
+    "avgMonthlyTraffic": 1200,
+    "targetCVR": 0.04,
+    "avgCustomerValue": 450,
+    "leadToSaleRate": 0.35,
+    "targetReviews": 100,
+    "mobileShare": 0.75
+  },
+  "landscaping": {
+    "avgMonthlyTraffic": 400,
+    "targetCVR": 0.04,
+    "avgCustomerValue": 400,
+    "leadToSaleRate": 0.45,
+    "targetReviews": 30,
+    "mobileShare": 0.60
+  },
+  "beauty": {
+    "avgMonthlyTraffic": 600,
+    "targetCVR": 0.12,
+    "avgCustomerValue": 80,
+    "leadToSaleRate": 0.80,
+    "targetReviews": 100,
+    "mobileShare": 0.90
+  },
+  "gym": {
+    "avgMonthlyTraffic": 800,
+    "targetCVR": 0.06,
+    "avgCustomerValue": 120,
+    "leadToSaleRate": 0.40,
+    "targetReviews": 80,
+    "mobileShare": 0.80
+  },
+  "photography": {
+    "avgMonthlyTraffic": 300,
+    "targetCVR": 0.02,
+    "avgCustomerValue": 800,
+    "leadToSaleRate": 0.25,
+    "targetReviews": 40,
+    "mobileShare": 0.50
+  },
+  "default": {
+    "avgMonthlyTraffic": 500,
+    "targetCVR": 0.03,
+    "avgCustomerValue": 250,
+    "leadToSaleRate": 0.40,
+    "targetReviews": 50,
+    "mobileShare": 0.65
+  }
+}

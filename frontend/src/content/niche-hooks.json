@@ -1,0 +1,87 @@
+{
+  "home-cleaning": {
+    "heroHook": "is leaving an estimated $[Amount]/month on the table",
+    "painPoint": "Your low conversion rate is letting competitors sweep up your local leads.",
+    "revenueStatement": "~$800/month in missed bookings due to slow site speed."
+  },
+  "pet-services": {
+    "heroHook": "is missing out on $[Amount]/month in new pet parents",
+    "painPoint": "Your website isn't building the trust that pet owners demand.",
+    "revenueStatement": "~$600/month lost because your 'Book Now' button is hard to find."
+  },
+  "dentists": {
+    "heroHook": "is losing ~[Leads] new patients per month",
+    "painPoint": "High-value patients are choosing competitors with easier online booking.",
+    "revenueStatement": "~$3,500/month in 'Lifetime Value' lost to local rivals."
+  },
+  "plastic-surgery": {
+    "heroHook": "is leaving $[Amount]/month in consultation fees behind",
+    "painPoint": "Your site fails to showcase the visual results patients are searching for.",
+    "revenueStatement": "~$5,000/month in missed high-ticket procedures."
+  },
+  "med-spas": {
+    "heroHook": "is leaking $[Amount] in monthly recurring revenue",
+    "painPoint": "Missing social proof is causing potential clients to bounce to other spas.",
+    "revenueStatement": "~$2,400/month in lost membership and treatment sales."
+  },
+  "beauty-salons": {
+    "heroHook": "is missing $[Amount] in weekly chair bookings",
+    "painPoint": "A non-mobile site is the #1 reason clients book somewhere else.",
+    "revenueStatement": "~$400/week in missed appointments from mobile users."
+  },
+  "nail-salons": {
+    "heroHook": "is losing $[Amount]/month to faster-loading competitors",
+    "painPoint": "Your site needs to be as polished as your work to win new clients.",
+    "revenueStatement": "~$300/month in lost walk-ins who couldn't find your hours."
+  },
+  "gyms-fitness": {
+    "heroHook": "is missing [Count] new membership signups monthly",
+    "painPoint": "Without a clear lead magnet, visitors are leaving without joining.",
+    "revenueStatement": "~$1,200/month in missed recurring membership revenue."
+  },
+  "landscapers": {
+    "heroHook": "is leaving $[Amount] in project estimates on the lawn",
+    "painPoint": "Missing project galleries are costing you high-end residential jobs.",
+    "revenueStatement": "~$4,000/month in missed hardscaping and design leads."
+  },
+  "barbers": {
+    "heroHook": "is missing $[Amount] in monthly walk-in revenue",
+    "painPoint": "Clients want to see your cuts and book instantly—your site does neither.",
+    "revenueStatement": "~$500/month in missed chair time."
+  },
+  "photographers": {
+    "heroHook": "is losing $[Amount] in seasonal shoot bookings",
+    "painPoint": "A slow-loading portfolio is killing your high-end client conversions.",
+    "revenueStatement": "~$2,000/month in missed wedding and event inquiries."
+  },
+  "restaurants": {
+    "heroHook": "is missing [Count] table reservations every weekend",
+    "painPoint": "An unoptimized mobile menu is frustrating hungry customers.",
+    "revenueStatement": "~$1,500/month in lost reservation and takeout revenue."
+  },
+  "real-estate-agents": {
+    "heroHook": "is missing [Count] listing appointments per month",
+    "painPoint": "Your site isn't capturing the seller leads that fuel your business.",
+    "revenueStatement": "~$15,000/month in potential commission 'at risk'."
+  },
+  "massage-therapy": {
+    "heroHook": "is losing $[Amount] in relaxation and wellness bookings",
+    "painPoint": "If they can't book in 3 clicks, they'll stay stressed and look elsewhere.",
+    "revenueStatement": "~$800/month in missed recurring therapeutic sessions."
+  },
+  "chiropractors": {
+    "heroHook": "is missing $[Amount] in new patient adjustments",
+    "painPoint": "Your site needs more trust signals to win over patients in pain.",
+    "revenueStatement": "~$2,800/month in lost long-term patient value."
+  },
+  "veterinarians": {
+    "heroHook": "is losing $[Amount]/month in pet wellness visits",
+    "painPoint": "Pet parents choose the most professional digital presence in an emergency.",
+    "revenueStatement": "~$1,200/month in missed diagnostic and checkup revenue."
+  },
+  "default": {
+    "heroHook": "is leaving $[Amount]/month on the table",
+    "painPoint": "Your digital presence has 'leaks' that are costing you customers.",
+    "revenueStatement": "~$1,000/month in untapped revenue opportunity."
+  }
+}
