@@ -2,28 +2,55 @@
  * SendGrid email service for LocalBoost AI (CommonJS - Vercel).
  */
 let sgMail = null;
+let initialized = false;
 const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@localboost.ai';
 const APP_URL = process.env.APP_URL || 'http://localhost:3001';
 
 function init() {
+  if (initialized) return;
+  initialized = true;
+
+  const apiKey = process.env.SENDGRID_API_KEY;
+  if (!apiKey) {
+    console.log('📧 SendGrid email service: disabled (no SENDGRID_API_KEY set)');
+    return;
+  }
+
   try {
     sgMail = require('@sendgrid/mail');
-    const apiKey = process.env.SENDGRID_API_KEY;
-    if (apiKey) {
-      sgMail.setApiKey(apiKey);
-    }
+    sgMail.setApiKey(apiKey);
+    console.log('📧 SendGrid email service: initialized');
   } catch (err) {
-    console.error('SendGrid init failed (email service disabled):', err.message);
+    console.error('📧 SendGrid init failed:', err.message);
+    // sgMail stays null — service will gracefully skip sending
   }
+}
+
+/**
+ * Check if the email service is ready to send.
+ */
+function isReady() {
+  return sgMail !== null && typeof sgMail.send === 'function';
 }
 
 /**
  * Send weekly content approval email to a business owner.
  * @param {Object} business - { name, email, website, category }
  * @param {Array} contentItems - Array of { id, type, title, body, status }
+ * @returns {boolean} - true if sent, false if skipped or failed
  */
 async function sendApprovalEmail(business, contentItems) {
   init();
+
+  if (!isReady()) {
+    console.log(`📧 Email skipped for ${business.email} (SendGrid not configured)`);
+    return false;
+  }
+
+  if (!business || !business.email) {
+    console.warn('📧 Email skipped: no business or email address');
+    return false;
+  }
 
   const grouped = {};
   for (const item of contentItems) {
@@ -83,10 +110,10 @@ async function sendApprovalEmail(business, contentItems) {
 
   try {
     await sgMail.send(msg);
-    console.log(`Approval email sent to ${business.email}`);
+    console.log(`📧 Approval email sent to ${business.email}`);
     return true;
   } catch (err) {
-    console.error('Failed to send email:', err.message);
+    console.error(`📧 Failed to send email to ${business.email}:`, err.message);
     // Don't throw — email failure shouldn't block content generation
     return false;
   }

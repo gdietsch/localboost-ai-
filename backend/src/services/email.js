@@ -1,18 +1,48 @@
 /**
  * SendGrid email service for LocalBoost AI (ESM - local backend).
  */
-import sgMail from '@sendgrid/mail';
+let sgMail = null;
+let initialized = false;
 
 const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@localboost.ai';
 const APP_URL = process.env.APP_URL || 'http://localhost:3001';
 
-function init() {
+async function init() {
+  if (initialized) return;
+  initialized = true;
+
   const apiKey = process.env.SENDGRID_API_KEY;
-  if (apiKey) sgMail.setApiKey(apiKey);
+  if (!apiKey) {
+    console.log('📧 SendGrid email service: disabled (no SENDGRID_API_KEY set)');
+    return;
+  }
+
+  try {
+    const sgMailModule = await import('@sendgrid/mail');
+    sgMail = sgMailModule.default || sgMailModule;
+    sgMail.setApiKey(apiKey);
+    console.log('📧 SendGrid email service: initialized');
+  } catch (err) {
+    console.error('📧 SendGrid init failed:', err.message);
+  }
+}
+
+function isReady() {
+  return sgMail !== null && typeof sgMail.send === 'function';
 }
 
 export async function sendApprovalEmail(business, contentItems) {
-  init();
+  await init();
+
+  if (!isReady()) {
+    console.log(`📧 Email skipped for ${business.email} (SendGrid not configured)`);
+    return false;
+  }
+
+  if (!business || !business.email) {
+    console.warn('📧 Email skipped: no business or email address');
+    return false;
+  }
 
   const grouped = {};
   for (const item of contentItems) {
@@ -68,10 +98,10 @@ export async function sendApprovalEmail(business, contentItems) {
 
   try {
     await sgMail.send(msg);
-    console.log(`Approval email sent to ${business.email}`);
+    console.log(`📧 Approval email sent to ${business.email}`);
     return true;
   } catch (err) {
-    console.error('Failed to send email:', err.message);
+    console.error(`📧 Failed to send email to ${business.email}:`, err.message);
     return false;
   }
 }

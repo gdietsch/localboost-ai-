@@ -2,6 +2,7 @@
   "name": "localboost-backend",
   "version": "1.0.0",
   "description": "LocalBoost AI - Backend API server",
+  "type": "module",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

@@ -1,25 +1,37 @@
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 
 const categories = [
   'Home Cleaners', 'Dentists', 'Med Spas', 'Gyms',
-  'Landscapers', 'Barbers', 'Photographers', 'Restaurants', 'Other',
+  'Landscapers', 'Barbers', 'Photographers', 'Restaurants',
+  'Pet Services', 'Plastic Surgery', 'Beauty Salons', 'Nail Salons',
+  'Real Estate Agents', 'Massage Therapy', 'Chiropractors', 'Veterinarians',
+  'Other',
 ];
 
 export default function StripeCheckout() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const routeParams = useParams();
+  const routeType = routeParams?.type || '';
+
+  // Detect success state — either from URL params or from the route path
   const paidParam = searchParams.get('paid');
+  const isSuccessRoute = routeType === 'success';
   const businessIdParam = searchParams.get('business_id');
   const typeParam = searchParams.get('type') || 'audit';
 
-  const [step, setStep] = useState(paidParam === 'true' ? 'success' : 'form');
+  const [step, setStep] = useState(
+    paidParam === 'true' || isSuccessRoute ? 'success' : 'form'
+  );
   const [form, setForm] = useState({
     name: '',
     website: '',
     category: '',
     email: '',
   });
+  const [generating, setGenerating] = useState(false);
+  const [generated, setGenerated] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
@@ -90,8 +102,39 @@ export default function StripeCheckout() {
     }
   }
 
+  // Auto-generate audit content after successful payment
+  async function generateAudit() {
+    if (generating || generated || !businessIdParam || typeParam === 'subscription') return;
+    setGenerating(true);
+
+    try {
+      // First create the audit via the audits endpoint
+      const res = await fetch(`/api/audits/${businessIdParam}/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        console.warn('Audit auto-generation returned non-OK:', await res.text());
+      } else {
+        const data = await res.json();
+        console.log('Audit generated:', data);
+      }
+      setGenerated(true);
+    } catch (err) {
+      console.warn('Could not auto-generate audit content:', err.message);
+      // Don't block the user — they can still view the audit
+      setGenerated(true);
+    }
+  }
+
   // Success state after Stripe payment
-  if (step === 'success' && businessIdParam) {
+  if (step === 'success') {
+    // Trigger auto-generation once when success page mounts
+    if (!generating && !generated && businessIdParam && typeParam !== 'subscription') {
+      generateAudit();
+    }
+
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
         <div className="bg-green-50 border border-green-200 rounded-2xl p-10">
@@ -99,15 +142,30 @@ export default function StripeCheckout() {
           <h1 className="text-3xl font-bold text-green-800 mb-3">Payment Successful!</h1>
           <p className="text-green-600 mb-6">
             {typeParam === 'subscription'
-              ? 'Your subscription is active. Your marketing content will be generated shortly.'
-              : 'Your audit is being generated. You\'ll be redirected to your results.'}
+              ? 'Your subscription is active! Your marketing content will be generated shortly.'
+              : generating
+                ? 'Your audit is being generated... This should only take a moment.'
+                : generated
+                  ? 'Your audit has been generated and is ready to view!'
+                  : 'Your payment was confirmed. Redirecting...'}
           </p>
-          {typeParam !== 'subscription' && (
+          {generating && (
+            <div className="flex justify-center mb-6">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
+            </div>
+          )}
+          {(generated || typeParam === 'subscription') && (
             <button
-              onClick={() => navigate(`/audit/${businessIdParam}`)}
+              onClick={() => {
+                if (typeParam === 'subscription') {
+                  navigate(`/dashboard?email=${encodeURIComponent(searchParams.get('business_id') || '')}`);
+                } else {
+                  navigate(`/audit/${businessIdParam}`);
+                }
+              }}
               className="bg-brand-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-700 transition"
             >
-              View My Audit
+              {typeParam === 'subscription' ? 'Go to Dashboard' : 'View My Audit'}
             </button>
           )}
         </div>
@@ -147,7 +205,7 @@ export default function StripeCheckout() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
-          <input type="url" name="website" value={form.website} onChange={handleChange} placeholder="e.g. https://sparkleclean.com"
+          <input type="text" name="website" value={form.website} onChange={handleChange} placeholder="e.g. sparkleclean.com or https://sparkleclean.com"
             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" required />
         </div>
         <div>

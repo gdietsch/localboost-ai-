@@ -21,4 +21,8 @@ export function query(sql) {
   return db(sql);
 }
 
-export default { query };
+export function execute(sql) {
+  return db(sql);
+}
+
+export default { query, execute };
