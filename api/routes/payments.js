@@ -6,6 +6,9 @@ const { query, execute } = require('../db.js');
 
 const router = express.Router();
 
+// Parse JSON for all stripe routes except webhook (which uses raw body)
+router.use(express.json());
+
 // Stripe secret key from env, with fallback for local dev
 const getStripe = () => {
   const key = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder';

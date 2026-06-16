@@ -151,4 +151,10 @@ app.get('*', (req, res) => {
   res.sendFile(require('path').join(frontendDist, 'index.html'));
 });
 
+// Local dev server
+if (require.main === module) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => console.log(`LocalBoost AI server running on http://localhost:${PORT}`));
+}
+
 module.exports = app;
