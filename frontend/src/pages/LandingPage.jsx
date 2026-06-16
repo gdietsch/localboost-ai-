@@ -37,13 +37,14 @@ export default function LandingPage() {
               Get a full-time marketing team powered by AI — audits, content, reviews, and lead follow-ups — for a fraction of agency pricing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/checkout/audit"
+              <a
+                href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
+                target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-500 text-white font-semibold text-lg hover:bg-brand-400 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
               >
                 Buy Audit — $49
                 <span className="ml-2 text-brand-200">→</span>
-              </Link>
+              </a>
               <a
                 href="#pricing"
                 onClick={scrollToPricing}
@@ -220,12 +221,13 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/checkout/audit"
-                className="w-full text-center bg-gray-100 text-gray-800 py-3.5 rounded-xl font-semibold hover:bg-gray-200 hover:-translate-y-0.5 transition-all"
+              <a
+                href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
+                target="_blank" rel="noopener noreferrer"
+                className="w-full text-center block bg-gray-100 text-gray-800 py-3.5 rounded-xl font-semibold hover:bg-gray-200 hover:-translate-y-0.5 transition-all"
               >
                 Buy Audit — $49
-              </Link>
+              </a>
             </div>
 
             {/* Subscription */}
@@ -341,13 +343,14 @@ export default function LandingPage() {
             Join 500+ local businesses using LocalBoost AI to attract more customers and grow their revenue.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/checkout/audit"
+            <a
+              href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
+              target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-2xl"
             >
               Buy Audit — $49
               <span className="ml-2">→</span>
-            </Link>
+            </a>
             <a
               href="#pricing"
               onClick={scrollToPricing}

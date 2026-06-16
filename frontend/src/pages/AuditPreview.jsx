@@ -95,11 +95,11 @@ export default function AuditPreview() {
           <p className="text-lg text-white/80">{hooks.painPoint || 'Your low scores are costing you real money every month.'}</p>
         </div>
 
-        <Link to={`/checkout/audit?business_id=${id}`}
+        <a href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-brand-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 hover:-translate-y-0.5 transition-all shadow-xl">
           🔓 Unlock Full Analysis — $49
           <span className="text-brand-200">→</span>
-        </Link>
+        </a>
       </div>
 
       {/* Score Cards with Revenue Impact */}
@@ -158,10 +158,10 @@ export default function AuditPreview() {
           Most businesses see a <strong className="text-white">3.2x return</strong> on this $49 investment.
           Your full report is ready with specific fixes that can start recovering revenue this week.
         </p>
-        <Link to={`/checkout/audit?business_id=${id}`}
+        <a href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-xl">
           Unlock Full Analysis — $49 →
-        </Link>
+        </a>
         <p className="text-sm text-brand-200 mt-4">🔒 Secure checkout via Stripe · 30-day money-back guarantee</p>
       </div>
     </div>
