@@ -6,6 +6,8 @@ import AuditPreview from './pages/AuditPreview';
 import AuditResult from './pages/AuditResult';
 import Dashboard from './pages/Dashboard';
 import StripeCheckout from './pages/StripeCheckout';
+import ClaimPage from './pages/ClaimPage';
+import MyAudit from './pages/MyAudit';
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/checkout" element={<StripeCheckout />} />
           <Route path="/checkout/:type" element={<StripeCheckout />} />
+          <Route path="/claim" element={<ClaimPage />} />
+          <Route path="/my-audit" element={<MyAudit />} />
         </Routes>
       </main>
       <footer className="bg-gray-100 border-t py-6 text-center text-sm text-gray-500">

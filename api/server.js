@@ -141,6 +141,101 @@ app.use('/api/scheduler', require('./routes/scheduler.js'));
 // Phase 3: Analysis routes
 app.use('/api/analysis', require('./routes/analysis.js'));
 
+// POST /api/audits/claim — Claim an audit by email, send it via email
+const { sendAuditEmail } = require('./services/email.js');
+
+app.post('/api/audits/claim', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+
+    // Look up the business and their latest completed audit
+    const businesses = await query(`SELECT id, name, email, website, category FROM businesses WHERE email = ${safe(email)} ORDER BY created_at DESC LIMIT 1`);
+    if (!businesses || businesses.length === 0) {
+      return res.status(404).json({ error: 'No account found with this email. Did you start a free audit?' });
+    }
+
+    const biz = businesses[0];
+
+    // Find the latest completed audit that has content
+    const audits = await query(
+      `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} AND status = 'complete' ORDER BY created_at DESC LIMIT 1`
+    );
+    if (!audits || audits.length === 0) {
+      return res.status(404).json({ error: 'No completed audit found. Your audit may still be generating — please try again in a moment.' });
+    }
+
+    const audit = audits[0];
+    const content = await query(`SELECT id, type, title, body, status FROM content_items WHERE audit_id = ${safe(audit.id)} ORDER BY type, id`);
+    audit.content = content || [];
+
+    if (audit.content.length === 0) {
+      return res.status(404).json({ error: 'Your audit is empty. It may still be generating — try again shortly.' });
+    }
+
+    // Send the audit via email
+    const claimUrl = `${req.protocol}://${req.get('host')}/audit/${audit.id}`;
+    await sendAuditEmail(biz, audit, claimUrl);
+
+    res.json({
+      success: true,
+      audit: {
+        id: audit.id,
+        business_name: biz.name,
+        category: biz.category,
+        website: biz.website,
+        email: biz.email,
+        content: audit.content,
+        created_at: audit.created_at,
+      },
+      emailed: true,
+      message: 'Audit found! Check your email — we sent it to ' + biz.email,
+    });
+  } catch (err) {
+    console.error('Error claiming audit:', err);
+    res.status(500).json({ error: 'Failed to claim audit' });
+  }
+});
+
+// GET /api/audits/my-audit?email=xxx — Look up latest audit by email
+app.get('/api/audits/my-audit', async (req, res) => {
+  try {
+    const { email } = req.query;
+    if (!email) return res.status(400).json({ error: 'Email parameter is required' });
+
+    const businesses = await query(`SELECT id, name, email, website, category FROM businesses WHERE email = ${safe(email)} ORDER BY created_at DESC LIMIT 1`);
+    if (!businesses || businesses.length === 0) {
+      return res.status(404).json({ error: 'No account found with this email. Start a free audit first!' });
+    }
+
+    const biz = businesses[0];
+    const audits = await query(
+      `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} AND status = 'complete' ORDER BY created_at DESC LIMIT 1`
+    );
+    if (!audits || audits.length === 0) {
+      return res.status(404).json({ error: 'No completed audit found.' });
+    }
+
+    const audit = audits[0];
+    const content = await query(`SELECT id, type, title, body, status FROM content_items WHERE audit_id = ${safe(audit.id)} ORDER BY type, id`);
+    audit.content = content || [];
+
+    res.json({
+      id: audit.id,
+      business_name: biz.name,
+      category: biz.category,
+      website: biz.website,
+      email: biz.email,
+      content: audit.content,
+      created_at: audit.created_at,
+      status: audit.status,
+    });
+  } catch (err) {
+    console.error('Error fetching my audit:', err);
+    res.status(500).json({ error: 'Failed to fetch audit' });
+  }
+});
+
 // Serve static frontend
 const frontendDist = require('path').join(__dirname, '../frontend/dist');
 app.use(express.static(frontendDist));

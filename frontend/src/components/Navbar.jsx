@@ -27,6 +27,9 @@ export default function Navbar() {
             <Link to="/dashboard" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
               Dashboard
             </Link>
+            <Link to="/my-audit" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+              My Audit
+            </Link>
             <a
               href="#pricing"
               onClick={scrollToPricing}

@@ -128,22 +128,32 @@ export default function StripeCheckout() {
           <div className="text-5xl mb-4">🎉</div>
           <h1 className="text-3xl font-bold text-green-800 mb-3">Payment Successful!</h1>
           <p className="text-green-600 mb-6">
-            Your payment was confirmed. You can now view your full audit report.
+            Your payment was confirmed! Your audit is being prepared.
           </p>
-          {businessIdParam && (
+          <p className="text-gray-600 mb-4">
+            <strong>Next step:</strong> Enter your email to claim your full audit report.
+          </p>
+          {businessIdParam ? (
             <button
               onClick={() => navigate(`/audit/${businessIdParam}`)}
               className="bg-brand-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-700 transition"
             >
               View My Audit
             </button>
-          )}
-          <div className="mt-4">
+          ) : (
             <button
-              onClick={() => navigate('/')}
-              className="text-brand-600 underline hover:text-brand-700"
+              onClick={() => navigate('/claim')}
+              className="bg-brand-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-700 transition"
             >
-              Back to Home
+              Claim My Audit →
+            </button>
+          )}
+          <div className="mt-3">
+            <button
+              onClick={() => navigate('/claim')}
+              className="text-brand-600 underline hover:text-brand-700 text-sm"
+            >
+              Or claim by email →
             </button>
           </div>
         </div>
