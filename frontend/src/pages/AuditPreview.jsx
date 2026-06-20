@@ -100,6 +100,11 @@ export default function AuditPreview() {
           🔓 Unlock Full Analysis — $49
           <span className="text-brand-200">→</span>
         </a>
+        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+          <strong>💡 After payment:</strong> You'll get a receipt from Stripe. Come back to{' '}
+          <a href="/claim" className="text-blue-700 underline font-medium hover:text-blue-900">localboosts.biz/claim</a>
+          {' '}and enter your email to unlock your full report. We'll email it to you too!
+        </div>
       </div>
 
       {/* Score Cards with Revenue Impact */}
@@ -162,8 +167,11 @@ export default function AuditPreview() {
           className="inline-flex items-center gap-2 bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-xl">
           Unlock Full Analysis — $49 →
         </a>
-        <p className="text-sm text-brand-200 mt-4">🔒 Secure checkout via Stripe · 30-day money-back guarantee</p>
-      </div>
+        <p className="text-sm text-brand-200 mt-4">
+          🔒 Secure checkout via Stripe · After paying, claim your report at{' '}
+          <a href="/claim" className="text-white underline">localboosts.biz/claim</a>
+        </p>
+        </div>
     </div>
   );
 }
