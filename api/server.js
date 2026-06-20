@@ -159,10 +159,10 @@ app.post('/api/audits/claim', async (req, res) => {
 
     // Find the latest completed audit that has content
     const audits = await query(
-      `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} AND status = 'complete' ORDER BY created_at DESC LIMIT 1`
+      `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} AND status IN ('complete', 'pending') ORDER BY created_at DESC LIMIT 1`
     );
     if (!audits || audits.length === 0) {
-      return res.status(404).json({ error: 'No completed audit found. Your audit may still be generating — please try again in a moment.' });
+      return res.status(404).json({ error: 'No audit found. Did you start a free audit first?' });
     }
 
     const audit = audits[0];
