@@ -20,7 +20,7 @@ export default function AuditResult() {
 
     async function fetchAudit() {
       try {
-        const res = await fetch(`/api/audits/${id}`);
+        const res = await fetch(`/api/analysis/${id}/results`);
         if (!res.ok) throw new Error('Audit not found');
         const data = await res.json();
         if (!cancelled) {
