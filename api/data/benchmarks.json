@@ -1,0 +1,114 @@
+{
+  "cleaning": {
+    "avg_monthly_traffic": 450,
+    "target_cvr": 0.05,
+    "avg_customer_value": 150,
+    "lead_to_sale": 0.4,
+    "mobile_share": 0.68
+  },
+  "dental": {
+    "avg_monthly_traffic": 800,
+    "target_cvr": 0.03,
+    "avg_customer_value": 3500,
+    "lead_to_sale": 0.2,
+    "mobile_share": 0.55
+  },
+  "med-spa": {
+    "avg_monthly_traffic": 1200,
+    "target_cvr": 0.04,
+    "avg_customer_value": 800,
+    "lead_to_sale": 0.3,
+    "mobile_share": 0.72
+  },
+  "landscaping": {
+    "avg_monthly_traffic": 350,
+    "target_cvr": 0.06,
+    "avg_customer_value": 2500,
+    "lead_to_sale": 0.25,
+    "mobile_share": 0.50
+  },
+  "pet-services": {
+    "avg_monthly_traffic": 550,
+    "target_cvr": 0.07,
+    "avg_customer_value": 120,
+    "lead_to_sale": 0.5,
+    "mobile_share": 0.65
+  },
+  "gym": {
+    "avg_monthly_traffic": 1500,
+    "target_cvr": 0.02,
+    "avg_customer_value": 1200,
+    "lead_to_sale": 0.15,
+    "mobile_share": 0.80
+  },
+  "barber": {
+    "avg_monthly_traffic": 600,
+    "target_cvr": 0.10,
+    "avg_customer_value": 45,
+    "lead_to_sale": 0.8,
+    "mobile_share": 0.85
+  },
+  "photographer": {
+    "avg_monthly_traffic": 300,
+    "target_cvr": 0.03,
+    "avg_customer_value": 1500,
+    "lead_to_sale": 0.2,
+    "mobile_share": 0.60
+  },
+  "restaurant": {
+    "avg_monthly_traffic": 2500,
+    "target_cvr": 0.15,
+    "avg_customer_value": 65,
+    "lead_to_sale": 0.9,
+    "mobile_share": 0.90
+  },
+  "plastic-surgery": {
+    "avg_monthly_traffic": 1000,
+    "target_cvr": 0.025,
+    "avg_customer_value": 8500,
+    "lead_to_sale": 0.15,
+    "mobile_share": 0.60
+  },
+  "beauty-salon": {
+    "avg_monthly_traffic": 700,
+    "target_cvr": 0.12,
+    "avg_customer_value": 85,
+    "lead_to_sale": 0.7,
+    "mobile_share": 0.82
+  },
+  "nail-salon": {
+    "avg_monthly_traffic": 800,
+    "target_cvr": 0.15,
+    "avg_customer_value": 55,
+    "lead_to_sale": 0.8,
+    "mobile_share": 0.88
+  },
+  "real-estate": {
+    "avg_monthly_traffic": 600,
+    "target_cvr": 0.015,
+    "avg_customer_value": 12000,
+    "lead_to_sale": 0.1,
+    "mobile_share": 0.55
+  },
+  "massage": {
+    "avg_monthly_traffic": 500,
+    "target_cvr": 0.08,
+    "avg_customer_value": 110,
+    "lead_to_sale": 0.6,
+    "mobile_share": 0.75
+  },
+  "chiropractor": {
+    "avg_monthly_traffic": 450,
+    "target_cvr": 0.05,
+    "avg_customer_value": 1500,
+    "lead_to_sale": 0.4,
+    "mobile_share": 0.65
+  },
+  "veterinarian": {
+    "avg_monthly_traffic": 900,
+    "target_cvr": 0.04,
+    "avg_customer_value": 250,
+    "lead_to_sale": 0.5,
+    "mobile_share": 0.70
+  }
+}

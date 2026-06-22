@@ -1,0 +1,65 @@
+{
+  "seo_basics": {
+    "title_tag": {
+      "issue": "Title tag is missing or non-descriptive.",
+      "impact": "Google doesn't know what your page is about, and customers won't click in search results.",
+      "recommendations": {
+        "cleaning": "Add: 'Professional House Cleaning in [City] | [Business Name]'",
+        "dental": "Add: 'Top-Rated Dentist in [City] | [Business Name] | [Main Service]'",
+        "med-spa": "Add: 'Med Spa in [City] | Botox, Fillers & Facials | [Business Name]'",
+        "landscaping": "Add: '[City] Landscaping & Lawn Care Services | [Business Name]'",
+        "default": "Add: '[Main Service] in [City] | [Business Name]'"
+      }
+    },
+    "meta_description": {
+      "issue": "Meta description is missing or too short.",
+      "impact": "A weak description leads to lower click-through rates. You're losing potential leads to competitors with better 'hooks'.",
+      "recommendations": {
+        "cleaning": "Add: 'Reclaim your weekend! Sparkle Clean offers top-rated house cleaning in [City]. Licensed, insured, and 100% guaranteed. Book your free estimate online now!'",
+        "dental": "Add: 'Looking for a gentle dentist in [City]? [Business Name] provides comprehensive dental care for the whole family. Accepting new patients. Call [Phone] today!'",
+        "default": "Add: 'Need expert [Service] in [City]? [Business Name] is your local choice for quality work and reliable service. See our results and book your quote today!'"
+      }
+    },
+    "h1_tag": {
+      "issue": "Primary Heading (H1) is missing or contains no keywords.",
+      "impact": "The H1 is the strongest on-page signal for Google. Without a keyword-rich H1, ranking in the top 3 is nearly impossible.",
+      "recommendations": {
+        "cleaning": "Change H1 to: 'Professional House Cleaning Services in [City]'",
+        "landscaping": "Change H1 to: 'Expert Landscape Design & Maintenance in [City]'",
+        "default": "Change H1 to: '[Main Service] Specialists in [City]'"
+      }
+    }
+  },
+  "performance": {
+    "pagespeed": {
+      "issue": "Slow page load time detected ([Score]/100).",
+      "impact": "40% of users will abandon a site that takes more than 3 seconds to load. You are literally paying for traffic that leaves before the page opens.",
+      "recommendations": {
+        "all": "Optimize and compress all homepage images, enable lazy loading, and minimize heavy Javascript execution. Consider a faster hosting provider or CDN."
+      }
+    },
+    "mobile_ready": {
+      "issue": "Website is not fully mobile-responsive.",
+      "impact": "68% of local service searches happen on mobile. If your site is hard to use on a phone, you are losing more than half of your potential business.",
+      "recommendations": {
+        "all": "Implement a responsive design framework (like Tailwind or Bootstrap) and ensure 'Tap Targets' (buttons) are at least 48x48px for easy clicking on mobile."
+      }
+    }
+  },
+  "trust_signals": {
+    "ssl": {
+      "issue": "Website is missing an SSL certificate (Not Secure).",
+      "impact": "Browsers like Chrome show a 'Not Secure' warning to users. This kills trust instantly for a service business where you enter someone's home.",
+      "recommendations": {
+        "all": "Install a free Let's Encrypt SSL certificate via your hosting provider and force all traffic to HTTPS."
+      }
+    },
+    "social_proof": {
+      "issue": "No visible customer reviews or testimonials on the homepage.",
+      "impact": "Local customers buy based on reputation. Without proof of your quality, you're just another 'random' company.",
+      "recommendations": {
+        "all": "Embed your top 3-5 Google Business Profile reviews directly on your homepage using a widget or custom layout."
+      }
+    }
+  }
+}

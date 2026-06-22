@@ -24,17 +24,14 @@ export default function LandingPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 w-full">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-6 border border-white/10">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              🚀 AI-Powered Marketing for Local Businesses
+              <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+              ⚠️ Revenue Loss Detected in 85% of Local Websites
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight">
-              AI Marketing Employee for{' '}
-              <span className="bg-gradient-to-r from-brand-300 to-brand-100 bg-clip-text text-transparent">
-                Local Service Businesses
-              </span>
+              Stop Losing <span className="text-red-400">$1,200/Mo</span> to Hidden Website Leaks
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Get a full-time marketing team powered by AI — audits, content, reviews, and lead follow-ups — for a fraction of agency pricing.
+              Get an AI Marketing Employee that identifies your revenue leaks, outranks your competitors, and handles your marketing on autopilot.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a

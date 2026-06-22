@@ -8,33 +8,33 @@ export const targets = [
 export const steps = [
   {
     number: '1',
-    title: 'Connect',
-    desc: 'Tell us about your business — name, website, and industry. We\'ll scan your entire online presence in seconds.',
-    icon: '🔗',
+    title: 'Plug the Leaks',
+    desc: 'Connect your website and GBP. Our deep-scan identifies exactly where you are losing customers and leaking revenue.',
+    icon: '🔌',
   },
   {
     number: '2',
-    title: 'Generate',
-    desc: 'Our AI creates a full marketing plan with social posts, Google Business content, emails, and review templates.',
+    title: 'Automate Growth',
+    desc: 'Our AI generates a custom fix-list and 30 days of high-converting content to outrank your local competitors.',
     icon: '⚡',
   },
   {
     number: '3',
-    title: 'Grow',
-    desc: 'Get weekly automated content, review management, lead follow-ups, and performance reports delivered to your inbox.',
+    title: 'Reclaim Your Time',
+    desc: 'Get weekly content, review replies, and lead follow-ups handled automatically. Watch your revenue grow on autopilot.',
     icon: '📈',
   },
 ];
 
 export const features = [
-  'Website & competitor audit',
-  '12 social media post ideas/month',
+  'Website "Leaky Bucket" audit',
+  'Competitor "Revenue Gap" analysis',
+  '12 high-converting social posts/month',
   '4 Google Business posts/month',
-  '2 email campaign drafts/month',
-  '5 review reply templates',
-  '30-day marketing plan',
-  'Weekly performance reports',
-  'Lead follow-up automation',
+  'Automated review reply templates',
+  '30-day "Revenue Recovery" plan',
+  'Weekly ROI & performance reports',
+  'Instant lead follow-up automation',
 ];
 
 export const testimonials = [

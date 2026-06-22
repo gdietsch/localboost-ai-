@@ -1,0 +1,114 @@
+{
+  "cleaning": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Business Name]. We received your cleaning request for [City]. Do you need a one-time deep clean or a regular maintenance quote? Reply 'DEEP' or 'REGULAR' for a quick estimate!",
+    "sms_review_request": "Hi [Name], your home should be sparkling now! ✨ We'd love to hear how we did. Could you leave a quick review here? [Link] - [Your Name] from [Business Name]",
+    "gbp_post_evergreen": "Reclaim your weekend! 🏠 Our professional cleaning team in [City] handles the dirt so you don't have to. Licensed, insured, and 100% guaranteed. Book your free estimate online!",
+    "gbp_post_seasonal": "Spring is here! 🌸 Time for a fresh start. Book our 'Spring Deep Clean' special this week and get 15% off. Spots are filling up fast in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], we're so glad you're happy with your sparkling clean home! It was a pleasure handling your [Service] in [City]. See you next time!"
+  },
+  "dental": {
+    "sms_lead_auto_reply": "Hi [Name], thank you for contacting [Practice Name]! We're excited to help you with your smile. Are you looking for a routine cleaning or a specific consultation? Reply 'CLEAN' or 'CONSULT'.",
+    "sms_review_request": "Hi [Name], we hope you had a great visit at [Practice Name]! Your feedback helps us serve [City] better. Could you leave us a quick review? [Link]",
+    "gbp_post_evergreen": "Accepting new patients in [City]! 🦷 From routine cleanings to advanced cosmetic dentistry, we provide gentle care for the whole family. Schedule your appointment today!",
+    "gbp_post_seasonal": "Back to school season is here! 🎒 Make sure your child's smile is ready for the new year. Book their school check-up today in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thank you for the kind words! We strive to provide the most comfortable dental experience in [City]. We're glad you had a great visit!"
+  },
+  "med-spa": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Business Name] Med Spa. We're excited to help you reach your glow goals. ✨ Which treatment are you interested in? Reply 'BOTOX', 'FACIAL', or 'LASER' for more info!",
+    "sms_review_request": "Hi [Name], we hope you're loving your results! ✨ Could you share your experience with [City] by leaving us a review? It means the world to us: [Link]",
+    "gbp_post_evergreen": "Invest in your skin! ✨ [Business Name] in [City] offers the latest in aesthetic treatments. Book a consultation today and let our experts create a custom plan for you.",
+    "gbp_post_seasonal": "Get your summer glow ready! ☀️ Book any laser treatment this month and receive a complimentary skin analysis. Limited spots available in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], we're so happy to hear you're loving your results! ✨ It was a pleasure seeing you in our [City] spa. We look forward to your next visit!"
+  },
+  "landscaping": {
+    "sms_lead_auto_reply": "Hi [Name]! Thanks for reaching out to [Business Name]. We'd love to help with your outdoor space in [City]. Are you looking for maintenance or a new design project? Reply 'MAINT' or 'DESIGN'.",
+    "sms_review_request": "Hi [Name], we hope you're loving your new view! 🌿 Could you leave a quick review of our landscaping work in [City]? It helps us a ton: [Link]",
+    "gbp_post_evergreen": "Expert lawn care and landscaping in [City]. 🌿 From weekly mowing to custom hardscape designs, we make your dream yard a reality. Get your free quote today!",
+    "gbp_post_seasonal": "Fall leaf cleanup starts now! 🍂 Don't let your lawn suffocate. Book your seasonal cleanup in [City] today and save 10% on mulching!",
+    "review_reply_5_star": "Hi [Customer Name], thank you for the review! 🌿 We're so glad we could help transform your outdoor space in [City]. Enjoy your beautiful yard!"
+  },
+  "pet-services": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Business Name]. 🐾 We can't wait to meet your furry friend! Are you interested in grooming, boarding, or daycare? Reply 'GROOM', 'BOARD', or 'DAY'.",
+    "sms_review_request": "Hi [Name], we loved having [Pet Name] today! 🐾 Could you leave a quick review of our [City] shop? It helps other pet parents find us: [Link]",
+    "gbp_post_evergreen": "Professional pet care you can trust in [City]. 🐾 From pampering grooms to safe boarding, we treat your pets like family. Book your spot today!",
+    "gbp_post_seasonal": "Hot weather alert! ☀️ Make sure your pet stays cool with a summer 'de-shedding' groom. Book now in [City] and get a free bandana!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 🐾 We loved spending time with [Pet Name]. We're so glad you trust us with your pet care in [City]!"
+  },
+  "gym": {
+    "sms_lead_auto_reply": "Hi [Name]! Ready to hit your goals? 💪 This is [Business Name] in [City]. Are you interested in a free trial pass or personal training info? Reply 'TRIAL' or 'PT'.",
+    "sms_review_request": "Hi [Name], great workout today! 💪 Could you leave a quick review of [Business Name]? Your feedback keeps our community strong: [Link]",
+    "gbp_post_evergreen": "Your fitness journey starts here! 💪 Join the most supportive gym community in [City]. 24/7 access, top-tier equipment, and expert trainers. Sign up today!",
+    "gbp_post_seasonal": "New Year, New You? 🎆 Skip the resolution hype and build lasting habits. Join [Business Name] this month and pay $0 enrollment fee!",
+    "review_reply_5_star": "Hi [Customer Name], thanks for the 5 stars! 💪 We're so glad you're part of the [Business Name] family in [City]. Keep up the hard work!"
+  },
+  "barber": {
+    "sms_lead_auto_reply": "Hi [Name]! Looking for a fresh cut? 💈 This is [Business Name] in [City]. We have a few spots open this afternoon. Want to grab one? Reply 'YES' to book!",
+    "sms_review_request": "Hi [Name], looking sharp! 💈 If you liked your cut today, could you leave us a quick review? It helps more guys find our shop in [City]: [Link]",
+    "gbp_post_evergreen": "The best fade in [City], guaranteed. 💈 Classic cuts, straight-razor shaves, and premium beard care. Book your appointment online and skip the wait!",
+    "gbp_post_seasonal": "Look your best for the holidays! 🎄 Holiday appointments are filling up fast. Book your cut today at [Business Name] in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thanks for the review! 💈 We're glad you're happy with the fresh cut. See you back in the chair soon!"
+  },
+  "photographer": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Business Name] Photography. 📸 I'd love to capture your special moments in [City]. What type of session are you looking for? Reply 'FAMILY', 'HEADSHOT', or 'EVENT'.",
+    "sms_review_request": "Hi [Name], your gallery is ready! 📸 I hope you love the photos as much as I do. Could you leave a quick review of our session? [Link]",
+    "gbp_post_evergreen": "Capture memories that last a lifetime. 📸 [Business Name] specializes in [Niche] photography in [City]. Book your session today and let's tell your story.",
+    "gbp_post_seasonal": "Fall family mini-sessions are here! 🍂 The colors in [City] are perfect right now. Limited dates available—book your 20-minute slot today!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 📸 It was such a pleasure working with you in [City]. I'm so glad you're happy with the photos!"
+  },
+  "restaurant": {
+    "sms_lead_auto_reply": "Hi [Name]! Thanks for your interest in [Business Name]. 🍽️ Would you like to book a table or see our current specials for [City]? Reply 'RESERVE' or 'MENU'.",
+    "sms_review_request": "Hi [Name], thanks for dining with us! 🍽️ How was your meal? We'd love to hear your feedback on Google: [Link] - Team [Business Name]",
+    "gbp_post_evergreen": "The best [Cuisine] in [City]! 🍽️ Fresh ingredients, local flavors, and a cozy atmosphere. Join us for lunch or dinner today at [Business Name].",
+    "gbp_post_seasonal": "Our seasonal menu has arrived! 🥗 Come try our new [Dish Name], made with locally sourced ingredients from [Region]. Reserve your table today!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 🍽️ We're so glad you enjoyed the [Dish Name]. We can't wait to serve you again at [Business Name]!"
+  },
+  "plastic-surgery": {
+    "sms_lead_auto_reply": "Hi [Name], thank you for reaching out to [Business Name]. 🏥 We specialize in natural, beautiful results. Would you like to schedule a virtual or in-person consultation? Reply 'VIRTUAL' or 'IN-PERSON'.",
+    "sms_review_request": "Hi [Name], we're so happy to be part of your journey! 🏥 Could you share your experience with our [City] practice? Your feedback is invaluable: [Link]",
+    "gbp_post_evergreen": "Expert surgical care in [City]. 🏥 Our board-certified surgeons combine art and science to help you feel your best. Schedule a confidential consultation today.",
+    "gbp_post_seasonal": "Refresh your look for the new year. ✨ Many of our most popular procedures have a [Time] recovery window. Plan ahead for your winter transformation!",
+    "review_reply_5_star": "Hi [Customer Name], thank you for trusting us with your care! 🏥 We're so glad you're happy with your results and your experience in our [City] office."
+  },
+  "beauty-salon": {
+    "sms_lead_auto_reply": "Hi [Name]! Ready for a new look? ✨ This is [Business Name] in [City]. Are you interested in color, a cut, or styling? Reply 'COLOR', 'CUT', or 'STYLE' to see our stylists' availability!",
+    "sms_review_request": "Hi [Name], you look amazing! ✨ If you love your new hair, could you leave a quick review for our [City] salon? [Link]",
+    "gbp_post_evergreen": "Discover your best self at [Business Name]. ✨ Premium hair care, expert colorists, and a luxury salon experience in the heart of [City]. Book your appointment today!",
+    "gbp_post_seasonal": "Get holiday-ready hair! 🎄 Our calendar is filling up for December. Book your color and style appointment today at [Business Name] in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! ✨ We're so glad you love your new look. It was a pleasure having you in our [City] salon!"
+  },
+  "nail-salon": {
+    "sms_lead_auto_reply": "Hi [Name]! Time for a mani-pedi? 💅 This is [Business Name] in [City]. We have some openings this afternoon. Want to book? Reply 'YES'!",
+    "sms_review_request": "Hi [Name], hope you love your nails! 💅 Could you leave us a quick review? It helps more [City] locals find our salon: [Link]",
+    "gbp_post_evergreen": "The most relaxing nail care in [City]. 💅 From classic manicures to custom nail art, we provide top-tier service in a clean, professional environment. Book today!",
+    "gbp_post_seasonal": "Summer nail art is here! ☀️ Get ready for beach days with our vibrant new gel colors. Book your mani-pedi special today in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 💅 We're so glad you enjoyed your visit. See you next time at [Business Name] in [City]!"
+  },
+  "real-estate": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Agent Name] with [Business Name]. 🏠 I saw your inquiry about [Property Address/City]. Would you like to schedule a viewing or a quick call to discuss? Reply 'VIEW' or 'CALL'.",
+    "sms_review_request": "Hi [Name], congrats on the new home! 🏠 It was an honor helping you through the process. Could you leave a quick review of my service? [Link]",
+    "gbp_post_evergreen": "Thinking of buying or selling in [City]? 🏠 Put my local expertise to work for you. Get a free home valuation or start your search today at [Website].",
+    "gbp_post_seasonal": "The [City] spring market is heating up! ☀️ Now is a great time to list your home. Contact me today for a custom market analysis and see what your home is worth.",
+    "review_reply_5_star": "Hi [Customer Name], thank you so much! 🏠 It was a pleasure helping you find your new home in [City]. Wishing you all the best!"
+  },
+  "massage": {
+    "sms_lead_auto_reply": "Hi [Name]! Time to relax? 🧘 This is [Business Name] in [City]. Are you looking for a deep tissue or Swedish massage? Reply 'DEEP' or 'SWEDISH' to see our open times!",
+    "sms_review_request": "Hi [Name], we hope you're feeling refreshed! 🧘 Could you leave a quick review of your massage today? It helps us reach more [City] neighbors: [Link]",
+    "gbp_post_evergreen": "Escape the stress at [Business Name]. 🧘 Our professional therapists provide personalized massage care to help you feel your best. Book your session in [City] today!",
+    "gbp_post_seasonal": "Self-care Sunday special! ✨ Book any 90-minute massage this month and receive a complimentary aromatherapy upgrade. Treat yourself in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 🧘 We're so glad we could help you relax and recharge. We look forward to seeing you again in [City]!"
+  },
+  "chiropractor": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Practice Name]. 🦴 Are you looking for relief from a specific pain or a routine adjustment? Reply 'RELIEF' or 'ADJUST'. We're here to help!",
+    "sms_review_request": "Hi [Name], we hope you're feeling better after your adjustment! 🦴 Could you share your experience with our [City] office? [Link]",
+    "gbp_post_evergreen": "Get back to doing what you love. 🦴 [Practice Name] in [City] provides personalized chiropractic care for pain relief and long-term wellness. Schedule your exam today!",
+    "gbp_post_seasonal": "Don't let yard work back pain hold you back! 🌿 If you've been overdoing it in the garden, come in for a check-up. We'll get you back in alignment in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 🦴 We're so glad we could help you find relief. We're proud to be your choice for chiropractic care in [City]!"
+  },
+  "veterinarian": {
+    "sms_lead_auto_reply": "Hi [Name]! This is [Clinic Name]. 🐾 We'd love to help with your pet's health. Is this for a routine check-up or an urgent concern? Reply 'CHECKUP' or 'URGENT'.",
+    "sms_review_request": "Hi [Name], we loved seeing [Pet Name] today! 🐾 Could you leave a quick review of our [City] clinic? It helps other pet parents find us: [Link]",
+    "gbp_post_evergreen": "Compassionate care for your furry family members. 🐾 [Clinic Name] in [City] offers comprehensive veterinary services, from wellness exams to surgery. Book today!",
+    "gbp_post_seasonal": "Tick and flea season is here! 🦟 Make sure your pet is protected. Stop by our [City] clinic for a preventative check-up and the best protection options.",
+    "review_reply_5_star": "Hi [Customer Name], thank you! 🐾 We loved meeting [Pet Name]. We're glad to be part of your pet's healthcare team in [City]!"
+  }
+}

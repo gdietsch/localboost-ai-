@@ -1,0 +1,364 @@
+{
+  "cleaning": [
+    {
+      "question": "What is included in a standard house cleaning in [City]?",
+      "answer": "Our standard cleaning covers all living areas, bedrooms, kitchen, and bathrooms. This includes dusting, vacuuming, mopping, and sanitizing surfaces like countertops and toilets."
+    },
+    {
+      "question": "Are your [City] cleaners background-checked and insured?",
+      "answer": "Yes, every member of our team is fully vetted, background-checked, and we carry comprehensive liability insurance for your peace of mind."
+    },
+    {
+      "question": "Do I need to be home during the cleaning service?",
+      "answer": "Not at all! Many of our [City] clients provide a key or door code. We'll handle the cleaning while you're out so you can come home to a fresh space."
+    },
+    {
+      "question": "Do you bring your own cleaning supplies and equipment?",
+      "answer": "Yes, we provide all the professional-grade supplies and high-filtration vacuums needed to get your [City] home sparkling. If you have specific products you'd prefer us to use, just let us know!"
+    },
+    {
+      "question": "How do you handle pets during a cleaning?",
+      "answer": "We love pets! As long as your furry friends are comfortable with new people and the sound of a vacuum, they are welcome to roam. If they are nervous, we recommend keeping them in a secure area while we work in [City]."
+    }
+  ],
+  "dental": [
+    {
+      "question": "Do you accept new patients in [City]?",
+      "answer": "Absolutely! We are always happy to welcome new families to our [City] practice. We offer comprehensive exams and cleanings for all ages."
+    },
+    {
+      "question": "What should I do if I have a dental emergency in [City]?",
+      "answer": "Call us immediately! We reserve time in our daily schedule for emergency dental visits to ensure you get the relief you need fast."
+    },
+    {
+      "question": "Do you offer teeth whitening services in [City]?",
+      "answer": "Yes, we offer both in-office professional whitening for immediate results and custom take-home kits for your convenience in [City]."
+    },
+    {
+      "question": "How often should I have a dental check-up?",
+      "answer": "For most patients in [City], we recommend a professional cleaning and exam every six months to maintain optimal oral health and catch issues early."
+    },
+    {
+      "question": "Do you work with dental insurance providers?",
+      "answer": "Yes, we work with a wide range of insurance providers. Our [City] office team will help you maximize your benefits and handle the paperwork for you."
+    }
+  ],
+  "med-spa": [
+    {
+      "question": "How long do Botox results last?",
+      "answer": "Most clients in [City] see results last between 3 to 4 months. We recommend regular maintenance appointments to keep your results looking fresh."
+    },
+    {
+      "question": "Is there any downtime after a laser hair removal session?",
+      "answer": "Minimal! You might experience some slight redness similar to a mild sunburn, which usually subsides within a few hours. You can return to most activities immediately."
+    },
+    {
+      "question": "What is the difference between a chemical peel and a facial?",
+      "answer": "A facial focuses on cleansing and hydration, while a chemical peel uses specialized solutions to exfoliate deeper layers of skin. We'll help you choose the best option for your skin goals in [City]."
+    },
+    {
+      "question": "Are your aesthetic treatments safe?",
+      "answer": "Yes, all treatments at our [City] med spa are performed by licensed professionals using FDA-approved technology and medical-grade products."
+    },
+    {
+      "question": "How many coolsculpting sessions will I need?",
+      "answer": "This varies based on your individual goals and the area being treated. During your [City] consultation, we'll create a personalized treatment plan for you."
+    }
+  ],
+  "landscaping": [
+    {
+      "question": "When is the best time to start lawn fertilization in [City]?",
+      "answer": "In [City], we recommend starting in early spring to encourage growth and again in late fall to protect the roots during the winter months."
+    },
+    {
+      "question": "Do you offer custom landscape design services?",
+      "answer": "Yes! We work closely with [City] homeowners to create custom outdoor living spaces, from hardscaping to seasonal flower bed planting."
+    },
+    {
+      "question": "How often should my lawn be mowed?",
+      "answer": "During the growing season in [City], we typically recommend weekly mowing to maintain optimal grass health and a neat appearance."
+    },
+    {
+      "question": "Do you provide irrigation system maintenance?",
+      "answer": "Yes, we offer spring startup, fall winterization, and regular repairs for irrigation systems to keep your [City] landscape hydrated efficiently."
+    },
+    {
+      "question": "Can you help with drainage issues on my property?",
+      "answer": "Absolutely. We specialize in grading and drainage solutions (like French drains) to prevent water pooling and protect your [City] home's foundation."
+    }
+  ],
+  "pet-services": [
+    {
+      "question": "Do you offer mobile dog grooming in [City]?",
+      "answer": "Yes! Our fully-equipped grooming van comes right to your door in [City], providing a stress-free experience for your pet."
+    },
+    {
+      "question": "What are your requirements for pet boarding?",
+      "answer": "All pets must be up-to-date on vaccinations (Rabies, Distemper, and Bordetella) to ensure the safety of all our furry guests in [City]."
+    },
+    {
+      "question": "How long does a full grooming session take?",
+      "answer": "A typical groom takes 1.5 to 3 hours depending on the size and coat condition of your pet. We'll give you a more accurate estimate when you drop them off in [City]."
+    },
+    {
+      "question": "Do you offer daycare for senior dogs?",
+      "answer": "Yes, we have a dedicated quiet area for senior dogs in our [City] facility where they can relax and receive gentle attention away from the high-energy pups."
+    },
+    {
+      "question": "What should I bring for my pet's boarding stay?",
+      "answer": "We recommend bringing their regular food to avoid stomach upset. You're also welcome to bring a favorite toy or blanket to help them feel at home in our [City] center."
+    }
+  ],
+  "gym": [
+    {
+      "question": "Do you offer personal training for beginners?",
+      "answer": "Absolutely! We specialize in helping beginners in [City] start their fitness journey safely and effectively with personalized coaching."
+    },
+    {
+      "question": "What classes are included in the membership?",
+      "answer": "Our [City] gym membership includes all group classes such as HIIT, Yoga, and Strength Training. You can see the full schedule on our app."
+    },
+    {
+      "question": "Is there a childcare service available?",
+      "answer": "Yes, we offer a safe and fun 'Kids Club' for our members while they workout. Please check our [City] gym hours for childcare availability."
+    },
+    {
+      "question": "Can I try the gym before I join?",
+      "answer": "Yes! We offer a complimentary 3-day pass for [City] residents so you can experience our facility and classes firsthand."
+    },
+    {
+      "question": "What are your gym hours in [City]?",
+      "answer": "Our [City] facility offers 24/7 access for members. Staffed hours for tours and training are Monday-Friday 8am-8pm and Saturday 9am-4pm."
+    }
+  ],
+  "barber": [
+    {
+      "question": "Do I need an appointment for a haircut?",
+      "answer": "While we recommend booking an appointment to secure your preferred time, we do welcome walk-ins at our [City] shop based on availability."
+    },
+    {
+      "question": "Do you offer straight-razor shaves?",
+      "answer": "Yes! We provide classic straight-razor shaves with hot towel service for the ultimate grooming experience in [City]."
+    },
+    {
+      "question": "What is included in a 'Full Service' cut?",
+      "answer": "Our Full Service includes a consultation, custom haircut, neck shave, wash, and styling with premium products here in our [City] shop."
+    },
+    {
+      "question": "Do you cut children's hair?",
+      "answer": "Yes, we offer kids' cuts for children aged 12 and under. We make sure the experience is fun and they leave our [City] shop looking great!"
+    },
+    {
+      "question": "How long does a typical haircut take?",
+      "answer": "Most of our standard cuts take about 30 to 45 minutes. If you are booking a specialty service like a beard trim or shave, please allow for extra time at our [City] location."
+    }
+  ],
+  "photographer": [
+    {
+      "question": "How long after the shoot will I receive my photos?",
+      "answer": "For most sessions in [City], you'll receive your edited high-resolution gallery within 10-14 business days. Weddings and large events may take 4-6 weeks."
+    },
+    {
+      "question": "Do you help with location scouting in [City]?",
+      "answer": "Yes! We have a curated list of beautiful outdoor and indoor locations in [City] that work perfectly for different types of photoshoots."
+    },
+    {
+      "question": "What should we wear for our family session?",
+      "answer": "We recommend coordinating colors rather than matching perfectly. Neutral tones and textures photograph beautifully in [City] settings. We'll send you a full style guide after booking!"
+    },
+    {
+      "question": "Do you offer professional headshots for businesses?",
+      "answer": "Yes, we provide both individual and team headshots. We can even bring our mobile studio setup directly to your office in [City]."
+    },
+    {
+      "question": "Can I purchase physical prints and albums?",
+      "answer": "Absolutely. While your session includes digital files, we offer a range of professional-grade prints, canvases, and custom-designed albums for our [City] clients."
+    }
+  ],
+  "restaurant": [
+    {
+      "question": "Do you take reservations for large groups?",
+      "answer": "Yes, we highly recommend reservations for groups of 6 or more at our [City] location. You can book online or give us a call."
+    },
+    {
+      "question": "Do you offer gluten-free or vegan options?",
+      "answer": "Absolutely! Our [City] menu features several delicious gluten-free and vegan dishes, clearly marked for your convenience."
+    },
+    {
+      "question": "Do you have a dedicated parking area?",
+      "answer": "Yes, we have a private lot for our customers located directly behind the restaurant in [City]. Street parking is also available nearby."
+    },
+    {
+      "question": "Do you offer catering for private events?",
+      "answer": "Yes, we offer full-service catering for everything from office lunches to weddings in the [City] area. Contact our catering manager for a custom quote."
+    },
+    {
+      "question": "Is there a 'Happy Hour' at your [City] location?",
+      "answer": "Yes! Join us Monday through Friday from 4pm-6pm for special pricing on appetizers and select drinks at our [City] bar."
+    }
+  ],
+  "plastic-surgery": [
+    {
+      "question": "How do I know if I'm a good candidate for [Procedure]?",
+      "answer": "The best way is to schedule a private consultation in our [City] office. Our surgeons will review your goals and medical history to determine the best plan for you."
+    },
+    {
+      "question": "What is the typical recovery time for surgery?",
+      "answer": "Recovery varies by procedure. Minor procedures may only require a few days, while major surgeries might need 2-4 weeks. We'll provide a detailed recovery timeline during your [City] consultation."
+    },
+    {
+      "question": "Are your surgeries performed in a hospital?",
+      "answer": "We perform many procedures in our state-of-the-art, accredited surgical center in [City], which offers a private and comfortable environment for our patients."
+    },
+    {
+      "question": "Do you offer financing for cosmetic procedures?",
+      "answer": "Yes, we work with several financing partners (like CareCredit) to help make your aesthetic goals more affordable at our [City] practice."
+    },
+    {
+      "question": "What is the difference between a surgical and non-surgical facelift?",
+      "answer": "A surgical facelift offers more permanent and dramatic results by repositioning deeper tissues, while non-surgical options (like fillers and threads) offer temporary rejuvenation with less downtime in [City]."
+    }
+  ],
+  "beauty-salon": [
+    {
+      "question": "How often should I get my hair trimmed?",
+      "answer": "For most hair types in [City], we recommend a trim every 6-8 weeks to maintain health and prevent split ends."
+    },
+    {
+      "question": "Do you offer bridal hair and makeup packages in [City]?",
+      "answer": "Yes! We love being part of your special day. We offer both in-salon and on-site bridal services for brides and bridal parties in [City]."
+    },
+    {
+      "question": "What hair color brands do you use?",
+      "answer": "We use only professional, high-performance color lines (like Redken and L'Oréal Professionnel) to ensure vibrant, long-lasting results for our [City] clients."
+    },
+    {
+      "question": "Can I book a consultation before a major color change?",
+      "answer": "Definitely. We highly recommend a 15-minute consultation for large changes so we can assess your hair's health and discuss your goals at our [City] salon."
+    },
+    {
+      "question": "Do you offer hair extension services?",
+      "answer": "Yes, our certified stylists offer several types of extensions, including tape-in and hand-tied wefts. Book a consultation in [City] to find the perfect match for you."
+    }
+  ],
+  "nail-salon": [
+    {
+      "question": "How long does a gel manicure last?",
+      "answer": "A professional gel manicure at our [City] salon typically lasts between 2 to 3 weeks without chipping, depending on your lifestyle and nail growth."
+    },
+    {
+      "question": "Do you offer paraffin wax treatments?",
+      "answer": "Yes! We offer paraffin wax as an add-on to any manicure or pedicure to help deeply hydrate and soften your skin."
+    },
+    {
+      "question": "How do you ensure salon sanitation?",
+      "answer": "Your safety is our priority. We use hospital-grade disinfectants and autoclave sterilization for all metal tools, and single-use files and buffers for every [City] client."
+    },
+    {
+      "question": "Do you offer custom nail art?",
+      "answer": "Yes, our talented technicians can create anything from simple accents to intricate hand-painted designs. Please mention nail art when booking your [City] appointment."
+    },
+    {
+      "question": "Can you fix a broken nail?",
+      "answer": "Yes! We can repair broken or cracked nails using silk wraps or gel extensions to get your manicure back to perfection at our [City] salon."
+    }
+  ],
+  "real-estate": [
+    {
+      "question": "How is the real estate market in [City] right now?",
+      "answer": "The [City] market is currently very active. Whether you're buying or selling, we have the local expertise and up-to-date data to guide you through the process."
+    },
+    {
+      "question": "What is the first step to selling my home in [City]?",
+      "answer": "The first step is a professional Home Valuation. We'll analyze recent sales in [City] and your home's unique features to provide a data-backed price range."
+    },
+    {
+      "question": "Do I need a pre-approval letter to see homes?",
+      "answer": "While not always required for a first look, having a pre-approval letter makes your offer much stronger and ensures we are looking at homes within your budget in [City]."
+    },
+    {
+      "question": "How long does it typically take to close on a house?",
+      "answer": "In the [City] area, the closing process usually takes 30 to 45 days from the time an offer is accepted, depending on financing and inspections."
+    },
+    {
+      "question": "Do you help first-time homebuyers?",
+      "answer": "Absolutely. We love helping first-time buyers in [City] navigate the process, from finding the right lender to understanding the closing costs."
+    }
+  ],
+  "massage": [
+    {
+      "question": "What is the difference between Swedish and Deep Tissue massage?",
+      "answer": "Swedish massage is more for relaxation and circulation, while Deep Tissue targets specific muscle knots and tension. We can help you decide during your [City] visit."
+    },
+    {
+      "question": "Do I need to undress for my massage?",
+      "answer": "You should undress to your comfort level. Our professional therapists in [City] use expert draping techniques to ensure your privacy and comfort at all times."
+    },
+    {
+      "question": "Do you offer prenatal massage?",
+      "answer": "Yes, we have therapists specifically trained in prenatal massage to help expectant mothers in [City] find relief from the aches and pains of pregnancy."
+    },
+    {
+      "question": "How should I feel after a deep tissue massage?",
+      "answer": "It's common to feel slightly sore for 24-48 hours, similar to a workout. Drinking plenty of water after your [City] session helps flush out toxins and aids recovery."
+    },
+    {
+      "question": "Do you offer couples massage?",
+      "answer": "Yes, we have a beautiful dedicated room for couples to enjoy their massage experience together at our [City] spa."
+    }
+  ],
+  "chiropractor": [
+    {
+      "question": "Does chiropractic adjustment hurt?",
+      "answer": "Most patients in [City] find adjustments to be painless and often feel immediate relief. You might hear a 'popping' sound, which is simply the release of gas from the joint."
+    },
+    {
+      "question": "How many sessions will I need?",
+      "answer": "Every patient's needs in [City] are different. After your initial exam, we'll create a personalized care plan that fits your specific health goals."
+    },
+    {
+      "question": "Is chiropractic care safe for children?",
+      "answer": "Yes, chiropractic adjustments for children are extremely gentle and safe. We help many [City] families with issues like posture, ear infections, and sports injuries."
+    },
+    {
+      "question": "Do I need a referral from my doctor?",
+      "answer": "In most cases, no. You can book an appointment directly with our [City] chiropractic office. We'll coordinate with your primary doctor if needed."
+    },
+    {
+      "question": "Can chiropractic help with headaches?",
+      "answer": "Absolutely. Many headaches are caused by tension or misalignment in the neck. We've helped many [City] patients find lasting relief through targeted adjustments."
+    }
+  ],
+  "veterinarian": [
+    {
+      "question": "How often should my pet have a wellness exam?",
+      "answer": "We recommend an annual wellness exam for adult pets in [City], and bi-annual exams for senior pets, to catch potential health issues early."
+    },
+    {
+      "question": "Do you offer emergency vet services in [City]?",
+      "answer": "Yes, we handle many urgent care situations during our regular hours. For after-hours emergencies in [City], we can refer you to our trusted local emergency partner."
+    },
+    {
+      "question": "What is included in a senior pet wellness screen?",
+      "answer": "Our senior screen in [City] includes a comprehensive physical exam, blood work, urinalysis, and often blood pressure monitoring to ensure your pet is aging healthily."
+    },
+    {
+      "question": "Are you currently accepting new patients?",
+      "answer": "Yes, we are always happy to welcome new furry friends and their families to our [Clinic Name] in [City]! Contact us to schedule your first visit."
+    },
+    {
+      "question": "Do you offer pet dental cleanings?",
+      "answer": "Yes, professional dental cleaning is vital for pet health. We perform cleanings under safe anesthesia at our [City] clinic to ensure a thorough and pain-free experience."
+    }
+  ],
+  "default": [
+    {
+      "question": "How do I get a quote for [Service] in [City]?",
+      "answer": "You can get an instant quote by clicking the 'Get a Quote' button on our website or by calling us directly at [Phone Number]."
+    },
+    {
+      "question": "Do you offer any guarantees on your work?",
+      "answer": "We stand behind our quality with a 100% satisfaction guarantee. If you're not happy with the results, we'll make it right at no extra cost."
+    }
+  ]
+}

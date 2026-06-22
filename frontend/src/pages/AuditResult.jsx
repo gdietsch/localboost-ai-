@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import ShareCard from '../components/ShareCard';
 
 const typeLabels = {
   task: '📋 Action Items',
@@ -99,7 +100,19 @@ export default function AuditResult() {
           </div>
         </div>
 
-        {/* Executive Summary */}
+        {/* Shareable Score Card */}
+      <div className="mb-6">
+        <ShareCard
+          businessName={audit.business_name || audit.name || 'Your Business'}
+          grade={audit.grade || '?'}
+          score={audit.overall || 0}
+          monthlyLoss={Math.round((audit.overall ? (100 - audit.overall) * 24 : 1200))}
+          findingsCount={items.length}
+          website={audit.website}
+        />
+      </div>
+
+      {/* Executive Summary */}
         <div className="bg-white rounded-2xl shadow-sm border p-8 mb-6">
           <h2 className="text-xl font-bold mb-4">📋 Executive Summary</h2>
           <p className="text-gray-700 leading-relaxed mb-4">

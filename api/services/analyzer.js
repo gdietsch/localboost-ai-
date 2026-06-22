@@ -8,6 +8,38 @@ const { query, execute } = require('../db.js');
 const cheerio = require('cheerio');
 const https = require('https');
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+// Load Marketing Intelligence Data
+const benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8'));
+const recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8'));
+const nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8'));
+
+/**
+ * Mapping UI categories to internal data slugs.
+ */
+function getCategorySlug(category) {
+  const map = {
+    'Home Cleaners': 'cleaning',
+    'Pet Services': 'pet-services',
+    'Dentists': 'dental',
+    'Plastic Surgery': 'plastic-surgery',
+    'Med Spas': 'med-spa',
+    'Beauty Salons': 'beauty-salon',
+    'Nail Salons': 'nail-salon',
+    'Gyms/Fitness': 'gym',
+    'Landscapers': 'landscaping',
+    'Barbers': 'barber',
+    'Photographers': 'photographer',
+    'Restaurants': 'restaurant',
+    'Real Estate Agents': 'real-estate',
+    'Massage Therapy': 'massage',
+    'Chiropractors': 'chiropractor',
+    'Veterinarians': 'veterinarian'
+  };
+  return map[category] || 'cleaning';
+}
 
 /**
  * Robust helper to fetch HTML with redirects and timeout.
@@ -242,8 +274,10 @@ async function analyzeWebsite(website, answers = {}) {
 
   const businessName = answers.name || 'Your Business';
   const category = answers.category || 'Home Cleaners';
+  const slug = getCategorySlug(category);
+  const nicheData = benchmarks[slug] || benchmarks['cleaning'];
 
-  console.log(`[Analyzer] Starting real website crawl on: ${targetUrl}`);
+  console.log(`[Analyzer] Starting real website crawl on: ${targetUrl} (Niche: ${slug})`);
 
   // 1. SSL/HTTPS Check
   const sslCheck = await checkSSL(targetUrl);
@@ -363,26 +397,29 @@ async function analyzeWebsite(website, answers = {}) {
   }
 
   // Finding 2: Title Tag
+  const titleData = recommendations.seo_basics.title_tag;
+  const titleRec = (titleData.recommendations[slug] || titleData.recommendations['default']).replace(/\[City\]/g, '[City]').replace(/\[Business Name\]/g, businessName);
+  
   if (!title) {
     findings.push({
       category: 'Website Health',
-      issue: 'Your website has no Title Tag',
+      issue: titleData.issue,
       severity: 'high',
-      impact: `Google has no headline to display in search results. Recommended: Add a primary Title Tag: 'Premium ${category} in [City] - ${businessName} | Book Online' (55-60 characters).`
+      impact: `${titleData.impact} Recommended: ${titleRec}`
     });
   } else if (title.toLowerCase().includes('home') && title.length < 20) {
     findings.push({
       category: 'Website Health',
-      issue: `Your Title Tag is too generic: "${title}" (${title.length} chars)`,
+      issue: `Your Title Tag is too generic: "${title}"`,
       severity: 'high',
-      impact: `A generic title prevents you from ranking in your local area. Recommended: Change it to: 'Premium ${category} in [City] - ${businessName}' (55 characters) to target local clients.`
+      impact: `A generic title prevents you from ranking in your local area. Recommended: ${titleRec}`
     });
   } else if (title.length > 65) {
     findings.push({
       category: 'Website Health',
       issue: `Your Title Tag is too long: "${title}" (${title.length} chars)`,
       severity: 'medium',
-      impact: `Google will cut this off with '...' in search results, making it look unprofessional. Shorten it to under 60 characters.`
+      impact: `Google will cut this off with '...' in search results. Shorten it to under 60 characters and keep your local keywords near the front.`
     });
   } else {
     findings.push({
@@ -394,26 +431,29 @@ async function analyzeWebsite(website, answers = {}) {
   }
 
   // Finding 3: Meta Description
+  const descData = recommendations.seo_basics.meta_description;
+  const descRec = (descData.recommendations[slug] || descData.recommendations['default']).replace(/\[City\]/g, '[City]').replace(/\[Business Name\]/g, businessName).replace(/\[Phone\]/g, '[Phone]');
+  
   if (!metaDesc) {
     findings.push({
       category: 'Website Health',
-      issue: 'Missing Meta Description tag',
+      issue: descData.issue,
       severity: 'medium',
-      impact: `Google will pull random snippets of text from your homepage, lowering your search click-through rates. Recommended: Add a 150-character meta description with a strong call-to-action (e.g. 'Looking for the best ${category} in [City]? We offer reliable, premium cleaning services. Get your free instant estimate today!').`
+      impact: `${descData.impact} Recommended: ${descRec}`
     });
   } else if (metaDesc.length < 80) {
     findings.push({
       category: 'Website Health',
-      issue: `Meta Description is too short: "${metaDesc}" (${metaDesc.length} chars)`,
+      issue: `Meta Description is too short: "${metaDesc}"`,
       severity: 'medium',
-      impact: 'Short descriptions fail to convey your business value. Expand it to 120-160 characters to capture more clicks.'
+      impact: `Short descriptions fail to convey your business value. Recommended: ${descRec}`
     });
   } else if (metaDesc.length > 165) {
     findings.push({
       category: 'Website Health',
-      issue: `Meta Description is too long: "${metaDesc}" (${metaDesc.length} chars)`,
+      issue: `Meta Description is too long: "${metaDesc}"`,
       severity: 'medium',
-      impact: 'Google will truncate this description in searches. Shorten it to under 160 characters.'
+      impact: `Google will truncate this description in searches. Shorten it to under 160 characters.`
     });
   } else {
     findings.push({
@@ -425,19 +465,22 @@ async function analyzeWebsite(website, answers = {}) {
   }
 
   // Finding 4: H1 Main Heading
+  const h1Data = recommendations.seo_basics.h1_tag;
+  const h1Rec = (h1Data.recommendations[slug] || h1Data.recommendations['default']).replace(/\[City\]/g, '[City]');
+  
   if (!h1Text) {
     findings.push({
       category: 'Website Health',
-      issue: 'No H1 Heading tag detected',
+      issue: h1Data.issue,
       severity: 'high',
-      impact: `Your main headline isn't wrapped in an H1 tag. Google relies heavily on H1 tags to understand your page structure. Recommended: Wrap your top hero headline in an <h1> tag.`
+      impact: `${h1Data.impact} Recommended: ${h1Rec}`
     });
   } else if (h1Text.toLowerCase().includes('home') || h1Text.toLowerCase() === 'welcome') {
     findings.push({
       category: 'Website Health',
       issue: `Your Main Heading (H1) is generic: "${h1Text}"`,
       severity: 'high',
-      impact: `Using 'Home' or 'Welcome' as your H1 throws away your most powerful SEO ranking factor. Recommended: Change it to: 'Award-Winning ${category} in [City]'.`
+      impact: `Using 'Home' or 'Welcome' as your H1 throws away your most powerful SEO ranking factor. Recommended: ${h1Rec}`
     });
   } else {
     findings.push({
@@ -646,24 +689,46 @@ async function analyzeWebsite(website, answers = {}) {
   const screenshotUrl = `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&embed=screenshot.url`;
   report.screenshots = [screenshotUrl];
 
-  // Revenue loss and opportunity calculation
-  const monthlyCustomers = parseInt(answers.monthlyCustomers) || 20;
-  const avgValue = parseFloat(answers.avgValue) || 150;
-  const currentRevenue = monthlyCustomers * avgValue;
+  // Revenue loss and opportunity calculation using Niche Data
+  const monthlyTraffic = nicheData.avg_monthly_traffic;
+  const targetCVR = nicheData.target_cvr;
+  const leadToSale = nicheData.lead_to_sale;
+  const avgValue = nicheData.avg_customer_value;
+
+  // Monthly Potential: (T * CVR_target * LTS * ACV)
+  const potentialMonthlyRevenue = Math.round(monthlyTraffic * targetCVR * leadToSale * avgValue);
   
-  // Calculate potential growth rate based on score gap
-  const scoreGap = 100 - overallScore;
-  const lossRate = Math.min(75, Math.max(15, Math.round(scoreGap * 0.7))); // 15% to 75% loss
+  // Calculate specific leaks based on scores (formulas from checklist)
+  let revenueLeak = 0;
+  let leakReasons = [];
+
+  if (speedScore < 60) {
+    const speedLeak = potentialMonthlyRevenue * 0.40;
+    revenueLeak += speedLeak;
+    leakReasons.push('Slow page speed is driving away 40% of your mobile traffic');
+  }
   
-  const potentialRevenue = Math.round(currentRevenue * (1 + lossRate / 100));
-  const monthlyOpportunity = potentialRevenue - currentRevenue;
+  if (!gbpInfo.exists || parseInt(gbpInfo.reviews) < 10) {
+    const gbpLeak = potentialMonthlyRevenue * 0.35;
+    revenueLeak += gbpLeak;
+    leakReasons.push('Incomplete Google Business Profile is costing you 35% in local calls');
+  }
+
+  if (healthScore < 70) {
+    const healthLeak = potentialMonthlyRevenue * 0.20;
+    revenueLeak += healthLeak;
+    leakReasons.push('Technical website errors are reducing your lead conversion by 20%');
+  }
+
+  const monthlyOpportunity = Math.min(potentialMonthlyRevenue, Math.round(revenueLeak));
+  const currentRevenue = Math.max(0, potentialMonthlyRevenue - monthlyOpportunity);
 
   report.revenueEstimate = {
     currentMonthlyRevenue: currentRevenue,
-    estimatedMonthlyLeadsLost: Math.round(monthlyCustomers * (lossRate / 100)),
+    estimatedMonthlyLeadsLost: Math.round(monthlyTraffic * targetCVR * (monthlyOpportunity / potentialMonthlyRevenue || 0)),
     revenueOpportunity: monthlyOpportunity,
-    topOpportunity: `Resolving your top ${findings.filter(f => f.severity === 'high').length} high-severity issues could capture an estimated $${monthlyOpportunity.toLocaleString()}/month in missed clients.`,
-    summary: `You're currently booking ~$${currentRevenue.toLocaleString()}/month in revenue. By addressing the key website health and Google Map visibility issues we uncovered, you could scale your client bookings to ~$${potentialRevenue.toLocaleString()}/month — representing a solid ${lossRate}% increase.`,
+    topOpportunity: leakReasons[0] || `Improving your online presence could capture an additional ${monthlyOpportunity.toLocaleString()}/month.`,
+    summary: `Your ${category} business is currently capturing ~${currentRevenue.toLocaleString()}/month in digital revenue. However, our scan found significant "leaks" costing you an estimated ${monthlyOpportunity.toLocaleString()} every single month. By plugging these gaps, you can scale to ${potentialMonthlyRevenue.toLocaleString()}/month.`,
   };
 
   report.scanDuration = Date.now() - startTime;
@@ -721,33 +786,35 @@ function getGrade(score) {
  */
 function getCustomNicheContent(website, answers) {
   const name = answers.name || 'Your Business';
-  const category = answers.category || 'Home Cleaning';
+  const category = answers.category || 'Home Cleaners';
+  const slug = getCategorySlug(category);
+  const data = nicheContent[slug] || nicheContent['cleaning'];
   
   return [
     {
       type: 'social_post',
-      title: 'Monday Motivation Tip',
-      body: `🏠 A clean home is a happy home! Did you know a clutter-free environment reduces stress by up to 20%? If you're busy managing life, let our team at ${name} handle the dust. \n\n✨ Direct message us for a same-day custom cleaning estimate! \n\n#LocalBusiness #CleanHome #HealthyLiving`
+      title: 'Evergreen Promotion',
+      body: data.gbp_post_evergreen.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'social_post',
-      title: 'Wednesday Testimonial Spotlight',
-      body: `⭐ "Hands down the most professional, detailed cleaning service I've ever hired. They left my kitchen absolutely spotless!" - Sarah M.\n\nWe pride ourselves on 5-star service every single time. Call us today to claim your spotless home!\n\n#SpotlessClean #HappyClients #${category.replace(/\s+/g, '')}`
+      title: 'Seasonal Offer',
+      body: data.gbp_post_seasonal.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'google_post',
-      title: '📍 Weekly Special Offer',
-      body: `🎉 Get 15% OFF your first deep cleaning service with ${name}!\n\nWe are local service experts certified to sanitize and refresh your home or business. Click the 'Book' button below to check calendar availability!\n\nOffer ends this Sunday. Book now!`
+      title: '📍 Local Special',
+      body: data.gbp_post_evergreen.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'email',
-      title: 'Welcome & Instant Offer Newsletter',
-      body: `Subject: Welcome to ${name} - Here is your 15% discount code! 🎉\n\nHi there,\n\nThank you for choosing ${name} as your trusted partner for local ${category}!\n\nTo show our appreciation, we wanted to give you an exclusive coupon code for 15% off your very first service with us.\n\nSimply reply to this email, or call our team to book. Use promo code: LOCALBOOST15 during checkout.\n\nWarm regards,\n\nThe ${name} Team`
+      title: 'Lead Follow-up Template',
+      body: data.sms_lead_auto_reply.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'review_reply',
       title: '5-Star Review Reply Template',
-      body: `Hi [Customer Name],\n\nThank you so much for the wonderful 5-star review! Our team at ${name} is absolutely thrilled to hear you loved the quality of our ${category} service.\n\nWe appreciate your support and can't wait to serve you again soon!\n\nBest,\nThe ${name} Team`
+      body: data.review_reply_5_star.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     }
   ];
 }
