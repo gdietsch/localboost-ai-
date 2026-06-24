@@ -1,0 +1,214 @@
+{
+  "meta_description": {
+    "wordpress": {
+      "steps": [
+        "Log into your WordPress admin dashboard (usually /your-site.com/wp-admin)",
+        "If you have Yoast SEO: Go to SEO -> Search Appearance -> General. If not, go to Settings -> General.",
+        "Locate the 'Tagline' or 'Meta Description' field.",
+        "Paste the recommended text below.",
+        "Click 'Save Changes'.",
+        "Verify: Visit your homepage, right-click -> View Page Source, Ctrl+F for 'description'."
+      ],
+      "exact_text": "Looking for the best [CATEGORY] in [CITY]? [BUSINESS NAME] offers [PRIMARY_SERVICE]. [BENEFIT]. Book online today!"
+    },
+    "squarespace": {
+      "steps": [
+        "Log into your Squarespace account and open your site.",
+        "Click on 'Marketing' in the left-hand panel, then click 'SEO'.",
+        "Scroll to the 'Site Meta Description' field.",
+        "Paste the recommended text below.",
+        "Click 'Save' at the top left."
+      ],
+      "exact_text": "Looking for the best [CATEGORY] in [CITY]? [BUSINESS NAME] offers [PRIMARY_SERVICE]. [BENEFIT]. Book online today!"
+    },
+    "wix": {
+      "steps": [
+        "Go to your Wix Dashboard and click 'Marketing & SEO'.",
+        "Select 'SEO Tools' then 'SEO Settings'.",
+        "Click on 'Main Pages' and find your Home page.",
+        "Edit the 'Meta Description' field with the text below.",
+        "Click 'Save' and 'Publish' to make it live."
+      ],
+      "exact_text": "Looking for the best [CATEGORY] in [CITY]? [BUSINESS NAME] offers [PRIMARY_SERVICE]. [BENEFIT]. Book online today!"
+    },
+    "shopify": {
+      "steps": [
+        "Log into your Shopify Admin.",
+        "Go to 'Online Store' -> 'Preferences'.",
+        "Find the 'Homepage meta description' box.",
+        "Enter the recommended description below.",
+        "Click 'Save' at the top or bottom of the page."
+      ],
+      "exact_text": "Looking for the best [CATEGORY] in [CITY]? [BUSINESS NAME] offers [PRIMARY_SERVICE]. [BENEFIT]. Book online today!"
+    }
+  },
+  "title_tag": {
+    "wordpress": {
+      "steps": [
+        "Log into WordPress.",
+        "Go to Settings -> General.",
+        "Update the 'Site Title' field. (Note: If using Yoast/RankMath, update it in the SEO plugin settings for the Homepage instead).",
+        "Click 'Save Changes'."
+      ],
+      "exact_text": "[BUSINESS NAME] - [CATEGORY] in [CITY] | [BENEFIT]"
+    },
+    "squarespace": {
+      "steps": [
+        "Open Squarespace and go to 'Marketing' -> 'SEO'.",
+        "Find 'Title Appearance' and click on 'Home'.",
+        "Edit the 'SEO Title Format' to match the text below.",
+        "Click 'Save'."
+      ],
+      "exact_text": "[BUSINESS NAME] - [CATEGORY] in [CITY] | [BENEFIT]"
+    },
+    "wix": {
+      "steps": [
+        "Go to Wix Dashboard -> Marketing & SEO -> SEO Tools.",
+        "Select 'SEO Settings' -> 'Main Pages'.",
+        "Click on the Home page and edit the 'Page Title' field.",
+        "Save and Publish."
+      ],
+      "exact_text": "[BUSINESS NAME] - [CATEGORY] in [CITY] | [BENEFIT]"
+    },
+    "shopify": {
+      "steps": [
+        "Go to Shopify Admin -> Online Store -> Preferences.",
+        "Update the 'Homepage title' field.",
+        "Click 'Save'."
+      ],
+      "exact_text": "[BUSINESS NAME] - [CATEGORY] in [CITY] | [BENEFIT]"
+    }
+  },
+  "h1_tag": {
+    "wordpress": {
+      "steps": [
+        "Go to 'Pages' and click 'Edit' on your Home page.",
+        "Locate the main heading at the very top (the title of the page).",
+        "Change it to the recommended text below.",
+        "Ensure the block type is set to 'Heading 1' (H1).",
+        "Click 'Update'."
+      ],
+      "exact_text": "Top-Rated [CATEGORY] in [CITY] - [BUSINESS NAME]"
+    },
+    "squarespace": {
+      "steps": [
+        "Open your Home page and click 'Edit'.",
+        "Click into the main text block at the top of the page.",
+        "Highlight the text and select 'Heading 1' from the format menu.",
+        "Type the recommended text below.",
+        "Click 'Done' -> 'Save'."
+      ],
+      "exact_text": "Top-Rated [CATEGORY] in [CITY] - [BUSINESS NAME]"
+    },
+    "wix": {
+      "steps": [
+        "Open the Wix Editor.",
+        "Double-click your main homepage headline.",
+        "In the 'Text Settings' panel, ensure 'Themes' is set to 'Heading 1'.",
+        "Update the text to match our recommendation.",
+        "Click 'Publish'."
+      ],
+      "exact_text": "Top-Rated [CATEGORY] in [CITY] - [BUSINESS NAME]"
+    }
+  },
+  "pagespeed": {
+    "wordpress": {
+      "steps": [
+        "Install the 'WP Rocket' or 'W3 Total Cache' plugin.",
+        "Go to TinyPNG.com and compress all your homepage images before re-uploading.",
+        "Use the 'WebP Express' plugin to serve images in modern formats.",
+        "Remove any unused plugins (aim for under 15 total)."
+      ],
+      "exact_text": "Target: Mobile Score > 80, Desktop Score > 90"
+    },
+    "shopify": {
+      "steps": [
+        "Uninstall any apps you are not using (each app adds scripts that slow down your site).",
+        "Ensure your images are 'Lazy Loaded' (standard in most modern Shopify themes).",
+        "Use an app like 'Avada SEO' to automatically compress images."
+      ],
+      "exact_text": "Target: Mobile Score > 80, Desktop Score > 90"
+    },
+    "general": {
+      "steps": [
+        "Image Compression: Large images are the #1 cause of slow sites. Use TinyPNG.com.",
+        "Modern Formats: Use WebP instead of heavy PNG or JPEG files.",
+        "Reduce Scripts: Disable any unnecessary tracking codes or heavy video backgrounds."
+      ],
+      "exact_text": "A 1-second delay in load time can reduce conversions by 7%."
+    }
+  },
+  "gbp_optimization": {
+    "google": {
+      "steps": [
+        "Login to business.google.com.",
+        "Select 'Edit Profile' -> 'Business Information'.",
+        "Update 'Description': Use the text provided below.",
+        "Update 'Category': Set your Primary Category to '[CATEGORY]'.",
+        "Add Photos: Upload 5 high-res photos of your work.",
+        "Ask for Reviews: Use the Review Request template in your content library."
+      ],
+      "exact_text": "[BUSINESS NAME] is the premier [CATEGORY] in [CITY]. We specialize in [PRIMARY_SERVICE] with a focus on [BENEFIT]. Trusted by locals for years. Call us today!"
+    }
+  },
+  "ssl_fix": {
+    "all_platforms": {
+      "steps": [
+        "Contact your hosting provider (GoDaddy, Bluehost, etc.) and ask them to 'Enable Auto-SSL'.",
+        "If you are on Squarespace/Wix/Shopify, SSL is included—go to Settings -> Domains and ensure 'Secure' is checked.",
+        "Force HTTPS: Ensure your site redirects from http to https."
+      ],
+      "exact_text": "Your connection must be secure to build trust and prevent Chrome warnings."
+    }
+  },
+  "sitemap_robots": {
+    "all_platforms": {
+      "steps": [
+        "WordPress: Install Yoast SEO; your sitemap is at yoursite.com/sitemap_index.xml.",
+        "Squarespace/Wix/Shopify: Sitemaps are automatic at yoursite.com/sitemap.xml.",
+        "Submit to Google: Go to Google Search Console -> Sitemaps and paste your sitemap URL."
+      ],
+      "exact_text": "Ensures Google can find and index every page of your site."
+    }
+  },
+  "favicon": {
+    "wordpress": {
+      "steps": [
+        "Go to Appearance -> Customize.",
+        "Click on 'Site Identity'.",
+        "Upload your logo under the 'Site Icon' section.",
+        "Click 'Publish'."
+      ],
+      "exact_text": "A favicon makes your site look professional in browser tabs."
+    },
+    "squarespace": {
+      "steps": [
+        "Go to Design -> Browser Icon.",
+        "Upload your logo image.",
+        "Click 'Save'."
+      ],
+      "exact_text": "A favicon makes your site look professional in browser tabs."
+    }
+  },
+  "cta_clarity": {
+    "general": {
+      "steps": [
+        "Primary Button: Ensure your 'Book Now' or 'Get Quote' button is a bright, contrasting color.",
+        "Above the Fold: Your main CTA must be visible without scrolling.",
+        "Phone Number: Add your phone number to the top right of your header.",
+        "Limit Choices: Don't give users 5 different buttons. Tell them exactly what to do next."
+      ],
+      "exact_text": "Your website's only job is to get a lead. Make it easy for them."
+    }
+  },
+  "competitor_strategy": {
+    "general": {
+      "steps": [
+        "Increase Word Count: Add 300-500 words of helpful content to your homepage.",
+        "Better H1: Make your H1 tag more specific (City + Service) than your competitors.",
+        "Local Citations: Ensure your Name, Address, and Phone (NAP) are identical on Yelp, Bing, and Facebook."
+      ],
+      "exact_text": "The goal is to provide more 'Local Signals' than the businesses outranking you."
+    }
+  }
+}

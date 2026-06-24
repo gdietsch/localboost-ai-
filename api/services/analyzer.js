@@ -15,6 +15,8 @@ const path = require('path');
 const benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8'));
 const recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8'));
 const nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8'));
+const adCopy = JSON.parse(fs.readFileSync(path.join(__dirname, '../marketing-templates/google-ads/niche-ad-copy-library.json'), 'utf8'));
+const leadMagnets = JSON.parse(fs.readFileSync(path.join(__dirname, '../marketing-templates/lead-magnets/niche-lead-magnets.json'), 'utf8'));
 
 /**
  * Mapping UI categories to internal data slugs.
@@ -22,6 +24,7 @@ const nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/ni
 function getCategorySlug(category) {
   const map = {
     'Home Cleaners': 'cleaning',
+    'Pet Services (Pet Sitting, Dog Walking, Grooming)': 'pet-services',
     'Pet Services': 'pet-services',
     'Dentists': 'dental',
     'Plastic Surgery': 'plastic-surgery',
@@ -789,6 +792,8 @@ function getCustomNicheContent(website, answers) {
   const category = answers.category || 'Home Cleaners';
   const slug = getCategorySlug(category);
   const data = nicheContent[slug] || nicheContent['cleaning'];
+  const ads = adCopy[slug] || adCopy['cleaning'];
+  const magnet = leadMagnets[slug] || leadMagnets['cleaning'];
   
   return [
     {
@@ -805,6 +810,21 @@ function getCustomNicheContent(website, answers) {
       type: 'google_post',
       title: '📍 Local Special',
       body: data.gbp_post_evergreen.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+    },
+    {
+      type: 'google_post',
+      title: '🚀 Google Ad: Headline Options',
+      body: ads.headlines.map(h => `- ${h.replace(/\[City\]/g, '[City]')}`).join('\n')
+    },
+    {
+      type: 'google_post',
+      title: '🚀 Google Ad: Description Options',
+      body: ads.descriptions.map(d => `- ${d.replace(/\[City\]/g, '[City]').replace(/\[Business Name\]/g, name)}`).join('\n')
+    },
+    {
+      type: 'task',
+      title: `🎁 Lead Magnet: ${magnet.title}`,
+      body: `${magnet.description}\n\nCall to Action: ${magnet.call_to_action}`
     },
     {
       type: 'email',
