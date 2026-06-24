@@ -61,7 +61,8 @@ router.post('/analyze', async (req, res) => {
     const report = await analyzeWebsite(targetUrl, {
       name: bizName,
       category: bizCategory,
-      competitors: competitors || ''
+      competitors: competitors || '',
+      challenge: req.body.challenge || ''
     });
 
     // 4. Save results (which updates audit to 'complete' and generates tasks + custom marketing items)
@@ -115,7 +116,8 @@ router.post('/:auditId', async (req, res) => {
       category: biz.category,
       competitors: answers.competitors || '',
       monthlyCustomers: answers.monthlyCustomers,
-      avgValue: answers.avgValue
+      avgValue: answers.avgValue,
+      challenge: answers.challenge || ''
     });
 
     // Save results to DB

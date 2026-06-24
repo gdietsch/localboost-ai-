@@ -15,8 +15,6 @@ const path = require('path');
 const benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8'));
 const recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8'));
 const nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8'));
-const adCopy = JSON.parse(fs.readFileSync(path.join(__dirname, '../marketing-templates/google-ads/niche-ad-copy-library.json'), 'utf8'));
-const leadMagnets = JSON.parse(fs.readFileSync(path.join(__dirname, '../marketing-templates/lead-magnets/niche-lead-magnets.json'), 'utf8'));
 
 /**
  * Mapping UI categories to internal data slugs.
@@ -631,25 +629,65 @@ async function analyzeWebsite(website, answers = {}) {
     });
   }
 
-  // Finding 12: Competitors
+  // Challenge-based finding: Use the customer's #1 concern
+  const challenge = answers.challenge || '';
+  if (challenge) {
+    const challengeLower = challenge.toLowerCase();
+    let challengeCategory = 'Revenue Opportunity';
+    let challengeRecommendation = `You mentioned your #1 challenge is: "${challenge}". This is a common struggle we address in the action plan below.`;
+    
+    if (challengeLower.includes('customer') || challengeLower.includes('lead') || challengeLower.includes('client')) {
+      challengeCategory = 'Revenue Opportunity';
+      challengeRecommendation = `Your #1 challenge is getting more customers. Based on your audit, your website has ${wordCount < 500 ? 'low content depth ('+wordCount+' words)' : 'decent content'} and a ${sslCheck.valid ? 'valid' : 'missing'} SSL — ${sslCheck.valid ? 'which is good' : 'which is scaring visitors away'}. Start by fixing the critical issues below to convert more visitors.`;
+    } else if (challengeLower.includes('price') || challengeLower.includes('compet') || challengeLower.includes('undercut')) {
+      challengeCategory = 'Competitor Position';
+      challengeRecommendation = `Price competition is tough. Your competitors ${competitorReports.length > 0 ? 'like ' + competitorReports.map(c => c.url).join(', ') : 'in your area'} are battling for the same customers. Differentiate by fixing your website trust signals (SSL, reviews, professional design) to justify premium pricing.`;
+    } else if (challengeLower.includes('time') || challengeLower.includes('busy') || challengeLower.includes('manage')) {
+      challengeCategory = 'Content Readiness';
+      challengeRecommendation = `You're too busy doing the work to market yourself. That's exactly what LocalBoost solves — the content below is ready to post. Start with the social posts and Google posts this week.`;
+    } else if (challengeLower.includes('review') || challengeLower.includes('reputation') || challengeLower.includes('google')) {
+      challengeCategory = 'Google Business Profile';
+      challengeRecommendation = `Your online reputation is key. ${gbpInfo.exists ? `Your GBP has ${gbpInfo.reviews} reviews — that's ${parseInt(gbpInfo.reviews) < 20 ? 'low for your area' : 'a solid base'}.` : 'Your GBP needs to be set up immediately.'} Use the review templates below to start building your reputation.`;
+    }
+    
+    findings.push({
+      category: challengeCategory,
+      issue: `Your #1 Challenge: "${challenge}"`,
+      severity: 'high',
+      impact: challengeRecommendation
+    });
+  }
+
+  // Finding 12: Competitors — with specific comparisons
   if (competitorReports.length > 0) {
+    const businessTitleLen = title.length;
+    const businessWordCount = wordCount;
     for (const comp of competitorReports) {
-      const isStronger = comp.wordCount > wordCount || comp.ssl && !sslCheck.valid;
+      const compTitleLen = (comp.title || '').length;
+      const titleComparison = compTitleLen > businessTitleLen 
+        ? `${comp.title} (${compTitleLen} chars) vs your ${businessTitleLen} chars — they have a more descriptive title.`
+        : `Your title (${businessTitleLen} chars) is ${businessTitleLen >= compTitleLen ? 'longer and more descriptive' : 'competitive'} than theirs (${compTitleLen} chars).`;
+      
+      const wordComparison = (comp.wordCount || 0) > businessWordCount 
+        ? `${comp.url} has ${comp.wordCount} words of content vs your ${businessWordCount}. They're outranking you because Google rewards more content.`
+        : `You have ${businessWordCount} words vs their ${comp.wordCount || 0}. Your content depth is ${businessWordCount > (comp.wordCount || 0) ? 'stronger' : 'similar'}.`;
+      
+      const isStronger = (comp.wordCount || 0) > businessWordCount || (comp.ssl && !sslCheck.valid);
       findings.push({
         category: 'Competitor Position',
-        issue: `Competitor found: ${comp.url}`,
-        severity: isStronger ? 'medium' : 'safe',
+        issue: `Side-by-Side: ${comp.url.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}`,
+        severity: isStronger ? 'high' : 'medium',
         impact: isStronger 
-          ? `They have a robust metadata setup (Title: "${comp.title}"). You need to optimize your meta tags to beat them in local search rankings.`
-          : `Their homepage has lower content depth than yours. This gives you an excellent advantage to leapfrog them on Google.`
+          ? `${wordComparison} Specific gap: ${!sslCheck.valid ? 'They have HTTPS and you don\u2019t — this alone is costing you rankings.' : 'Their content depth beats yours. Add more local-focused content to your homepage.'}`
+          : `You're ahead on content. ${comp.ssl && !sslCheck.valid ? 'But they have HTTPS and you don\u2019t — fix this immediately.' : 'Maintain your edge by posting weekly GBP updates and collecting reviews.'}`
       });
     }
   } else {
     findings.push({
       category: 'Competitor Position',
-      issue: 'No competitor websites provided for direct analysis',
+      issue: 'Add competitor websites for direct comparison',
       severity: 'medium',
-      impact: 'Direct competitor metrics were skipped. To outperform top competitors in your market, we recommend comparing metadata side-by-side.'
+      impact: `Enter 2-3 competitor URLs when starting your audit and we'll compare their meta tags, content depth, SSL, and headers against yours — showing you exactly where to beat them.`
     });
   }
 
