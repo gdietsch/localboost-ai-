@@ -1,4 +1,5 @@
 /**
+ * LocalBoost AI API Server (build: 3) — Force Vercel rebuild
  * Vercel serverless entry point for LocalBoost AI API.
  */
 const express = require('express');
