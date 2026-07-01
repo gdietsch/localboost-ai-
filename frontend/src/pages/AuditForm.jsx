@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const categories = [
   'Home Cleaners', 'Pet Services (Pet Sitting, Dog Walking, Grooming)',
+  'Pet Food & Treats', 'E-commerce / Online Store',
   'Dentists', 'Plastic Surgery', 'Med Spas', 'Beauty Salons',
   'Nail Salons', 'Gyms/Fitness', 'Landscapers', 'Barbers',
   'Photographers', 'Restaurants', 'Real Estate Agents',

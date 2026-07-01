@@ -6,6 +6,13 @@
     "gbp_post_seasonal": "Spring is here! 🌸 Time for a fresh start. Book our 'Spring Deep Clean' special this week and get 15% off. Spots are filling up fast in [City]!",
     "review_reply_5_star": "Hi [Customer Name], we're so glad you're happy with your sparkling clean home! It was a pleasure handling your [Service] in [City]. See you next time!"
   },
+  "pet-food": {
+    "sms_lead_auto_reply": "Hi [Name]! Thanks for reaching out to [Business Name]. What breed is your pup? We have treats for all sizes! Reply with your dog's breed and we'll send personalized recommendations.",
+    "sms_review_request": "Hi [Name], hope your pup loved their treats! 🐶 Could you leave us a quick review? [Link] - [Your Name] from [Business Name]",
+    "gbp_post_evergreen": "Your best friend deserves the best! 🐕 All-natural, organic dog treats baked fresh in [City]. No fillers, no preservatives — just pure love. Order online today!",
+    "gbp_post_seasonal": "Summer is here! ☀️ Keep your pup cool with our frozen treat bundles. Limited batch — order now for delivery in [City]!",
+    "review_reply_5_star": "Hi [Customer Name], we're so happy your pup loved the treats! Thank you for supporting a small [City] business. See you for your next order! 🐾"
+  },
   "dental": {
     "sms_lead_auto_reply": "Hi [Name], thank you for contacting [Practice Name]! We're excited to help you with your smile. Are you looking for a routine cleaning or a specific consultation? Reply 'CLEAN' or 'CONSULT'.",
     "sms_review_request": "Hi [Name], we hope you had a great visit at [Practice Name]! Your feedback helps us serve [City] better. Could you leave us a quick review? [Link]",

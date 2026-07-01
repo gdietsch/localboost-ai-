@@ -6,7 +6,8 @@ const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01';
 const categories = [
   'Home Cleaners', 'Dentists', 'Med Spas', 'Gyms',
   'Landscapers', 'Barbers', 'Photographers', 'Restaurants',
-  'Pet Services', 'Plastic Surgery', 'Beauty Salons', 'Nail Salons',
+  'Pet Services', 'Pet Food & Treats', 'E-commerce / Online Store',
+  'Plastic Surgery', 'Beauty Salons', 'Nail Salons',
   'Real Estate Agents', 'Massage Therapy', 'Chiropractors', 'Veterinarians',
   'Other',
 ];

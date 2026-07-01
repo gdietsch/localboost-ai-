@@ -6,6 +6,13 @@
     "lead_to_sale": 0.4,
     "mobile_share": 0.68
   },
+  "pet-food": {
+    "avg_monthly_traffic": 600,
+    "target_cvr": 0.04,
+    "avg_customer_value": 45,
+    "lead_to_sale": 0.35,
+    "mobile_share": 0.72
+  },
   "dental": {
     "avg_monthly_traffic": 800,
     "target_cvr": 0.03,

@@ -27,6 +27,8 @@ function getCategorySlug(category) {
     'Home Cleaners': 'cleaning',
     'Pet Services (Pet Sitting, Dog Walking, Grooming)': 'pet-services',
     'Pet Services': 'pet-services',
+    'Pet Food & Treats': 'pet-food',
+    'E-commerce / Online Store': 'ecommerce',
     'Dentists': 'dental',
     'Plastic Surgery': 'plastic-surgery',
     'Med Spas': 'med-spa',
