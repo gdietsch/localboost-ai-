@@ -12,10 +12,12 @@ const fs = require('fs');
 const path = require('path');
 
 // Load Marketing Intelligence Data (graceful fallbacks)
-let benchmarks = {}, recommendations = {}, nicheContent = {};
+let benchmarks = {}, recommendations = {}, nicheContent = {}, adCopy = {}, leadMagnets = {};
 try { benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8')); } catch(e) { console.warn('benchmarks.json not loaded:', e.message); }
 try { recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8')); } catch(e) { console.warn('recommendations.json not loaded:', e.message); }
 try { nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8')); } catch(e) { console.warn('niche-content-kit.json not loaded:', e.message); }
+try { adCopy = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/ad-copy.json'), 'utf8')); } catch(e) { console.warn('ad-copy.json not loaded:', e.message); }
+try { leadMagnets = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/lead-magnets.json'), 'utf8')); } catch(e) { console.warn('lead-magnets.json not loaded:', e.message); }
 
 /**
  * Mapping UI categories to internal data slugs.
