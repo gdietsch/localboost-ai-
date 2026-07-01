@@ -11,10 +11,11 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-// Load Marketing Intelligence Data
-const benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8'));
-const recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8'));
-const nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8'));
+// Load Marketing Intelligence Data (graceful fallbacks)
+let benchmarks = {}, recommendations = {}, nicheContent = {};
+try { benchmarks = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/benchmarks.json'), 'utf8')); } catch(e) { console.warn('benchmarks.json not loaded:', e.message); }
+try { recommendations = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/recommendations.json'), 'utf8')); } catch(e) { console.warn('recommendations.json not loaded:', e.message); }
+try { nicheContent = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/niche-content-kit.json'), 'utf8')); } catch(e) { console.warn('niche-content-kit.json not loaded:', e.message); }
 
 /**
  * Mapping UI categories to internal data slugs.
