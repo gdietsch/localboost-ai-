@@ -144,6 +144,7 @@ app.use('/api/analysis', require('./routes/analysis.js'));
 
 // POST /api/audits/claim — Claim an audit by email, send it via email
 const { sendAuditEmail } = require('./services/email.js');
+const { generateAuditContent } = require('./routes/payments.js');
 
 app.post('/api/audits/claim', async (req, res) => {
   try {
@@ -158,7 +159,7 @@ app.post('/api/audits/claim', async (req, res) => {
 
     const biz = businesses[0];
 
-    // Find the latest completed audit that has content
+    // Find the latest audit
     const audits = await query(
       `SELECT id, status, created_at FROM audits WHERE business_id = ${safe(biz.id)} AND status IN ('complete', 'pending') ORDER BY created_at DESC LIMIT 1`
     );
@@ -167,6 +168,12 @@ app.post('/api/audits/claim', async (req, res) => {
     }
 
     const audit = audits[0];
+
+    // If audit is pending with no content, auto-generate it
+    if (audit.status === 'pending') {
+      await generateAuditContent(audit.id);
+    }
+
     const content = await query(`SELECT id, type, title, body, status FROM content_items WHERE audit_id = ${safe(audit.id)} ORDER BY type, id`);
     audit.content = content || [];
 
