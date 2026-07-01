@@ -832,52 +832,66 @@ function getCustomNicheContent(website, answers) {
   const name = answers.name || 'Your Business';
   const category = answers.category || 'Home Cleaners';
   const slug = getCategorySlug(category);
-  const data = nicheContent[slug] || nicheContent['cleaning'];
-  const ads = adCopy[slug] || adCopy['cleaning'];
-  const magnet = leadMagnets[slug] || leadMagnets['cleaning'];
+  const data = nicheContent[slug] || nicheContent['cleaning'] || {};
+  const ads = adCopy[slug] || adCopy['cleaning'] || null;
+  const magnet = leadMagnets[slug] || leadMagnets['cleaning'] || null;
   
-  return [
+  const items = [
     {
       type: 'social_post',
       title: 'Evergreen Promotion',
-      body: data.gbp_post_evergreen.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      body: (data.gbp_post_evergreen || 'Run a seasonal promotion to attract new customers.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'social_post',
       title: 'Seasonal Offer',
-      body: data.gbp_post_seasonal.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      body: (data.gbp_post_seasonal || 'Offer [City] residents a special discount this season.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
     {
       type: 'google_post',
       title: '📍 Local Special',
-      body: data.gbp_post_evergreen.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      body: (data.gbp_post_evergreen || 'Proudly serving [City] with top-quality service.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     },
-    {
+  ];
+
+  if (ads && ads.headlines) {
+    items.push({
       type: 'google_post',
       title: '🚀 Google Ad: Headline Options',
       body: ads.headlines.map(h => `- ${h.replace(/\[City\]/g, '[City]')}`).join('\n')
-    },
-    {
+    });
+  }
+  if (ads && ads.descriptions) {
+    items.push({
       type: 'google_post',
       title: '🚀 Google Ad: Description Options',
       body: ads.descriptions.map(d => `- ${d.replace(/\[City\]/g, '[City]').replace(/\[Business Name\]/g, name)}`).join('\n')
-    },
-    {
+    });
+  }
+  if (magnet && magnet.title) {
+    items.push({
       type: 'task',
       title: `🎁 Lead Magnet: ${magnet.title}`,
-      body: `${magnet.description}\n\nCall to Action: ${magnet.call_to_action}`
-    },
-    {
+      body: `${magnet.description || ''}\n\nCall to Action: ${magnet.call_to_action || ''}`
+    });
+  }
+
+  if (data && data.sms_lead_auto_reply) {
+    items.push({
       type: 'email',
       title: 'Lead Follow-up Template',
       body: data.sms_lead_auto_reply.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
-    },
-    {
+    });
+  }
+  if (data && data.review_reply_5_star) {
+    items.push({
       type: 'review_reply',
       title: '5-Star Review Reply Template',
       body: data.review_reply_5_star.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
-    }
-  ];
+    });
+  }
+
+  return items;
 }
 
 module.exports = {
