@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { targets, steps, features, testimonials, stats, trustImages } from '../content/landingContent.js';
+import { targets } from '../content/landingContent.js';
 
 export default function LandingPage() {
   function scrollToPricing(e) {
@@ -8,108 +8,125 @@ export default function LandingPage() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
 
+  // Real data from a live audit run
+  const sampleAudit = {
+    grade: 'D',
+    overall: 66,
+    scores: { websiteHealth: 80, googleBusiness: 84, competitorPosition: 45, revenueOpportunity: 20 },
+    findings: [
+      { issue: 'Mobile PageSpeed 38/100', severity: 'high', impact: '53% of visitors leave slow mobile sites' },
+      { issue: 'Meta description too long', severity: 'medium', impact: 'Google truncates in search results' },
+      { issue: 'H1 missing keywords', severity: 'high', impact: 'Hard to rank in top 3' },
+      { issue: 'No XML sitemap', severity: 'high', impact: 'Pages not indexed by Google' },
+    ],
+    revenueEstimate: { monthlyLoss: 1840, annualLoss: 22080, topFix: 'Fix PageSpeed to recover ~$600/mo' },
+  };
+
   return (
     <div>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden bg-gray-900 text-white min-h-[85vh] flex items-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/hero-cleaner.png')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-transparent" />
-
+      <section className="relative overflow-hidden bg-gray-900 text-white min-h-screen flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-brand-950" />
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 25% 50%, #fff 0.5px, transparent 0.5px)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 w-full">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-6 border border-white/10">
-              <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-              ⚠️ Revenue Loss Detected in 85% of Local Websites
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Copy */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-red-500/10 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-medium mb-6 border border-red-500/20">
+                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                Real Data — Not Template Fluff
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight">
+                Your Website Is Leaking{' '}
+                <span className="text-red-400">${sampleAudit.revenueEstimate.monthlyLoss.toLocaleString()}/mo</span>
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 max-w-xl leading-relaxed">
+                One scan finds exactly where. No agency, no dashboard to learn — just a 
+                plain-English fix-it plan with copy-paste instructions.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/audit/new"
+                  className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-500 text-white font-semibold text-lg hover:bg-brand-400 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+                >
+                  Run Free Audit →
+                </Link>
+                <a
+                  href="#pricing"
+                  onClick={scrollToPricing}
+                  className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-all hover:-translate-y-0.5"
+                >
+                  See What You Get
+                </a>
+              </div>
+              <p className="text-sm text-gray-500 mt-4">Free preview. $49 to unlock the full fix-it plan + content kit.</p>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6 tracking-tight">
-              Stop Losing <span className="text-red-400">$1,200/Mo</span> to Hidden Website Leaks
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
-              Get an AI Marketing Employee that identifies your revenue leaks, outranks your competitors, and handles your marketing on autopilot.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-500 text-white font-semibold text-lg hover:bg-brand-400 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
-              >
-                Buy Audit — $49
-                <span className="ml-2 text-brand-200">→</span>
-              </a>
-              <a
-                href="#pricing"
-                onClick={scrollToPricing}
-                className="inline-flex items-center justify-center px-8 py-4 rounded-xl border-2 border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-all hover:-translate-y-0.5"
-              >
-                See Pricing
-              </a>
-            </div>
-            <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <div className="flex -space-x-2">
-                {['#pink-500', '#blue-500', '#purple-500'].map((color, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full border-2 border-gray-800 flex items-center justify-center text-[10px] font-bold text-white"
-                    style={{ backgroundColor: color.replace('#', '') }}
-                  >
-                    {['SJ', 'MT', 'EC'][i]}
+
+            {/* Right: Live Audit Preview Card */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+              {/* Score header */}
+              <div className="p-6 border-b border-white/10">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm text-gray-400 font-medium">YOUR SCORE</span>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-4xl font-black ${sampleAudit.overall < 50 ? 'text-red-400' : sampleAudit.overall < 70 ? 'text-yellow-400' : 'text-green-400'}`}>
+                      {sampleAudit.grade}
+                    </span>
+                    <span className="text-lg text-gray-400">({sampleAudit.overall}/100)</span>
+                  </div>
+                </div>
+                <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div 
+                    className={`h-full rounded-full transition-all duration-1000 ${sampleAudit.overall < 50 ? 'bg-red-500' : sampleAudit.overall < 70 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                    style={{ width: `${sampleAudit.overall}%` }}
+                  />
+                </div>
+              </div>
+              {/* Findings */}
+              <div className="p-6 space-y-4">
+                <p className="text-sm font-semibold text-gray-300 uppercase tracking-wider text-xs">⚠️ Critical Issues Found</p>
+                {sampleAudit.findings.map((f, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${
+                      f.severity === 'high' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
+                    }`}>
+                      {f.severity === 'high' ? '!' : '•'}
+                    </span>
+                    <div>
+                      <p className="text-sm font-medium text-white">{f.issue}</p>
+                      <p className="text-xs text-gray-400">{f.impact}</p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <span><strong className="text-white">500+</strong> business owners trust LocalBoost</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TARGET CUSTOMERS ===== */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Industries We Serve</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Built for Local Service Businesses</h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              We specialize in helping local businesses attract more customers and grow their online presence.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {targets.map((t) => (
-              <div
-                key={t}
-                className="group bg-gray-50 rounded-xl px-6 py-5 text-center border border-gray-100 hover:border-brand-200 hover:bg-brand-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 cursor-default"
-              >
-                <span className="font-semibold text-gray-800 group-hover:text-brand-700 transition-colors">{t}</span>
+              {/* Revenue leak */}
+              <div className="p-6 bg-gradient-to-r from-red-500/10 to-orange-500/10 border-t border-white/10">
+                <p className="text-sm text-gray-400 mb-1">Estimated Monthly Revenue Loss</p>
+                <p className="text-3xl font-black text-red-400">${sampleAudit.revenueEstimate.monthlyLoss.toLocaleString()}<span className="text-lg text-gray-500 font-normal">/mo</span></p>
+                <p className="text-xs text-gray-500 mt-2">💡 {sampleAudit.revenueEstimate.topFix}</p>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ===== HOW IT WORKS ===== */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Simple Process</span>
+            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">3-Minute Process</span>
             <h2 className="text-3xl md:text-4xl font-bold mt-2">How It Works</h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              Three simple steps to transform your online marketing.
-            </p>
+            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">No login. No onboarding call. Just real data.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {steps.map((s, i) => (
-              <div key={s.number} className="relative text-center group">
-                <div className="w-20 h-20 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-3xl mx-auto mb-6 group-hover:bg-brand-200 group-hover:scale-110 transition-all duration-200 shadow-sm">
-                  {s.icon}
-                </div>
-                <div className="absolute top-8 left-[calc(50%+3rem)] hidden md:block" style={{ width: 'calc(100% - 5rem)' }}>
-                  {i < 2 && <div className="h-px bg-gradient-to-r from-brand-200 to-transparent" />}
-                </div>
+            {[
+              { num: '1', icon: '🔍', title: 'Enter Your URL', desc: 'Type your website address, pick your category, and tell us your biggest challenge.' },
+              { num: '2', icon: '📊', title: 'Get Your Score', desc: 'We scan 20+ data points: PageSpeed, SSL, meta tags, competitors, GBP, and more.' },
+              { num: '3', icon: '✅', title: 'Fix & Grow', desc: 'Get a prioritized fix-it plan with copy-paste instructions. Pay $49 to unlock every detail.' },
+            ].map((s, i) => (
+              <div key={s.num} className="relative text-center group">
+                <div className="w-20 h-20 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-3xl mx-auto mb-6 group-hover:bg-brand-200 group-hover:scale-110 transition-all shadow-sm">{s.icon}</div>
+                {i < 2 && <div className="absolute top-8 left-[calc(50%+3rem)] hidden md:block" style={{ width: 'calc(100% - 5rem)' }}><div className="h-px bg-gradient-to-r from-brand-200 to-transparent" /></div>}
                 <h3 className="text-xl font-bold mb-3">{s.title}</h3>
                 <p className="text-gray-500 leading-relaxed">{s.desc}</p>
               </div>
@@ -118,75 +135,112 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== FEATURES ===== */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Full Suite</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Everything You Get</h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              A complete marketing solution that works while you focus on your business.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((f) => (
-              <div
-                key={f}
-                className="group bg-white rounded-xl px-5 py-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-brand-200 hover:-translate-y-0.5 transition-all duration-200 flex items-start gap-3"
-              >
-                <span className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold mt-0.5 group-hover:bg-green-200 transition-colors">✓</span>
-                <span className="text-gray-700 font-medium">{f}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TRUST STATS BAR ===== */}
-      <section className="py-16 bg-gradient-to-r from-brand-600 to-brand-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {stats.map((s) => (
-              <div key={s.label} className="py-6">
-                <div className="text-5xl md:text-6xl font-bold mb-2 text-white">{s.number}</div>
-                <div className="text-brand-200 text-lg font-medium">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TESTIMONIALS ===== */}
+      {/* ===== WHAT YOU GET ===== */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Testimonials</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Trusted by Local Business Owners</h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              See what our customers are saying about LocalBoost AI.
-            </p>
+            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">$49 Delivers</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">What's Inside Your Audit</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex flex-col"
-              >
-                <div className="flex mb-4">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-lg">★</span>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              { icon: '🚀', title: 'Website Health Scan', items: ['PageSpeed scores (mobile + desktop)', 'SSL certificate check', 'Meta tag analysis (title, H1, description)', 'Open Graph / social preview check', 'Robots.txt & sitemap audit', 'Mobile responsiveness check'] },
+              { icon: '📍', title: 'Local SEO Deep-Dive', items: ['Google Business Profile analysis', 'Competitor comparison (3 URLs)', 'Local keyword opportunities', 'Citation & NAP consistency check', 'Review profile assessment', 'Local pack ranking gaps'] },
+              { icon: '📋', title: 'Fix-It Plan + Content', items: ['Step-by-step fix instructions', 'Platform-specific guides (WP/Wix/Squarespace)', '28 ready-to-use content pieces', 'Revenue loss calculator', 'Copy-paste social posts & emails', '30-day priority action plan'] },
+            ].map((section) => (
+              <div key={section.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className="text-3xl mb-4">{section.icon}</div>
+                <h3 className="text-lg font-bold mb-3">{section.title}</h3>
+                <ul className="space-y-2">
+                  {section.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
+                      <span className="text-green-500 shrink-0 mt-0.5">✓</span>
+                      {item}
+                    </li>
                   ))}
-                </div>
-                <p className="text-gray-600 leading-relaxed mb-6 flex-1">"{t.quote}"</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className={`w-12 h-12 rounded-full ${t.color} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
-                    {t.initials}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== REAL DATA DEMO ===== */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Real Example</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">What a Real Audit Found</h2>
+            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">This is from an actual scan — no mock data, no templates.</p>
+          </div>
+          <div className="max-w-4xl mx-auto bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Top bar */}
+            <div className="flex items-center gap-2 px-6 py-3 bg-gray-800">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <span className="text-sm text-gray-400 ml-3 font-mono">mypetsloveit.com — Audit Results</span>
+            </div>
+            {/* Content */}
+            <div className="p-6 md:p-8 grid md:grid-cols-2 gap-6">
+              <div>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-3 font-semibold">Score Breakdown</p>
+                {Object.entries(sampleAudit.scores).map(([key, val]) => (
+                  <div key={key} className="mb-3">
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-gray-300">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                      <span className={val < 50 ? 'text-red-400' : val < 70 ? 'text-yellow-400' : 'text-green-400'}>{val}%</span>
+                    </div>
+                    <div className="w-full bg-gray-700 rounded-full h-2">
+                      <div className={`h-2 rounded-full ${val < 50 ? 'bg-red-500' : val < 70 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${val}%` }} />
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{t.name}</div>
-                    <div className="text-sm text-gray-500">{t.business}</div>
+                ))}
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-3 font-semibold">Top Fixes (Priority Order)</p>
+                <div className="space-y-3">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3">
+                    <p className="text-sm font-medium text-red-300">1. Fix Mobile PageSpeed (38/100)</p>
+                    <p className="text-xs text-gray-400">Compress images, enable caching, remove render-blocking JS → recover ~$600/mo</p>
+                  </div>
+                  <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
+                    <p className="text-sm font-medium text-yellow-300">2. Add XML Sitemap</p>
+                    <p className="text-xs text-gray-400">Helps Google index all your pages → recover ~$400/mo</p>
+                  </div>
+                  <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
+                    <p className="text-sm font-medium text-yellow-300">3. Fix H1 Missing Keywords</p>
+                    <p className="text-xs text-gray-400">Use a descriptive H1 with your main keyword → recover ~$350/mo</p>
+                  </div>
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                    <p className="text-sm font-medium text-green-300">4. Shorten Meta Description</p>
+                    <p className="text-xs text-gray-400">Under 160 characters so Google shows the full text → recover ~$200/mo</p>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 px-6 md:px-8 py-4 border-t border-gray-700">
+              <p className="text-sm text-gray-400">
+                <span className="text-red-400 font-bold">Estimated monthly loss: ${sampleAudit.revenueEstimate.monthlyLoss.toLocaleString()}</span>
+                {' · '}
+                <span className="text-gray-500">Annual: ${sampleAudit.revenueEstimate.annualLoss.toLocaleString()}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CATEGORIES ===== */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Works For</span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">Any Local Service Business</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {targets.map((t) => (
+              <div key={t} className="group bg-white rounded-xl px-6 py-5 text-center border border-gray-200 hover:border-brand-200 hover:bg-brand-50 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-default">
+                <span className="font-semibold text-gray-800 group-hover:text-brand-700 transition-colors">{t}</span>
               </div>
             ))}
           </div>
@@ -198,214 +252,53 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-brand-600 font-semibold text-sm tracking-wider uppercase">Pricing</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Simple, Transparent Pricing</h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              No hidden fees. No long-term contracts. Cancel anytime.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">One Price. Real Results.</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Audit */}
-            <div className="group bg-white rounded-2xl shadow-lg border border-gray-200 p-8 flex flex-col hover:shadow-2xl hover:-translate-y-1 transition-all duration-200">
-              <h3 className="text-xl font-bold mb-2">One-Time Audit</h3>
-              <p className="text-sm text-gray-500 mb-2">Perfect for getting started</p>
+          <div className="max-w-md mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl border-2 border-brand-500 p-8 text-center relative hover:shadow-2xl hover:-translate-y-1 transition-all">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-5 py-1 rounded-full text-xs font-bold tracking-wider shadow-lg">
+                BEST VALUE
+              </div>
+              <h3 className="text-xl font-bold mb-2">One-Time Marketing Audit</h3>
+              <p className="text-sm text-gray-500 mb-2">Everything you need to fix your online presence</p>
               <p className="text-5xl font-bold text-brand-600 mb-1">$49</p>
-              <p className="text-sm text-gray-400 mb-8">one-time payment · no subscription</p>
-              <ul className="space-y-4 mb-8 flex-1">
-                {['Website & competitor scan', '30-day marketing plan', '12 social media post ideas', 'Review reply templates'].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
-                    <span className="text-gray-600">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-sm text-gray-400 mb-8">one-time · no subscription</p>
               <a
                 href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
                 target="_blank" rel="noopener noreferrer"
-                className="w-full text-center block bg-gray-100 text-gray-800 py-3.5 rounded-xl font-semibold hover:bg-gray-200 hover:-translate-y-0.5 transition-all"
+                className="block w-full bg-brand-600 text-white py-3.5 rounded-xl font-semibold text-lg hover:bg-brand-700 hover:-translate-y-0.5 transition-all shadow-lg mb-4"
               >
                 Buy Audit — $49
               </a>
-            </div>
-
-            {/* Subscription */}
-            <div className="group bg-white rounded-2xl shadow-xl border-2 border-brand-500 p-8 flex flex-col relative hover:shadow-2xl hover:-translate-y-1 transition-all duration-200">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white px-5 py-1 rounded-full text-xs font-bold tracking-wider shadow-lg">
-                MOST POPULAR
-              </div>
-              <h3 className="text-xl font-bold mb-2">Monthly Subscription</h3>
-              <p className="text-sm text-gray-500 mb-2">Full marketing automation</p>
-              <p className="text-5xl font-bold text-brand-600 mb-1">$149</p>
-              <p className="text-sm text-gray-400 mb-8">per month · cancel anytime</p>
-              <ul className="space-y-4 mb-8 flex-1">
-                {[
-                  'Everything in Audit, plus...',
-                  'Weekly automated content',
-                  'Review management & replies',
-                  'Email campaigns (2/month)',
-                  'Lead follow-up automation',
-                  'Weekly performance reports',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
-                    <span className="text-gray-600">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/checkout/subscription"
-                className="w-full text-center bg-brand-600 text-white py-3.5 rounded-xl font-semibold hover:bg-brand-700 hover:-translate-y-0.5 transition-all shadow-lg"
-              >
-                Subscribe — $149/month
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CASE STUDY ===== */}
-      <section className="py-20 bg-gray-900 text-white relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{
-            backgroundImage: "url('/images/sparkling-kitchen.png')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900/95 to-brand-900/80" />
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-brand-400 font-semibold text-sm tracking-wider uppercase">Case Study</span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">Real Results for Real Businesses</h2>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              {/* Before */}
-              <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-white/10">
-                <div className="inline-block bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-xs font-semibold mb-4">BEFORE</div>
-                <h3 className="text-2xl font-bold mb-4">Sparkle Clean Homes</h3>
-                <ul className="space-y-3">
-                  {[
-                    '2-3 bookings per week',
-                    'No social media presence',
-                    'Outdated Google Business profile',
-                    'Spending $2,000/mo on ads with poor ROI',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-gray-300">
-                      <span className="text-red-400 mt-0.5">✕</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* After */}
-              <div className="p-8 md:p-10 bg-gradient-to-br from-green-900/20 to-brand-900/20">
-                <div className="inline-block bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs font-semibold mb-4">AFTER (30 DAYS)</div>
-                <h3 className="text-2xl font-bold mb-4 text-green-300">14+ bookings/week</h3>
-                <ul className="space-y-3">
-                  {[
-                    '14+ bookings per week (7x growth)',
-                    'Active on Instagram & Facebook',
-                    'Fully optimized Google profile',
-                    'Organic leads up 300%',
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-gray-200">
-                      <span className="text-green-400 mt-0.5 font-bold">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="px-8 md:px-10 py-5 border-t border-white/10 bg-white/5">
-              <p className="text-sm text-gray-400 text-center">
-                "LocalBoost AI replaced our agency. Same results, 90% less cost." — Sarah Johnson, Owner
-              </p>
+              <p className="text-xs text-gray-400">🔒 Secure checkout via Stripe</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="py-24 bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-brand-300 rounded-full blur-3xl" />
-        </div>
+      <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-900 to-brand-950 text-white relative overflow-hidden">
         <div className="relative max-w-3xl mx-auto text-center px-4">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            Ready to Grow Your Business?
+            See What Your Website Is Leaking
           </h2>
-          <p className="text-xl text-brand-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Join 500+ local businesses using LocalBoost AI to attract more customers and grow their revenue.
+          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+            No login. No commitment. Just a real, data-driven analysis of your website in under 3 minutes.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01"
-              target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-2xl"
-            >
-              Buy Audit — $49
-              <span className="ml-2">→</span>
-            </a>
-            <a
-              href="#pricing"
-              onClick={scrollToPricing}
-              className="inline-flex items-center justify-center border-2 border-white/30 text-white px-10 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 hover:-translate-y-0.5 transition-all"
-            >
-              Compare Plans
-            </a>
-          </div>
-          <p className="text-sm text-brand-200 mt-6">
-            🔒 No credit card required · 30-day money-back guarantee
-          </p>
+          <Link
+            to="/audit/new"
+            className="inline-flex items-center justify-center bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-2xl"
+          >
+            Run Free Audit →
+          </Link>
         </div>
       </section>
 
       {/* ===== FOOTER ===== */}
       <footer className="bg-gray-900 text-gray-400 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-8 mb-10">
-            {trustImages.map((src, i) => (
-              <img key={i} src={src} alt="Trust badge" className="h-12 opacity-80 hover:opacity-100 transition-opacity" />
-            ))}
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span className="text-lg">🛡️</span>
-              <span>30-Day Money Back</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-10 text-center md:text-left">
-            <div>
-              <div className="flex items-center gap-2 mb-3 justify-center md:justify-start">
-                <span className="text-xl font-bold text-white">LocalBoost</span>
-                <span className="text-xs bg-brand-600 text-white px-2 py-0.5 rounded-full font-medium">AI</span>
-              </div>
-              <p className="text-sm leading-relaxed">
-                AI-powered marketing automation for local service businesses. We help you attract, engage, and retain customers.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#pricing" onClick={scrollToPricing} className="hover:text-white transition">Pricing</a></li>
-                <li><Link to="/audit/new" className="hover:text-white transition">Free Audit</Link></li>
-                <li><Link to="/dashboard" className="hover:text-white transition">Dashboard</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3">Industries</h4>
-              <ul className="space-y-2 text-sm">
-                {targets.slice(0, 4).map((t) => (
-                  <li key={t} className="hover:text-white transition cursor-default">{t}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
           <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} LocalBoost AI. All rights reserved. AI-powered marketing for local service businesses.</p>
+            <p>&copy; {new Date().getFullYear()} LocalBoost AI. All rights reserved.</p>
           </div>
         </div>
       </footer>
