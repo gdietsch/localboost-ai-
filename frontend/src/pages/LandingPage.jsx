@@ -32,10 +32,21 @@ export default function LandingPage() {
         }),
       });
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to analyze');
+        const text = await res.text();
+        try {
+          const err = JSON.parse(text);
+          throw new Error(err.error || 'Failed to analyze');
+        } catch (parseErr) {
+          throw new Error('Server error — please try again in a moment');
+        }
       }
-      const data = await res.json();
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseErr) {
+        throw new Error('Invalid response — please try again');
+      }
       setCheckResult(data);
       setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
     } catch (err) {
