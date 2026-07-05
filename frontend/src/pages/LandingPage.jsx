@@ -158,10 +158,10 @@ export default function LandingPage() {
               {/* Trust badges */}
               <div className="flex flex-wrap gap-3">
                 {[
-                  { icon: '🔒', label: '256-bit SSL' },
-                  { icon: '⚡', label: 'Stripe Checkout' },
-                  { icon: '🛡️', label: 'Instant Results' },
-                  { icon: '📊', label: 'Real Data' },
+                  { icon: '🔒', label: 'SSL Secured Checkout', desc: 'Your payment & data are encrypted' },
+                  { icon: '⚡', label: 'Stripe Payments', desc: 'Processed by Stripe — no card data touches us' },
+                  { icon: '📊', label: 'Real-Time Analysis', desc: 'Results in under 30 seconds' },
+                  { icon: '🎯', label: 'Custom to Your Site', desc: 'Scans YOUR website, not templates' },
                 ].map((b) => (
                   <div key={b.label} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-gray-300">
                     <span>{b.icon}</span>
@@ -360,13 +360,13 @@ export default function LandingPage() {
       {/* ===== TRUST BADGES ===== */}
       <section className="py-12 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-sm text-gray-400 mb-6 uppercase tracking-wider font-semibold">Secure & Trusted</p>
+          <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider font-semibold">Why You Can Trust Us</p>
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { icon: '🔒', label: '256-bit SSL Encrypted', desc: 'Your data is safe in transit' },
-              { icon: '⚡', label: 'Stripe Checkout', desc: 'Pay via credit/debit card' },
-              { icon: '📊', label: 'Real-Time Analysis', desc: 'Results in under 30 seconds' },
-              { icon: '🎯', label: 'Custom Data', desc: 'Scans YOUR website, not templates' },
+              { icon: '🔒', label: 'SSL Encrypted Checkout', desc: 'Secure payment via Stripe' },
+              { icon: '⚡', label: 'No Subscription', desc: 'One payment. No recurring charges.' },
+              { icon: '📊', label: 'Real Analysis, Not Templates', desc: 'We scan your actual website' },
+              { icon: '🎯', label: 'Immediate Access', desc: 'Results in under 30 seconds' },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-5 py-4">
                 <span className="text-2xl">{b.icon}</span>
