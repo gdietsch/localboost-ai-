@@ -49,25 +49,46 @@ export default function AuditForm() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/audits', {
+      // 1. Run the real analysis immediately
+      const analysisRes = await fetch('/api/analysis/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          website: normalizeUrl(form.website),
+          category: form.category,
+          email: form.email,
+          competitors: [normalizeUrl(form.competitor1), normalizeUrl(form.competitor2)].filter(Boolean).join(', '),
+          challenge: form.challenge || '',
+        }),
+      });
+
+      if (!analysisRes.ok) {
+        const errText = await analysisRes.text();
+        let errMsg;
+        try { errMsg = JSON.parse(errText).error; } catch(e) { errMsg = 'Analysis failed'; }
+        throw new Error(errMsg);
+      }
+
+      const analysisData = await analysisRes.json();
+
+      // 2. Create the audit record in the background (don't block on it)
+      fetch('/api/audits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name, website: normalizeUrl(form.website),
           category: form.category, email: form.email,
         }),
-      });
+      }).catch(() => {});
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to create audit');
-      }
-
-      const data = await res.json();
-      navigate(`/audit/preview/${data.id}`, {
+      // 3. Navigate to preview with REAL results
+      navigate(`/audit/preview/real`, {
         state: {
           businessName: form.name,
           category: form.category,
+          email: form.email,
+          realResults: analysisData,
           answers: {
             source: form.source,
             monthlyCustomers: form.monthlyCustomers,
@@ -88,13 +109,12 @@ export default function AuditForm() {
       <div className="text-center mb-10">
         <div className="inline-block bg-brand-50 text-brand-700 px-4 py-1 rounded-full text-sm font-medium mb-4">🆓 Free Deep-Dive Analysis</div>
         <h1 className="text-3xl font-bold mb-3">Start Your Free Analysis</h1>
-        <p className="text-gray-600">Answer a few questions and we'll analyze your business. Get a personalized score + revenue estimate for free.</p>
+        <p className="text-gray-600">Get real scores for YOUR website — not fake sample data.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border p-8 space-y-6">
         {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>}
 
-        {/* Step progress */}
         <div className="flex gap-2 mb-6">
           <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-brand-500' : 'bg-gray-200'}`} />
           <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-brand-500' : 'bg-gray-200'}`} />
@@ -182,7 +202,7 @@ export default function AuditForm() {
               </button>
               <button type="submit" disabled={submitting}
                 className="flex-[2] bg-brand-600 text-white py-3 rounded-xl font-semibold text-lg hover:bg-brand-700 transition disabled:opacity-50">
-                {submitting ? 'Generating...' : 'Get My Free Analysis'}
+                {submitting ? 'Analyzing Your Site...' : 'Get My Free Analysis'}
               </button>
             </div>
           </>

@@ -1,177 +1,154 @@
 import { useParams, useLocation, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-// Import marketing templates
-import nicheHooks from '../content/niche-hooks.json';
-import copyTemplates from '../content/audit-copy-templates.json';
-import benchmarks from '../content/benchmarks.json';
-
-// Map form categories → template slugs
-const categorySlug = {
-  'Home Cleaners': 'home-cleaning',
-  'Pet Services (Pet Sitting, Dog Walking, Grooming)': 'pet-services',
-  'Dentists': 'dental',
-  'Plastic Surgery': 'plastic-surgery',
-  'Med Spas': 'med-spa',
-  'Beauty Salons': 'beauty',
-  'Nail Salons': 'nail-salons',
-  'Gyms/Fitness': 'gym',
-  'Landscapers': 'landscaping',
-  'Barbers': 'barbers',
-  'Photographers': 'photography',
-  'Restaurants': 'restaurants',
-  'Real Estate Agents': 'default',
-  'Massage Therapy': 'med-spa',
-  'Chiropractors': 'dental',
-  'Veterinarians': 'pet-services',
-};
-
-const scoreCategories = ['Website Health', 'Google Business Profile', 'Competitor Position', 'Revenue Opportunity'];
-
-const categoryIcons = {
-  'Website Health': '🚀',
-  'Google Business Profile': '📍',
-  'Competitor Position': '📊',
-  'Revenue Opportunity': '💰',
-};
-
-const deliverables = [
-  { icon: '📋', label: 'Detailed Website Analysis', desc: 'Specific fixes for YOUR site' },
-  { icon: '📍', label: 'GBP Optimization Plan', desc: 'Step-by-step to rank higher locally' },
-  { icon: '📊', label: 'Competitor Breakdown', desc: 'See exactly what they do better' },
-  { icon: '💰', label: 'Revenue Growth Calculator', desc: 'Personalized monthly projections' },
-  { icon: '📅', label: '30-Day Action Plan', desc: 'Prioritized weekly tasks' },
-  { icon: '📱', label: '12 Custom Content Pieces', desc: 'Social posts, emails, review replies' },
-];
-
-function getNicheData(category) {
-  const slug = categorySlug[category] || 'default';
-  return {
-    hooks: nicheHooks[slug] || nicheHooks['default'],
-    copy: copyTemplates[slug] || copyTemplates['default'],
-    bench: benchmarks[slug] || benchmarks['default'],
-  };
-}
+const gradeColor = (g) => g === 'A' || g === 'B' ? 'text-green-400' : g === 'C' ? 'text-yellow-400' : 'text-red-400';
+const gradeBg = (g) => g === 'A' || g === 'B' ? 'bg-green-500' : g === 'C' ? 'bg-yellow-500' : 'bg-red-500';
 
 export default function AuditPreview() {
   const { id } = useParams();
   const location = useLocation();
-  const businessName = location.state?.businessName || 'Your Business';
+  const bizName = location.state?.businessName || 'Your Business';
   const category = location.state?.category || 'Home Cleaners';
-  const { hooks, copy, bench } = getNicheData(category);
+  const real = location.state?.realResults || null;
+  const [loading, setLoading] = useState(!real);
+  const [results, setResults] = useState(real);
 
-  // Build score cards from copy templates
-  const sampleItems = scoreCategories.map((title) => {
-    const c = copy[title] || { issue: 'Optimization needed', revenueImpact: '~$800/mo potential' };
-    const score = title === 'Website Health' ? 52 : title === 'Google Business Profile' ? 38 : title === 'Competitor Position' ? 45 : 68;
-    const grade = score < 40 ? 'F' : score < 60 ? 'F' : score < 70 ? 'D' : 'C';
-    const potential = title === 'Revenue Opportunity' ? 95 : title === 'Website Health' ? 85 : title === 'Google Business Profile' ? 90 : 75;
-    return { title, score, grade, issue: c.issue, revenueImpact: c.revenueImpact, potential };
-  });
+  useEffect(() => {
+    if (real) { setLoading(false); return; }
+    async function fetchAudit() {
+      try {
+        const res = await fetch(`/api/audits/${id}`);
+        if (res.ok) {
+          const d = await res.json();
+          if (d?.findings?.length) setResults(d);
+        }
+      } catch(e) {}
+      setLoading(false);
+    }
+    fetchAudit();
+  }, [id]);
 
-  // Calculate total monthly opportunity
-  const totalLoss = sampleItems.reduce((sum, item) => {
-    const match = item.revenueImpact.match(/\$?([\d,]+)/);
-    return sum + (match ? parseInt(match[1].replace(/,/g, '')) : 800);
-  }, 0);
+  if (loading) return <div className="max-w-4xl mx-auto px-4 py-20 text-center"><div className="text-4xl mb-4 animate-pulse">🔍</div><p className="text-gray-500">Analyzing your website...</p></div>;
+
+  const findings = results?.findings || [];
+  const scores = results?.scores || {};
+  const overall = results?.overall || 0;
+  const grade = results?.grade || 'N/A';
+  const revenue = results?.revenueEstimate || {};
+  const hasData = !!(results?.success || findings.length > 0);
+  const high = findings.filter(f => f.severity === 'high');
+  const medium = findings.filter(f => f.severity === 'medium');
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      {/* Hero — Lost Revenue Hook */}
+      {/* Hero */}
       <div className="text-center mb-8">
         <div className="inline-block bg-red-100 text-red-700 px-4 py-1 rounded-full text-sm font-medium mb-4">
-          ⚠️ Urgent: Revenue Loss Detected
+          {hasData ? '📊 Real Analysis Results' : '⚠️ Estimated Preview'}
         </div>
-        <h1 className="text-3xl font-bold mb-1">{businessName}</h1>
-        <p className="text-gray-500 mb-6">{category} · Free Analysis Preview</p>
+        <h1 className="text-3xl font-bold mb-1">{bizName}</h1>
+        <p className="text-gray-500 mb-6">{category}</p>
 
-        <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-2xl p-8 mb-4 shadow-lg">
-          <p className="text-sm uppercase tracking-widest font-semibold mb-1">
-            {hooks.heroHook || 'Estimated Monthly Revenue Loss'}
-          </p>
-          <p className="text-6xl md:text-7xl font-bold mb-2">
-            ${totalLoss.toLocaleString()}
-            <span className="text-2xl text-white/60">/mo</span>
-          </p>
-          <p className="text-lg text-white/80">{hooks.painPoint || 'Your low scores are costing you real money every month.'}</p>
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-8 mb-4 shadow-lg">
+          {hasData ? (
+            <>
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="text-center">
+                  <p className="text-xs text-gray-400 uppercase">Grade</p>
+                  <p className={`text-6xl font-black ${gradeColor(grade)}`}>{grade}</p>
+                </div>
+                <div className="text-left">
+                  <p className="text-xs text-gray-400 uppercase">Score</p>
+                  <p className="text-4xl font-bold">{overall}<span className="text-lg text-gray-400">/100</span></p>
+                  <div className="w-40 bg-gray-700 rounded-full h-2 mt-2">
+                    <div className={`h-2 rounded-full ${gradeBg(grade)}`} style={{ width: `${overall}%` }} />
+                  </div>
+                </div>
+              </div>
+              {revenue.summary && <div className="bg-white/10 rounded-xl p-4 mt-4"><p className="text-sm text-gray-300">{revenue.summary}</p></div>}
+            </>
+          ) : (
+            <>
+              <p className="text-4xl font-bold mb-2">No real data yet</p>
+              <p className="text-gray-400">Run the free audit to see your actual scores.</p>
+            </>
+          )}
         </div>
 
         <a href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-brand-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 hover:-translate-y-0.5 transition-all shadow-xl">
-          🔓 Unlock Full Analysis — $49
-          <span className="text-brand-200">→</span>
+          🔓 Unlock Full Fix Plan — $49 →
         </a>
         <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-          <strong>💡 After payment:</strong> You'll get a receipt from Stripe. Come back to{' '}
-          <a href="/claim" className="text-blue-700 underline font-medium hover:text-blue-900">localboosts.biz/claim</a>
-          {' '}and enter your email to unlock your full report. We'll email it to you too!
+          After paying, claim your report at <a href="/claim" className="text-blue-700 underline font-medium">localboosts.biz/claim</a>
         </div>
       </div>
 
-      {/* Score Cards with Revenue Impact */}
-      <div className="grid md:grid-cols-2 gap-5 mb-10">
-        {sampleItems.map((item) => (
-          <div key={item.title} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold text-gray-700">{categoryIcons[item.title]} {item.title}</span>
-              <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                item.grade === 'F' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'
-              }`}>{item.grade}</span>
-            </div>
-
-            <div className="relative mb-2">
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div className={`h-3 rounded-full ${item.score < 40 ? 'bg-red-500' : item.score < 60 ? 'bg-orange-500' : 'bg-yellow-500'}`}
-                  style={{ width: `${item.score}%` }} />
+      {/* Scores */}
+      {Object.keys(scores).length > 0 && (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {Object.entries(scores).map(([key, val]) => (
+            <div key={key} className="bg-white rounded-xl border border-gray-200 p-5">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-semibold text-gray-700">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                <span className={`text-xs font-bold px-2 py-1 rounded-full ${val < 50 ? 'bg-red-100 text-red-700' : val < 70 ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>{val}%</span>
               </div>
-              <div className="absolute top-0" style={{ left: `${item.potential}%` }}>
-                <div className="w-0.5 h-3 bg-green-500" />
-                <span className="text-[10px] text-green-600 font-semibold -ml-2 whitespace-nowrap">🎯 Target</span>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className={`h-2 rounded-full ${val < 50 ? 'bg-red-500' : val < 70 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${val}%` }} />
               </div>
-            </div>
-
-            <div className="flex justify-between text-xs text-gray-400 mb-3">
-              <span>Current: {item.score}%</span>
-              <span>Potential: {item.potential}%</span>
-            </div>
-
-            <div className="bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-2">
-              <span className="text-red-700 font-semibold text-sm">💰 {item.revenueImpact}</span>
-            </div>
-            <p className="text-xs text-gray-500">{item.issue}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* What's Inside */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8">
-        <h2 className="text-xl font-bold mb-6 text-center">📦 What's Inside Your Full Report</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {deliverables.map((d) => (
-            <div key={d.label} className="bg-gray-50 rounded-xl p-4 text-center hover:bg-gray-100 transition-colors">
-              <span className="text-3xl block mb-2">{d.icon}</span>
-              <h3 className="font-semibold text-gray-800 text-sm">{d.label}</h3>
-              <p className="text-xs text-gray-500 mt-1">{d.desc}</p>
             </div>
           ))}
         </div>
-      </div>
+      )}
 
-      {/* Urgency Footer */}
+      {/* Findings */}
+      {high.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-4">🔴 Critical Issues Found</h2>
+          <div className="space-y-3">
+            {high.map((f, i) => (
+              <div key={i} className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                <span className="text-red-500 text-xl shrink-0 mt-0.5">🔴</span>
+                <div>
+                  <p className="font-semibold text-red-800">{f.issue}</p>
+                  <p className="text-sm text-red-700 mt-1">{f.impact}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {medium.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-xl font-bold mb-4">⚠️ Needs Improvement</h2>
+          <div className="space-y-3">
+            {medium.map((f, i) => (
+              <div key={i} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex items-start gap-3">
+                <span className="text-yellow-500 text-xl shrink-0 mt-0.5">⚠️</span>
+                <div>
+                  <p className="font-semibold text-yellow-800">{f.issue}</p>
+                  <p className="text-sm text-yellow-700 mt-1">{f.impact}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* CTA */}
       <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 text-white text-center shadow-lg">
-        <p className="text-3xl font-bold mb-3">⏱️ Don't let another month slip away</p>
-        <p className="text-brand-100 mb-6 max-w-lg mx-auto leading-relaxed">
-          Most businesses see a <strong className="text-white">3.2x return</strong> on this $49 investment.
-          Your full report is ready with specific fixes that can start recovering revenue this week.
+        <p className="text-3xl font-bold mb-3">⏱️ Your Full Report is Ready</p>
+        <p className="text-brand-100 mb-6 max-w-lg mx-auto">
+          {findings.length > 0
+            ? `We found ${findings.length} issues affecting your revenue. The full fix plan has step-by-step instructions for each one.`
+            : 'Enter your website above to see what\'s holding you back.'}
         </p>
         <a href="https://buy.stripe.com/28EfZh6yHgNRg3MaFd5ZC01" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-white text-brand-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-xl">
           Unlock Full Analysis — $49 →
         </a>
-        <p className="text-sm text-brand-200 mt-4">
-          🔒 Secure checkout via Stripe · After paying, claim your report at{' '}
-          <a href="/claim" className="text-white underline">localboosts.biz/claim</a>
-        </p>
-        </div>
+        <p className="text-sm text-brand-200 mt-4">🔒 Secure checkout via Stripe</p>
+      </div>
     </div>
   );
 }
