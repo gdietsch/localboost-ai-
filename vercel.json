@@ -7,6 +7,10 @@
       "includeFiles": "api/**"
     }
   },
+  "redirects": [
+    { "source": "/", "destination": "https://www.localboosts.biz/", "permanent": true, "has": [{ "type": "host", "value": "localboosts.biz" }] },
+    { "source": "/(.*)", "destination": "https://www.localboosts.biz/$1", "permanent": true, "has": [{ "type": "host", "value": "localboosts.biz" }] }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/server" },
     { "source": "/(.*)", "destination": "/index.html" }
