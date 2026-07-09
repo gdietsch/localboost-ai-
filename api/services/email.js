@@ -4,7 +4,7 @@
  * Docs: https://docs.useplunk.com
  */
 
-const PLUNK_API = 'https://api.useplunk.com/v1';
+const PLUNK_API = 'https://next-api.useplunk.com/v1';
 const FROM_NAME = 'LocalBoost AI';
 const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@localboosts.biz';
 const APP_URL = process.env.APP_URL || 'https://www.localboosts.biz';

@@ -236,7 +236,7 @@ router.post('/follow-up-emails', async (req, res) => {
           </div>`,
         };
 
-        const plunkRes = await fetch('https://api.useplunk.com/v1/send', {
+        const plunkRes = await fetch('https://next-api.useplunk.com/v1/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${process.env.PLUNK_API_KEY || ''}` },
           body: JSON.stringify(msg),
