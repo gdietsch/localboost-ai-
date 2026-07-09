@@ -142,6 +142,9 @@ app.use('/api/scheduler', require('./routes/scheduler.js'));
 // Phase 3: Analysis routes
 app.use('/api/analysis', require('./routes/analysis.js'));
 
+// Phase 3: Subscription route
+app.use('/api/subscribe', require('./routes/subscriptions.js'));
+
 // POST /api/audits/claim — Claim an audit by email, send it via email
 const { sendAuditEmail } = require('./services/email.js');
 const { generateAuditContent } = require('./routes/payments.js');

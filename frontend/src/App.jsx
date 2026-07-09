@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import StripeCheckout from './pages/StripeCheckout';
 import ClaimPage from './pages/ClaimPage';
 import MyAudit from './pages/MyAudit';
+import Subscribe from './pages/Subscribe';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/checkout/:type" element={<StripeCheckout />} />
           <Route path="/claim" element={<ClaimPage />} />
           <Route path="/my-audit" element={<MyAudit />} />
+          <Route path="/subscribe" element={<Subscribe />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
