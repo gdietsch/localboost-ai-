@@ -1,0 +1,210 @@
+{
+  "cleaning": {
+    "headlines": [
+      "Top-Rated House Cleaning in [City]",
+      "Get Your Home Sparkling - Book Now",
+      "Reliable Cleaning Services [City]",
+      "Save $25 on Your First Deep Clean",
+      "Professional Cleaners - Licensed & Insured"
+    ],
+    "descriptions": [
+      "Reclaim your time! Our expert cleaners in [City] provide thorough, eco-friendly house cleaning. 100% satisfaction guaranteed. Book online in 60 seconds!",
+      "Trusted by over 500 local families in [City]. We handle everything from dusting to deep sanitization. See our before & after results and book today."
+    ]
+  },
+  "dental": {
+    "headlines": [
+      "Gentle Dental Care in [City]",
+      "Accepting New Patients - Book Today",
+      "Voted #1 Dentist in [City]",
+      "Professional Teeth Whitening Special",
+      "Emergency Dental Visits Available"
+    ],
+    "descriptions": [
+      "Looking for a comfortable dental experience in [City]? [Practice Name] offers expert care for all ages. Routine cleanings, implants, and cosmetics. Schedule now!",
+      "Modern dentistry with a personal touch. Our [City] team makes dental visits stress-free. Most insurances accepted. Call to book your new patient exam."
+    ]
+  },
+  "med-spa": {
+    "headlines": [
+      "Premium Med Spa in [City]",
+      "Look & Feel Your Best Today",
+      "Botox & Filler Experts in [City]",
+      "Get Your Free Skin Consultation",
+      "Advanced Laser Hair Removal"
+    ],
+    "descriptions": [
+      "Experience luxury aesthetic care at [Business Name] in [City]. Expert injectors and licensed estheticians ready to help you glow. Book your consultation online!",
+      "Target wrinkles, skin texture, and stubborn fat with our advanced med spa treatments in [City]. Safe, effective, and results-driven. Claim your offer today."
+    ]
+  },
+  "landscaping": {
+    "headlines": [
+      "Expert Landscaping in [City]",
+      "Professional Lawn Care & Design",
+      "Get a Beautiful Yard - Free Quote",
+      "Reliable Weekly Mowing [City]",
+      "Custom Hardscape & Garden Design"
+    ],
+    "descriptions": [
+      "Transform your outdoor living space with [Business Name] in [City]. From maintenance to custom builds, we handle it all. Get your free estimate today!",
+      "#[City]'s choice for high-quality landscaping. Professional, reliable, and detail-oriented. See why your neighbors love our work. Book your spot now."
+    ]
+  },
+  "pet-services": {
+    "headlines": [
+      "Trusted Pet Grooming in [City]",
+      "Safe & Fun Dog Boarding [City]",
+      "Expert Pet Care You Can Trust",
+      "Mobile Grooming - We Come to You",
+      "Best Daycare for Your Best Friend"
+    ],
+    "descriptions": [
+      "Treat your pet to a spa day! Our expert groomers in [City] provide gentle, stress-free care. Mobile and salon options available. Book your appointment today!",
+      "Going away? Trust [Business Name] for safe, loving pet boarding in [City]. Large play areas, 24/7 monitoring, and lots of belly rubs included."
+    ]
+  },
+  "gym": {
+    "headlines": [
+      "Best Gym in [City] - Join Now",
+      "Reach Your Fitness Goals Today",
+      "24/7 Access Gym in [City]",
+      "Get a Free 3-Day Pass",
+      "Expert Personal Training [City]"
+    ],
+    "descriptions": [
+      "Stop waiting for 'someday'. Join the most supportive fitness community in [City] today. Top-tier equipment, group classes, and 24/7 access. Start your trial!",
+      "Lose weight, build muscle, and feel great at [Business Name] in [City]. Personalized plans and expert coaches to guide you every step of the way. Join now."
+    ]
+  },
+  "barber": {
+    "headlines": [
+      "Sharpest Fades in [City]",
+      "Classic Barbershop Experience",
+      "Expert Beard Trims & Shaves",
+      "Book Your Appointment Online",
+      "Top-Rated Barber in [City]"
+    ],
+    "descriptions": [
+      "Get the look you want at [Business Name] in [City]. Precision cuts, hot towel shaves, and a great atmosphere. Book online and skip the wait!",
+      "The local favorite for quality grooming in [City]. Our expert barbers specialize in fades, tapers, and classic styles. Check our availability and book now."
+    ]
+  },
+  "photographer": {
+    "headlines": [
+      "Expert Photographer in [City]",
+      "Capture Beautiful Memories",
+      "Family & Wedding Portraits [City]",
+      "Professional Headshots - Book Now",
+      "High-Res Photos - Fast Delivery"
+    ],
+    "descriptions": [
+      "Tired of blurry phone pics? Hire a pro! [Business Name] specializes in [Niche] photography in [City]. Beautiful lighting, expert editing, and memories for life.",
+      "Professional photography for your most important moments in [City]. Weddings, portraits, and commercial shoots. See our portfolio and book your session today."
+    ]
+  },
+  "restaurant": {
+    "headlines": [
+      "Best [Cuisine] in [City]",
+      "Join Us for Lunch or Dinner",
+      "Reserve Your Table Online",
+      "Delicious Local Flavors [City]",
+      "Top-Rated Dining Experience"
+    ],
+    "descriptions": [
+      "Hungry for something amazing? Visit [Business Name] in [City] for fresh ingredients and authentic flavors. Great for families and date nights. See our menu!",
+      "Discover the taste of [City] at [Business Name]. Chef-driven dishes, craft cocktails, and a cozy atmosphere. Reserve your table or order takeout online."
+    ]
+  },
+  "plastic-surgery": {
+    "headlines": [
+      "Expert Plastic Surgery [City]",
+      "Natural-Looking Results Today",
+      "Board-Certified Surgical Team",
+      "Schedule Your Private Consultation",
+      "Advanced Aesthetic Procedures"
+    ],
+    "descriptions": [
+      "Enhance your natural beauty with the experts at [Business Name] in [City]. Specialized in [Procedure] with a focus on safety and precision. Book a consultation.",
+      "#[City]'s choice for high-end cosmetic surgery. Our board-certified team provides personalized care and beautiful, lasting results. Learn more today."
+    ]
+  },
+  "beauty-salon": {
+    "headlines": [
+      "Top Hair Salon in [City]",
+      "Expert Color & Style Specialists",
+      "Transform Your Look Today",
+      "Voted Best Salon in [City]",
+      "Book Your Stylist Online"
+    ],
+    "descriptions": [
+      "Love your hair again! Our expert stylists in [City] provide premium color, cuts, and treatments. Luxury experience and stunning results. Book your visit!",
+      "From root touch-ups to total transformations, [Business Name] in [City] is your hair care destination. Professional products and the latest trends. Schedule now."
+    ]
+  },
+  "nail-salon": {
+    "headlines": [
+      "Luxury Nail Care in [City]",
+      "Best Mani-Pedi in Town",
+      "Expert Nail Art & Gel Sets",
+      "Relaxing Salon Experience [City]",
+      "Book Your Appointment Online"
+    ],
+    "descriptions": [
+      "Pamper yourself at the top nail salon in [City]. Clean, professional, and relaxing. We offer long-lasting gels, custom art, and spa pedicures. Book today!",
+      "Get the perfect manicure at [Business Name] in [City]. High-quality products, talented technicians, and a sterile environment. See our work and book now."
+    ]
+  },
+  "real-estate": {
+    "headlines": [
+      "Top Real Estate Agent [City]",
+      "Buy or Sell Your Home Faster",
+      "Get a Free Home Valuation",
+      "Expert Local Market Knowledge",
+      "View [City] Homes for Sale"
+    ],
+    "descriptions": [
+      "Ready to move? Put [City]'s most trusted real estate expert to work for you. Proven results, expert negotiation, and a stress-free process. Contact me today!",
+      "Looking for your dream home in [City]? Search the latest listings and get expert guidance every step of the way. Start your search or list your home with me."
+    ]
+  },
+  "massage": {
+    "headlines": [
+      "Best Massage in [City]",
+      "Relax & Recharge Today",
+      "Expert Deep Tissue & Swedish",
+      "Professional Massage Therapy",
+      "Book Your Stress Relief Now"
+    ],
+    "descriptions": [
+      "Relieve pain and reduce stress at [Business Name] in [City]. Licensed therapists provide personalized care in a peaceful environment. Book your session today!",
+      "You deserve a break. Experience the best massage therapy in [City]. From sports recovery to total relaxation, we have the perfect treatment. Schedule now."
+    ]
+  },
+  "chiropractor": {
+    "headlines": [
+      "Expert Chiropractor in [City]",
+      "Relieve Back & Neck Pain Now",
+      "Gentle Adjustments for All Ages",
+      "Get Your Initial Exam Today",
+      "Voted Best Chiro in [City]"
+    ],
+    "descriptions": [
+      "Get back to living without pain! [Practice Name] in [City] provides targeted adjustments for lasting relief. Effective, safe, and personalized care. Book now!",
+      "Stop suffering from headaches and back pain. Our [City] chiropractic team helps you find the root cause and get back in alignment. Schedule your visit today."
+    ]
+  },
+  "veterinarian": {
+    "headlines": [
+      "Compassionate Pet Care [City]",
+      "Top-Rated Vet Clinic Nearby",
+      "Expert Care for Furry Friends",
+      "Accepting New Patients Today",
+      "Professional Pet Wellness Exams"
+    ],
+    "descriptions": [
+      "Trust your pet's health to the experts at [Clinic Name] in [City]. Comprehensive care from wellness exams to surgery. We treat your pets like family. Book today!",
+      "#[City]'s choice for high-quality veterinary care. Experienced doctors, modern technology, and a caring team. Schedule your pet's check-up online now."
+    ]
+  }
+}

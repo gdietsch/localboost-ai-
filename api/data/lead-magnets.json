@@ -1,0 +1,82 @@
+{
+  "cleaning": {
+    "title": "The Ultimate 50-Point Move-Out Checklist",
+    "description": "Download the exact checklist professional property managers use to ensure a full security deposit return. Don't miss a single spot!",
+    "call_to_action": "Download the Checklist"
+  },
+  "dental": {
+    "title": "The Parents' Guide to First Dental Visits",
+    "description": "Stop the stress! Our guide helps you prepare your child for a positive first dentist experience. Includes a fun 'Visit Prep' activity for kids.",
+    "call_to_action": "Get the Parents' Guide"
+  },
+  "med-spa": {
+    "title": "The Skincare Quiz: Find Your Perfect Treatment",
+    "description": "Not sure which treatment is right for you? Take our 2-minute skin quiz and get a personalized aesthetic roadmap from our experts.",
+    "call_to_action": "Take the Quiz"
+  },
+  "landscaping": {
+    "title": "Seasonal Curb Appeal Guide: Spring Edition",
+    "description": "Want the best lawn on the block? Our Spring guide reveals the top 5 plants for [City] and a DIY sprinkler audit checklist.",
+    "call_to_action": "Download the Guide"
+  },
+  "pet-services": {
+    "title": "The First-Time Dog Owner Starter Kit",
+    "description": "Everything you need for your new best friend. Includes a local emergency vet directory and a puppy socialization roadmap.",
+    "call_to_action": "Download the Kit"
+  },
+  "gym": {
+    "title": "7-Day No-Equipment Home Workout Plan",
+    "description": "No gym? No problem. Kickstart your fitness journey with our high-intensity, 20-minute daily home workout series.",
+    "call_to_action": "Get the Workout Plan"
+  },
+  "barber": {
+    "title": "Beard Maintenance 101: The Essential Guide",
+    "description": "Keep your beard looking sharp between shop visits. Learn the pro techniques for trimming, oiling, and shaping your beard.",
+    "call_to_action": "Get the Beard Guide"
+  },
+  "photographer": {
+    "title": "The 'What to Wear' Guide for Family Sessions",
+    "description": "Stop the wardrobe stress! Our visual style guide shows you exactly how to coordinate colors for photos that look like they're from a magazine.",
+    "call_to_action": "Download the Style Guide"
+  },
+  "restaurant": {
+    "title": "Join the [Business Name] VIP Birthday Club",
+    "description": "We want to celebrate with you! Join our VIP club today and get a complimentary appetizer or dessert on your birthday month.",
+    "call_to_action": "Join the VIP Club"
+  },
+  "plastic-surgery": {
+    "title": "Is [Procedure] Right for You? The Candid Guide",
+    "description": "Get the facts before your consultation. We explain the benefits, the recovery process, and real expectations for [Procedure].",
+    "call_to_action": "Get the Candid Guide"
+  },
+  "beauty-salon": {
+    "title": "5 Habits That Are Secretly Damaging Your Hair",
+    "description": "Are you accidentally hurting your hair? Our hair health handbook reveals the daily habits to stop and the pros' secrets for vibrant locks.",
+    "call_to_action": "Get the Hair Handbook"
+  },
+  "nail-salon": {
+    "title": "How to Make Your Gel Mani Last 3+ Weeks",
+    "description": "Don't let your manicure chip early! Follow our expert aftercare guide to protect your nails and keep them looking fresh for weeks.",
+    "call_to_action": "Get the Aftercare Guide"
+  },
+  "real-estate": {
+    "title": "The Home Seller's 30-Day Countdown",
+    "description": "Planning to sell? Our week-by-week guide shows you exactly how to prep, stage, and list your home for top dollar in 30 days.",
+    "call_to_action": "Download the Countdown"
+  },
+  "massage": {
+    "title": "The Stress Relief Handbook: 5 Natural Ways",
+    "description": "Feeling overwhelmed? Our therapists share 5 proven, natural ways to lower cortisol and find calm in your daily routine.",
+    "call_to_action": "Download the Handbook"
+  },
+  "chiropractor": {
+    "title": "3 Desk Stretches to Stop Neck & Back Pain",
+    "description": "Working from a desk? These 60-second stretches are designed to correct posture and provide immediate relief from 'Tech Neck'.",
+    "call_to_action": "Get the Stretches"
+  },
+  "veterinarian": {
+    "title": "Is it a Medical Emergency? The Pet Owner's Guide",
+    "description": "Don't guess when it comes to your pet's health. Our quick-reference guide helps you identify emergency symptoms and know when to call the vet.",
+    "call_to_action": "Download the Guide"
+  }
+}

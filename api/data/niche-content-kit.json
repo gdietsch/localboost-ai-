@@ -4,7 +4,109 @@
     "sms_review_request": "Hi [Name], your home should be sparkling now! ✨ We'd love to hear how we did. Could you leave a quick review here? [Link] - [Your Name] from [Business Name]",
     "gbp_post_evergreen": "Reclaim your weekend! 🏠 Our professional cleaning team in [City] handles the dirt so you don't have to. Licensed, insured, and 100% guaranteed. Book your free estimate online!",
     "gbp_post_seasonal": "Spring is here! 🌸 Time for a fresh start. Book our 'Spring Deep Clean' special this week and get 15% off. Spots are filling up fast in [City]!",
-    "review_reply_5_star": "Hi [Customer Name], we're so glad you're happy with your sparkling clean home! It was a pleasure handling your [Service] in [City]. See you next time!"
+    "review_reply_5_star": "Hi [Customer Name], we're so glad you're happy with your sparkling clean home! It was a pleasure handling your [Service] in [City]. See you next time!",
+    "subscription": {
+      "social_posts": [
+        {
+          "title": "Customer Testimonial",
+          "caption": "We love making our customers' days a little brighter! ✨ Check out what [Name] had to say about their recent cleaning: '[Short Quote]'. #HomeCleaning #[City] #SparklingHome",
+          "image_prompt": "A bright, high-res photo of a sparkling living room with a text overlay of a 5-star review."
+        },
+        {
+          "title": "Before & After",
+          "caption": "The results speak for themselves! Swipe to see the transformation by our team. 😱 We don't cut corners, we clean them! #TransformationTuesday #CleaningMagic #[City]Experts",
+          "image_prompt": "A split-screen image showing a messy kitchen on the left and a sparkling clean version on the right."
+        },
+        {
+          "title": "Pro-Tip of the Week",
+          "caption": "Quick Tip: Use a microfiber cloth for a streak-free shine on your mirrors! 💡 Following this simple advice can help you maintain your results longer. Our pros follow a strict checklist to ensure excellence every time. #ExpertTips #CleaningHacks",
+          "image_prompt": "A professional cleaner in uniform using a microfiber cloth on a large bathroom mirror."
+        },
+        {
+          "title": "FAQ Spotlight",
+          "caption": "Question: Do I need to be home for my cleaning? Answer: Not at all! Most of our clients provide a key or entry code. We're here to keep your home stress-free! Drop your questions below. 👇 #CleaningFAQ #LocalExperts",
+          "image_prompt": "A friendly team member smiling while holding a set of house keys."
+        },
+        {
+          "title": "Meet the Pro",
+          "caption": "Meet [Team Member Name]! They've been with us for [Time] and their favorite part of the job is making kitchens look brand new. Say hi in the comments! 👋 #MeetTheTeam #[City]Business",
+          "image_prompt": "A high-quality portrait of a team member in their uniform, smiling warmly."
+        },
+        {
+          "title": "New Customer Special",
+          "caption": "New to [Business Name]? Start with a win! Get $20 off your first deep clean when you book this week. Let us show you the [Business Name] difference. 🎁 #NewCustomer #SpecialOffer",
+          "image_prompt": "A clean, graphic image with '$20 OFF' in bold text and a background of a satisfied customer."
+        },
+        {
+          "title": "Weekend Vibes",
+          "caption": "Finally, the weekend! 🥂 How are you spending your time off? Hopefully not scrubbing floors! Enjoy your break, you've earned it. #Weekend #Relax #[City]Life",
+          "image_prompt": "A cozy, relaxing image of a family playing a board game in a clean living room."
+        },
+        {
+          "title": "Why Us",
+          "caption": "At [Business Name], we don't just clean—we give you back your time. ❤️ Every member of our team is background-checked and fully insured for your peace of mind. #MissionDriven #CustomerFirst",
+          "image_prompt": "A team member shaking hands with a happy homeowner at the doorway."
+        }
+      ],
+      "gbp_posts": [
+        {
+          "title": "Deep Clean vs. Maintenance: What's the difference?",
+          "type": "Update",
+          "caption": "Is your home due for a refresh? 🏠 Our deep cleaning service in [City] goes beyond the basics—we focus on the details that matter most. Perfect for first-time visits or seasonal resets. Book your slot today!",
+          "button": "Book",
+          "image_prompt": "A close-up photo of a team member cleaning behind a kitchen faucet with a detail brush."
+        },
+        {
+          "title": "Spring Cleaning Special 🌸",
+          "type": "Offer",
+          "offer_title": "15% Off Deep Cleaning",
+          "description": "Time for a fresh start! Get 15% off our Spring Deep Clean package in [City]. Vetted staff, 100% satisfaction guarantee. Use code SPRING when booking.",
+          "coupon_code": "SPRING",
+          "button": "Redeem Online",
+          "image_prompt": "A professional graphic with '15% OFF' in large text over a photo of a sunlit, clean bedroom."
+        },
+        {
+          "title": "5 Stars in [City]! ⭐",
+          "type": "Update",
+          "caption": "Another happy home! ⭐⭐⭐⭐⭐ '[Quote from Review]' - [Customer Name]. See why we're [City]'s highest-rated home cleaning provider. Book your estimate today!",
+          "button": "Learn More",
+          "image_prompt": "A photo of a smiling team member in uniform in front of a branded cleaning van."
+        },
+        {
+          "title": "Summer Schedule Filling Fast! ⏳",
+          "type": "Update",
+          "caption": "Summer is almost here! 🗓️ Our schedule is 90% full for [Month] in [City]. Secure your cleaning now to ensure your home stays fresh all summer long. Call us or book online today!",
+          "button": "Call Now",
+          "image_prompt": "A calendar icon with a 'Book Now' sticker on it."
+        }
+      ],
+      "review_replies": [
+        {
+          "rating": "5-star",
+          "template": "Hi [Customer Name]! Thank you so much for the 5-star review! 🌟 We're thrilled to hear that you're happy with your sparkling clean home in [City]. It was a pleasure serving you, and we look forward to your next visit!"
+        },
+        {
+          "rating": "5-star (Staff Shoutout)",
+          "template": "Hi [Customer Name]! Thank you for the 5 stars! 🌟 We'll be sure to share your kind words with [Team Member Name]—they take great pride in their work. We're so glad we could help with your cleaning in [City]!"
+        },
+        {
+          "rating": "4-star",
+          "template": "Hi [Customer Name], thank you for the feedback and for the 4 stars! We're glad you had a positive experience with our cleaning team in [City]. Is there anything we could have done to make it a perfect 5 stars? We're always looking to improve! Best, [Business Name]."
+        },
+        {
+          "rating": "3-star",
+          "template": "Hi [Customer Name], thank you for sharing your feedback. We're glad we could help with your cleaning, but we're sorry to hear that the results weren't exactly what you expected. We'd love to learn more and make it right. Please reach out to us at [Phone/Email]."
+        },
+        {
+          "rating": "1-2 star",
+          "template": "Hi [Customer Name], I am very sorry to hear about your experience. This is certainly not the standard of service we strive for at [Business Name]. We would like the opportunity to fix this immediately. Please contact our manager directly at [Phone/Email]. Thank you for your patience."
+        }
+      ],
+      "newsletter": {
+        "subject": "🏠 Your Home's Monthly Reset + A Special Gift 🎁",
+        "body": "Hi [Customer Name],\n\nHappy [Month]! As the season changes, it's the perfect time to give your home a fresh start.\n\nInside this month's newsletter:\n\n✨ **Pro-Tip:** How to keep your floors shining between professional visits.\n🧹 **Service Spotlight:** Moving soon? Our 'Move-In/Move-Out' clean handles the stress for you.\n🎁 **Referral Bonus:** Refer a friend in [City] and you'll BOTH get $25 off your next service!\n\nReady for your next clean? Click below to view our calendar.\n\n[Button: View Available Slots]\n\nBest,\nThe [Business Name] Team"
+      }
+    }
   },
   "pet-food": {
     "sms_lead_auto_reply": "Hi [Name]! Thanks for reaching out to [Business Name]. What breed is your pup? We have treats for all sizes! Reply with your dog's breed and we'll send personalized recommendations.",

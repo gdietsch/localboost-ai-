@@ -810,7 +810,7 @@ async function saveAnalysis(auditId, report) {
   const bizName = biz?.[0]?.name || 'Your Business';
   const bizCategory = biz?.[0]?.category || 'Home Cleaners';
   
-  const contentItems = getCustomNicheContent(report.url, { category: bizCategory, name: bizName });
+  const contentItems = getCustomNicheContent(report, { category: bizCategory, name: bizName });
   
   for (const item of contentItems) {
     await execute(`INSERT INTO content_items (audit_id, type, title, body, status) VALUES (${safe(auditId)}, ${safe(item.type)}, ${safe(item.title)}, ${safe(item.body)}, 'draft')`);
@@ -828,68 +828,183 @@ function getGrade(score) {
 }
 
 /**
- * Returns premium customized templates for Phase 2 Autopilot based on category.
+ * Returns premium customized templates that reference actual analysis data.
+ * Instead of generic "How to Choose" posts, each item references real findings
+ * like page speed score, SSL status, meta tag issues, competitor comparisons.
  */
-function getCustomNicheContent(website, answers) {
+function getCustomNicheContent(report, answers) {
   const name = answers.name || 'Your Business';
   const category = answers.category || 'Home Cleaners';
   const slug = getCategorySlug(category);
+  const domain = report.url ? report.url.replace(/^https?:\/\//, '').replace(/\/.*$/, '') : 'yourwebsite.com';
+
+  // Extract key findings for content references
+  const scores = report.scores || {};
+  const findings = report.findings || [];
+  const revenue = report.revenueEstimate || {};
+  const overall = report.overall || 0;
+  const grade = report.grade || 'F';
+
+  // Helper: extract specific finding details
+  const findIssue = (keywords) => {
+    for (const f of findings) {
+      const t = (f.issue + ' ' + f.impact).toLowerCase();
+      for (const kw of keywords) {
+        if (t.includes(kw)) return f;
+      }
+    }
+    return null;
+  };
+
+  const sslFinding = findIssue(['ssl', 'certificate', 'not secure']);
+  const speedFinding = findIssue(['pagespeed', 'speed']);
+  const titleFinding = findIssue(['title tag']);
+  const descFinding = findIssue(['meta description']);
+  const mobileFinding = findIssue(['viewport', 'mobile']);
+  const gbpFinding = findIssue(['google business', 'gbp', 'profile', 'review']);
+  const wordFinding = findIssue(['word count', 'content depth', 'thin content']);
+
+  // Extract actual values from findings text
+  const extractScore = (finding, defaultVal) => {
+    if (!finding) return defaultVal;
+    const match = finding.issue.match(/(\d+)\/100/);
+    return match ? parseInt(match[1]) : defaultVal;
+  };
+  const mobileScore = extractScore(speedFinding, 65);
+  const desktopScore = extractScore(findings.find(f => f.issue.includes('Desktop PageSpeed')), 82);
+  const wordCount = wordFinding ? parseInt(wordFinding.issue.match(/(\d+)/)?.[1] || '0') : 0;
+  const hasSSL = sslFinding ? !sslFinding.issue.toLowerCase().includes('missing') : true;
+  const gbpDetected = gbpFinding ? !gbpFinding.issue.toLowerCase().includes('missing') : false;
+  const revOpportunity = revenue.revenueOpportunity || 1200;
+
+  // Niche-specific data for template replacements
   const data = nicheContent[slug] || nicheContent['cleaning'] || {};
   const ads = adCopy[slug] || adCopy['cleaning'] || null;
   const magnet = leadMagnets[slug] || leadMagnets['cleaning'] || null;
-  
+
   const items = [
+    // === SOCIAL POSTS (8) ===
     {
       type: 'social_post',
-      title: 'Evergreen Promotion',
-      body: (data.gbp_post_evergreen || 'Run a seasonal promotion to attract new customers.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      title: '⚡ We Tested Our Site Speed',
+      body: `Just ran PageSpeed on ${domain} — scored ${mobileScore}/100 on mobile! 📱\n\nThat means roughly 40% of mobile visitors could be bouncing. We're fixing it now.\n\nIs YOUR business's website faster? Check it free → localboosts.biz\n\n#WebsiteSpeed #SmallBusiness #${slug}`
     },
     {
       type: 'social_post',
-      title: 'Seasonal Offer',
-      body: (data.gbp_post_seasonal || 'Offer [City] residents a special discount this season.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      title: '🔒 SSL Security Check',
+      body: hasSSL
+        ? `✅ Just verified — ${domain} has an active SSL certificate. Your data is encrypted and secure when visiting us.\n\nDoes YOUR site have that green padlock? Check in 3 seconds → localboosts.biz\n\n#CyberSecurity #SmallBiz #${slug}`
+        : `⚠️ Heads up — ${domain} is MISSING an SSL certificate. Visitors see "Not Secure" in their browser. That's costing trust.\n\nFix it in 10 minutes. Check your site → localboosts.biz\n\n#WebsiteSecurity #SmallBusiness #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: `📊 ${name}'s SEO Score: ${grade}`,
+      body: `We ran a full SEO audit on ${domain} and scored ${overall}/100 (Grade: ${grade}).\n\n${overall < 70 ? 'There are some quick wins to fix.' : 'Not bad, but there is room to improve!'}\n\nThe biggest issue? ${(findings.find(f => f.severity === 'high')?.issue || 'Small optimizations').replace(/\[.*?\]/g, '')}\n\nWant your own free audit? → localboosts.biz\n\n#SEO #LocalBusiness #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: '📱 Mobile Friendly?',
+      body: mobileFinding && mobileFinding.severity === 'high'
+        ? `🚨 ${domain} isn't fully mobile-optimized. 60%+ of local searches happen on phones — if your site doesn't work on mobile, you're invisible.\n\nWe're fixing ours. Is yours ready? → localboosts.biz\n\n#MobileFirst #SmallBiz #${slug}`
+        : `📱 Good news: ${domain} passes the mobile-friendly test! \n\nWith 60%+ of searches happening on phones, a responsive site is table stakes. Check your site free → localboosts.biz\n\n#MobileResponsive #LocalSEO #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: `💰 Revenue Leak Warning`,
+      body: `Our analysis of ${name} found an estimated ${revOpportunity.toLocaleString()}/month in missed revenue opportunity. 📉\n\nThe top cause? ${revenue.topOpportunity ? revenue.topOpportunity.substring(0, 80) : 'Technical issues on the website.'}\n\nDon't leave money on the table. Get your free audit → localboosts.biz\n\n#BusinessGrowth #Revenue #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: `🔍 Title Tag Check`,
+      body: titleFinding
+        ? `We checked the title tag on ${domain}. ${titleFinding.severity === 'high' ? 'It needs work — this is the FIRST thing Google looks at.' : 'It's in decent shape, but could be sharper.'}\n\nYour title tag is the #1 on-page SEO factor. Get ours optimized with a free audit → localboosts.biz\n\n#SEOTips #GoogleRanking #${slug}`
+        : `Did you know your page title is the #1 thing Google checks? We help local businesses get theirs right.\n\nGet a free title tag analysis → localboosts.biz\n\n#SEO #SmallBusiness #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: `⭐ Google Business Profile Check`,
+      body: gbpDetected
+        ? `We found ${name} on Google Business Profile! 📍 That's great — businesses with optimized GBP listings get 3x more calls.\n\nWant us to check if YOUR profile is optimized? → localboosts.biz\n\n#GoogleMyBusiness #LocalSEO #${slug}`
+        : `⚠️ We couldn't find ${name} on Google Business Profile. That means you're missing the #1 local traffic source — Google Maps listings.\n\nSet it up in 20 mins. We'll show you how → localboosts.biz\n\n#GoogleMyBusiness #LocalSEO #${slug}`
+    },
+    {
+      type: 'social_post',
+      title: `📝 Content Check: ${wordCount > 0 ? wordCount + ' Words' : 'No Content Found'}`,
+      body: wordCount > 0 && wordCount < 500
+        ? `Your homepage has ${wordCount} words. Google prefers at least 500-800 words of local content to rank well.\n\nMore content = more keywords = more customers. We can help you add the right content.\n\n#ContentMarketing #LocalSEO #${slug}`
+        : wordCount >= 500
+          ? `Your homepage has ${wordCount} words of quality content. That's solid for local SEO! 🎉\n\nKeep adding helpful local content to stay ahead.\n\n#ContentWins #SEO #${slug}`
+          : `We checked ${domain} for content quality. Homepage content depth matters for Google rankings.\n\nGet a full content analysis → localboosts.biz\n\n#ContentStrategy #LocalBusiness #${slug}`
+    },
+
+    // === GOOGLE POSTS (4) ===
+    {
+      type: 'google_post',
+      title: `📊 Your ${name} Audit is Ready`,
+      body: `We analyzed ${domain} and found ${findings.filter(f => f.severity === 'high').length} critical issues and ${findings.filter(f => f.severity === 'medium').length} improvements. Overall score: ${overall}/100. Fix these and watch your leads grow!`
     },
     {
       type: 'google_post',
-      title: '📍 Local Special',
-      body: (data.gbp_post_evergreen || 'Proudly serving [City] with top-quality service.').replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
+      title: `⚡ Speed Score: ${mobileScore}/100`,
+      body: `Mobile page speed is one of the biggest factors in local search ranking. ${domain} scored ${mobileScore}/100. The target is 80+. We're working on it — is your site keeping up?`
+    },
+    {
+      type: 'google_post',
+      title: `💰 Revenue Opportunity: ${revOpportunity.toLocaleString()}/mo`,
+      body: `Our audit found an estimated ${revOpportunity.toLocaleString()}/month in missed revenue for ${name}. The biggest opportunity: ${revenue.topOpportunity ? revenue.topOpportunity.substring(0, 100) : 'website optimization'}.`
+    },
+    {
+      type: 'google_post',
+      title: `📍 ${name} — Local ${category}`,
+      body: `Serving the [City] area with premium ${category.toLowerCase()} services. Check out our latest audit results and see how we compare! Get your free business audit at localboosts.biz`
+    },
+
+    // === EMAILS (2) ===
+    {
+      type: 'email',
+      title: `📬 Your Audit Results for ${name}`,
+      body: `Subject: Your ${category} Audit Results Are In\n\nHi there,\n\nWe analyzed ${domain} and here's what we found:\n\n🔍 Overall Score: ${overall}/100 (Grade: ${grade})\n⚡ Mobile Speed: ${mobileScore}/100${hasSSL ? '\n🔒 SSL: Active ✅' : '\n🔒 SSL: Missing ⚠️'}\n💰 Estimated Revenue Opportunity: ${revOpportunity.toLocaleString()}/month\n\nTop issues found:\n${findings.filter(f => f.severity !== 'safe').slice(0, 3).map(f => `• ${f.issue.replace(/\[.*?\]/g, '')}`).join('\n')}\n\nWant the full step-by-step fix guide? Visit localboosts.biz to get your complete playbook.\n\nThe LocalBoost AI Team`
+    },
+    {
+      type: 'email',
+      title: `📊 Your ${category} Growth Plan`,
+      body: `Subject: Growth Plan for ${name}\n\nHi there,\n\nBased on our analysis of ${domain}, here's a 3-step plan to start recovering that ${revOpportunity.toLocaleString()}/month:\n\n1️⃣ Fix the technical issues (score: ${mobileScore}/100 mobile speed)\n2️⃣ Optimize your Google Business Profile${gbpDetected ? ' (detected on GBP ✅)' : ' (not found on GBP ⚠️)'}\n3️⃣ Publish content consistently using AI-generated templates\n\nEach step takes under 30 minutes. Ready to start?\n\n→ View your full action plan: localboosts.biz\n\nThe LocalBoost AI Team`
+    },
+
+    // === REVIEW REPLIES (5) ===
+    {
+      type: 'review_reply',
+      title: '⭐ 5-Star Review Reply',
+      body: `Thank you so much for your kind words, [Customer Name]! We're thrilled you had a great experience with ${name}. Your satisfaction drives everything we do — and we're proud to serve [City]. See you again soon!`
+    },
+    {
+      type: 'review_reply',
+      title: '⭐⭐⭐⭐ 4-Star Review Reply',
+      body: `Thanks for the great review, [Customer Name]! We're glad you enjoyed your experience with ${name}. If there's anything specific we could improve for that 5th star, we'd love to hear your thoughts — every piece of feedback helps us grow!`
+    },
+    {
+      type: 'review_reply',
+      title: '⭐⭐⭐ 3-Star Review Reply',
+      body: `Thank you for your honest feedback, [Customer Name]. We take reviews seriously and would love the chance to address your concerns. Please reach out to us directly — we want to make this right for you.`
+    },
+    {
+      type: 'review_reply',
+      title: '⭐⭐ 2-Star Review Reply',
+      body: `Hi [Customer Name], we're sorry your experience didn't meet expectations. This isn't the standard we aim for at ${name}. Please contact us directly so we can understand what happened and find a solution. We value your business.`
+    },
+    {
+      type: 'review_reply',
+      title: '⭐ 1-Star Review Reply',
+      body: `Dear [Customer Name], we sincerely apologize for your experience. We take this very seriously. Please reach out to us at your earliest convenience so our team can personally address your concerns and work toward a resolution.`
     },
   ];
 
-  if (ads && ads.headlines) {
-    items.push({
-      type: 'google_post',
-      title: '🚀 Google Ad: Headline Options',
-      body: ads.headlines.map(h => `- ${h.replace(/\[City\]/g, '[City]')}`).join('\n')
-    });
-  }
-  if (ads && ads.descriptions) {
-    items.push({
-      type: 'google_post',
-      title: '🚀 Google Ad: Description Options',
-      body: ads.descriptions.map(d => `- ${d.replace(/\[City\]/g, '[City]').replace(/\[Business Name\]/g, name)}`).join('\n')
-    });
-  }
+  // Add lead magnet if available
   if (magnet && magnet.title) {
     items.push({
       type: 'task',
       title: `🎁 Lead Magnet: ${magnet.title}`,
       body: `${magnet.description || ''}\n\nCall to Action: ${magnet.call_to_action || ''}`
-    });
-  }
-
-  if (data && data.sms_lead_auto_reply) {
-    items.push({
-      type: 'email',
-      title: 'Lead Follow-up Template',
-      body: data.sms_lead_auto_reply.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
-    });
-  }
-  if (data && data.review_reply_5_star) {
-    items.push({
-      type: 'review_reply',
-      title: '5-Star Review Reply Template',
-      body: data.review_reply_5_star.replace(/\[Business Name\]/g, name).replace(/\[City\]/g, '[City]')
     });
   }
 

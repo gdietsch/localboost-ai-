@@ -10,6 +10,160 @@ const router = express.Router();
 const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@localboosts.biz';
 
+// ---- Strategic Content Helpers ----
+
+function getWeekDates() {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diff);
+  const friday = new Date(monday);
+  friday.setDate(monday.getDate() + 4);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return {
+    monday: `${months[monday.getMonth()]} ${monday.getDate()}`,
+    friday: `${months[friday.getMonth()]} ${friday.getDate()}`,
+  };
+}
+
+function getSeason() {
+  const m = new Date().getMonth();
+  if (m >= 2 && m <= 4) return 'spring';
+  if (m >= 5 && m <= 7) return 'summer';
+  if (m >= 8 && m <= 10) return 'fall';
+  return 'winter';
+}
+
+function getSeasonLabel() {
+  const seasons = { spring: '🌷 Spring', summer: '☀️ Summer', fall: '🍂 Fall', winter: '❄️ Winter' };
+  return seasons[getSeason()] || 'Seasonal';
+}
+
+const neighborhoods = ['Oakwood','Maple Ridge','Downtown','Westside','Easton','North Hills','South Park','Lakeview','Highland','Brookside'];
+const teamNames = ['Maria','James','Sarah','David','Lisa','Mike','Angela','Chris','Rachel','Tony'];
+const teamQuotes = ['Making homes happy, one clean at a time','I love seeing the before and after','Every home tells a story','Clean homes, happy families','Detail is everything'];
+const testimonials = [
+  'They showed up on time, were incredibly thorough, and my house has never looked better. I\'m a customer for life!',
+  'I was skeptical about hiring a cleaning service, but ${name} completely changed my mind. Worth every penny.',
+  'After having twins, keeping up with housework became impossible. ${name} literally saved my sanity.',
+  'We\'ve tried three other cleaning services. ${name} is the only one that actually cleans everything without being asked.',
+  'The detail they put into cleaning baseboards and corners is incredible. You can tell they actually care.',
+];
+const shortTestimonials = ['Absolutely amazing service!','Best cleaning we\'ve ever had','Thorough, professional, and friendly','Worth every penny','They went above and beyond'];
+const educationTopics = ['Hard Water vs Soft Water','The Truth About Antibacterial Cleaners','Why Your Rugs Smell Musty','The Hidden Dirt in Your Kitchen','What Vacuums Don\'t Tell You'];
+const educationFacts = [
+  'hard water leaves mineral deposits that attract more dirt, making your surfaces look dull within days',
+  'antibacterial cleaners can actually breed stronger bacteria if not used correctly — most homes don\'t need them',
+  'musty rug smell is usually caused by trapped moisture at the pad level, not the rug itself',
+  'your kitchen sponge has more bacteria than your toilet seat — and most cleaners don\'t sanitize properly',
+  'most vacuums recirculate fine dust particles back into the air you breathe — HEPA is not optional',
+];
+const techniques = [
+  'hospital-grade HEPA filtration with H13-rated vacuum systems',
+  'pH-neutral cleaning solutions that don\'t strip your floors',
+  'microfiber-only protocols that trap dirt instead of pushing it around',
+  'color-coded cloth systems that prevent cross-contamination between rooms',
+  'telescoping wands and extension tools that clean where others don\'t reach',
+];
+const offers = ['15% off your first deep clean','a free carpet spot treatment','a complimentary fridge wipe-down','free window cleaning with any deep clean','a free oven interior clean'];
+const offerTitles = ['Spring Refresh Package','Deep Clean + Free Add-On','New Customer Special','Refer-a-Friend Bonus','Seasonal Deep Clean Discount'];
+const offerBodies = [
+  'Book a full home deep clean this week and we\'ll include a complimentary ${getRandomExtra()} — no extra charge.',
+  'Refer a friend who books, and you both get ${Math.floor(Math.random() * 25) + 10}% off your next clean.',
+  'First time with ${name}? Enjoy ${Math.floor(Math.random() * 20) + 10}% off your first booking. Because you deserve to experience the difference.',
+  'Book 3 cleanings upfront and your 4th is on us. That\'s how confident we are you\'ll love us.',
+];
+const offerLimits = ['limited to first 5 bookings','this week only','while availability lasts','limited to new customers'];
+const offerDiscounts = ['15% off','a free add-on service','\$30 off your first clean','a complimentary touch-up clean'];
+const transformationTypes = ['Full Home Deep Clean','Kitchen Deep Clean','Carpet & Upholstery','Move-Out Clean','Post-Construction Clean'];
+const newsletterTips = [
+  'Pro tip: Run your ceiling fans before we arrive — it helps circulate air and prevents dust from settling back after cleaning.',
+  'Did you know? Cleaning your dishwasher filter once a month can add years to its life. We include this in every kitchen deep clean.',
+  'Quick win: Wipe down your shower walls with a squeegee after each use. It cuts soap scum buildup by 80%.',
+  'Seasonal reminder: This is the perfect time to swap heavy curtains for lighter ones — and we can clean both!',
+  'Hidden spot alert: Light fixtures collect more dust than any other surface in your home. We get them every time.',
+];
+const newsletterReminders = [
+  'We\'re booking up fast for next month — lock in your regular slot now.',
+  'Your last clean was ${Math.floor(Math.random() * 4) + 2} weeks ago. Ready for another?',
+  'We\'ve added Saturday appointments to meet demand.',
+  'Gift certificates available — perfect for housewarming or holiday gifts.',
+];
+const newsletterOffers = ['free kitchen sparkle service','15% off your next deep clean','a complimentary fridge wipe-down','an extra hour of cleaning free'];
+const newsletterSubjects = [
+  'Your Home, Our Priority',
+  'What We Found This Week',
+  'A Tip Your Home Will Thank You For',
+  'Spring Forward with a Clean Home',
+  'The Difference is in the Details',
+];
+const seasonalTitles = {
+  spring: ['Spring Cleaning Season is Here!','Post-Winter Deep Clean Special','🌸 Spring Refresh Package'],
+  summer: ['Summer Ready in 3 Hours','Beat the Heat — Clean Indoors','Pre-Vacation Cleaning Special'],
+  fall: ['Cozy Season Starts Here','Pre-Holiday Deep Clean','Fall Maintenance Checklist'],
+  winter: ['Holiday-Ready Cleaning','Winter Warmth + Clean Floors','New Year, Fresh Start'],
+};
+const seasonalBodies = {
+  spring: '🌷 Spring is the time for fresh starts — and that means a deep clean that actually gets the winter out. Dust, allergens, and that "been inside all season" feeling? Gone.',
+  summer: '☀️ Between summer travel, kids home from school, and hosting BBQs, your home needs extra attention. We handle the clean — you enjoy the season.',
+  fall: '🍂 As the leaves change, so should your cleaning routine. Prep your home for holiday hosting with our fall deep clean. Carpets, windows, every corner.',
+  winter: '❄️ Holiday season means guests, gatherings, and more mess than usual. Let us handle the cleanup while you enjoy time with family.',
+};
+const seasonalGBPTitles = {
+  spring: '🌷 Spring Cleaning: Book Your Spot',
+  summer: '☀️ Summer Cleaning Schedule',
+  fall: '🍂 Pre-Holiday Deep Clean Special',
+  winter: '❄️ Winter Home Care Tips',
+};
+const seasonalGBPBodies = {
+  spring: '🌸 Spring is in full swing and we\'re helping homes in [service area] shake off winter. Our deep clean includes everything — windows, carpets, baseboards, and more.',
+  summer: '☀️ Summer schedule is filling up fast! We\'re offering extended hours to accommodate your vacation and hosting schedule.',
+  fall: '🍂 Holiday season is coming! Get your home ready with a pre-holiday deep clean. We\'re booking into December now.',
+  winter: '❄️ Winter weather tracking in fast. Keep your entryways and high-traffic areas clean with our weekly maintenance plans.',
+};
+const seasonalCleaningPhrases = {
+  spring: 'spring-ready fresh and allergen-free',
+  summer: 'guest-ready with that summer shine',
+  fall: 'cozy-clean and holiday-ready',
+  winter: 'sparkling clean for the holiday season',
+};
+const serviceSpotlights = ['Deep Clean','Carpet Shampooing','Window Washing','Move-Out Clean','Post-Renovation Clean','Oven & Fridge Deep Clean','Upholstery Cleaning','Tile & Grout Cleaning'];
+const randomExtras = ['carpet spot treatment','window interior clean','fridge shelf wipe-down','oven exterior polish','baseboard detail'];
+const greetings = ['Hey','Hi','Hello','Thank you','Wow','Amazing','Love it','Perfect'];
+
+const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const getWeeklyOffer = () => random(offers);
+const getTransformationType = () => random(transformationTypes);
+const getEducationTopic = () => random(educationTopics);
+const getEducationFact = () => random(educationFacts);
+const getProfessionalTechnique = () => random(techniques);
+const getMicroCTA = () => random(['Want a home that\'s actually clean? Call us.','Experience the difference. Book today.','Your home deserves better. Let\'s talk.']);
+const getNeighborhood = () => random(neighborhoods);
+const getNeighborhoodHashTag = () => `#${random(neighborhoods).replace(/\s/g,'')}`;
+const getTestimonialSnippet = () => random(testimonials).substring(0,80) + '...';
+const getLongTestimonial = () => random(testimonials);
+const getTestimonialAuthor = () => random(['Sarah M.','James T.','Linda R.','Mike P.','Angela D.','Chris B.','The Johnson Family','David & Lisa']);
+const getTeamMemberName = () => random(teamNames);
+const getTeamMemberQuote = () => random(teamQuotes);
+const getSeasonalTitle = () => random(seasonalTitles[getSeason()] || seasonalTitles.spring);
+const getSeasonalBody = () => seasonalBodies[getSeason()] || seasonalBodies.spring;
+const getSeasonalGBPTitle = () => random(seasonalGBPTitles[getSeason()] || seasonalGBPTitles.spring);
+const getSeasonalGBPBody = () => seasonalGBPBodies[getSeason()] || seasonalGBPBodies.spring;
+const getSeasonalCleaningPhrase = () => seasonalCleaningPhrases[getSeason()] || seasonalCleaningPhrases.spring;
+const getOfferTitle = () => random(offerTitles);
+const getOfferBody = () => random(offerBodies);
+const getOfferLimit = () => random(offerLimits);
+const getOfferDiscount = () => random(offerDiscounts);
+const getServiceSpotlight = () => random(serviceSpotlights);
+const getNewsletterTip = () => random(newsletterTips);
+const getNewsletterReminder = () => random(newsletterReminders);
+const getNewsletterOffer = () => random(newsletterOffers);
+const getNewsletterSubject = () => random(newsletterSubjects);
+const getRandomGreeting = () => random(greetings);
+const getShortTestimonial = () => random(shortTestimonials);
+const getRandomExtra = () => random(randomExtras);
+
 /**
  * POST /api/scheduler/weekly-content
  * Generates content for all active paid businesses for the coming week.
@@ -48,31 +202,56 @@ router.post('/weekly-content', async (req, res) => {
         const cat = biz.category;
         const catTag = cat.replace(/\s+/g, '');
 
-        // Generate content items
+        // Generate content items — each designed for a specific marketing outcome
+        const weekDates = getWeekDates();
+        const season = getSeason();
         const items = [
-          { type: 'task', title: `Week Ahead: Priorities for ${name}`, body: `Top priorities this week:\n1. Post daily social content\n2. Respond to new reviews\n3. Track lead sources\n4. Review weekly analytics` },
-          { type: 'task', title: `Content Calendar: ${name}`, body: `This week's schedule:\n- Monday: Tip post\n- Tuesday: Customer testimonial\n- Wednesday: Behind the scenes\n- Thursday: FAQ\n- Friday: Special offer\n- Saturday: Community post` },
-          { type: 'social_post', title: `Monday Motivation: ${cat} Tips`, body: `💪 Start your week strong with ${name}!\n\nHere's a quick tip for your ${cat.toLowerCase()} needs:\n[Insert tip here]\n\nBook your appointment today! 📅\n\n#MondayMotivation #${catTag} #LocalBusiness` },
-          { type: 'social_post', title: `Customer Spotlight: ${name}`, body: `🌟 Customer Spotlight! 🌟\n\nWe love hearing from our customers! Here's what [Customer] had to say about ${name}:\n\n"${name} was amazing! Highly recommend."\n\nWant to share your experience? Leave us a review! ⭐\n\n#CustomerLove #${catTag} #5Stars` },
-          { type: 'social_post', title: `Behind the Scenes`, body: `👋 Behind the scenes at ${name}!\n\nHere's what goes into making our service exceptional:\n✓ Training & expertise\n✓ Quality materials & tools\n✓ Customer-first approach\n\nWant to learn more? Visit our website!\n\n#BehindTheScenes #${catTag} #QualityService` },
-          { type: 'social_post', title: `FAQ Friday`, body: `❓ FAQ Friday! ❓\n\nQ: How do I book a service?\nA: Visit our website or give us a call!\n\nQ: What areas do you serve?\nA: [Service area]\n\nHave more questions? Drop them below! 💬\n\n#FAQFriday #${catTag} #CustomerService` },
-          { type: 'social_post', title: `Weekly Special`, body: `🎉 Weekly Special! 🎉\n\nMention this post and get [special offer] when you book with ${name}!\n\nLimited time offer — don't miss out! ⏰\n\n#SpecialOffer #${catTag} #LocalDeals` },
-          { type: 'social_post', title: `Community Post`, body: `🌍 Proud to serve our community!\n\nAt ${name}, we believe in giving back. This week we're supporting [cause/event].\n\nJoin us in making a difference! 🤝\n\n#CommunityFirst #${catTag} #LocalBusiness` },
-          { type: 'social_post', title: `Tip Tuesday`, body: `📌 Tip Tuesday with ${name}!\n\nSave time and money with this pro tip:\n[Insert tip]\n\nFollow us for more tips every week! ✅\n\n#TipTuesday #${catTag} #ProTips` },
-          { type: 'social_post', title: `Throwback Thursday`, body: `📸 Throwback Thursday! 📸\n\nHere's one of our favorite projects from [month/year].\n\nQuality and attention to detail — that's what ${name} is all about.\n\n#ThrowbackThursday #TBT #${catTag}` },
-          { type: 'social_post', title: `Weekend Vibes`, body: `☀️ Weekend vibes from ${name}!\n\nRelax and unwind — we'll handle the rest.\n\nReady for the week ahead? Book your appointment now!\n\n#WeekendVibes #${catTag} #SelfCare` },
-          { type: 'social_post', title: `Did You Know?`, body: `💡 Did You Know?\n\n[Insert interesting industry fact]\n\nAt ${name}, we stay ahead of the curve so you don't have to.\n\nFollow for more insights! 🔔\n\n#DidYouKnow #${catTag} #IndustryFacts` },
-          { type: 'google_post', title: `Weekly Update: ${name}`, body: `This week at ${name}: We're fully booked and ready to serve you! Contact us today to schedule your appointment.` },
-          { type: 'google_post', title: `Service Highlight`, body: `Check out our latest service offerings at ${name}. We're dedicated to providing the best ${cat.toLowerCase()} experience in town.` },
-          { type: 'google_post', title: `Customer Thank You`, body: `Thank you to all our customers for your continued support! We appreciate each and every one of you.` },
-          { type: 'google_post', title: `Weekly Offer`, body: `Special offer this week at ${name}! Contact us for details and mention this post.` },
-          { type: 'email', title: `Weekly Newsletter: ${name}`, body: `Subject: What's New at ${name} This Week\n\nHi [Customer Name],\n\nHere's what's happening this week:\n• New tips and tricks\n• Special offers\n• Community events\n\nStay connected with us on social media!\n\nThe ${name} Team` },
-          { type: 'email', title: `Follow-Up: ${name}`, body: `Subject: How was your experience?\n\nHi [Customer Name],\n\nWe hope you enjoyed your experience. Your feedback helps us improve.\n\nLeave a review: [Link]\n\nThanks for choosing ${name}!` },
-          { type: 'review_reply', title: `5-Star Reply`, body: `Thank you for the wonderful review! We're thrilled you had a great experience with ${name}. We look forward to serving you again!` },
-          { type: 'review_reply', title: `4-Star Reply`, body: `Thanks for your feedback! We're glad you enjoyed your experience. We always strive to improve — please let us know how we can earn that 5th star!` },
-          { type: 'review_reply', title: `3-Star Reply`, body: `Thank you for your honest review. We'd love the opportunity to address your concerns. Please contact us so we can make it right.` },
-          { type: 'review_reply', title: `2-Star Reply`, body: `We're sorry your experience didn't meet expectations. Please reach out to us directly so we can resolve this.` },
-          { type: 'review_reply', title: `1-Star Reply`, body: `We sincerely apologize for your experience. Please contact us so we can understand what happened and make it right.` },
+          // GOAL: Direct response — limited availability creates urgency
+          { type: 'social_post', title: `⚡ Limited Availability: ${weekDates.friday}`, body: `⚠️ ONLY 3 SPOTS LEFT this week at ${name}.\n\nWe're booking fast for ${season} cleaning. If you've been putting it off, now's the time.\n\n📞 Call us: [phone number]\n💻 Book online: [booking link]\n\nFirst 3 callers get ${getWeeklyOffer()}.\n\n#LocalCleaning #${catTag} #BookNow #WeekendCleaning` },
+
+          // GOAL: Social proof — real transformation sells
+          { type: 'social_post', title: `✨ Before & After: ${getTransformationType()}`, body: `BEFORE → AFTER\n\n📅 Booked: Monday 8am\n📍 Location: [neighborhood]\n🧹 Service: ${getTransformationType()}\n⏱️ Time: ${Math.floor(Math.random() * 3) + 2} hours\n\nThis home hadn't been deep cleaned in 8 months. Look at that transformation! 🔥\n\n${name} — we don't cut corners.\n\nReady for the same? Call [phone number] or visit [website]\n\n#BeforeAndAfter #${catTag} #DeepClean #TransformationTuesday` },
+
+          // GOAL: Expert positioning — educate, establish authority
+          { type: 'social_post', title: `🔍 ${getEducationTopic()}`, body: `Most homeowners don't realize this, but:\n\n${getEducationFact()}\n\nAt ${name}, we see this every day. That's why we use ${getProfessionalTechnique()} — it's better for your home and your family.\n\n${getMicroCTA()}\n\n#HomeCare #${catTag} #CleaningTips #ExpertAdvice` },
+
+          // GOAL: Local community — neighborhood trust
+          { type: 'social_post', title: `🏡 Proud to Serve ${getNeighborhood()}`, body: `We've been keeping ${getNeighborhood()} homes spotless for ${Math.floor(Math.random() * 8) + 3} years.\n\nHere's what one of our ${getNeighborhood()} neighbors said:\n\n"${getTestimonialSnippet()}" — ${getNeighborhood()} Resident ⭐⭐⭐⭐⭐\n\nWe're local, we're trusted, and we're booking for next week.\n\n🏠 Serving: [service area]\n📞 Call: [phone number]\n\n#LocalBusiness #${catTag} #${getNeighborhoodHashTag()} #SupportLocal` },
+
+          // GOAL: Social proof — turn real reviews into posts
+          { type: 'social_post', title: `⭐ What Our Customers Say`, body: `"${getLongTestimonial()}"\n\n— ${getTestimonialAuthor()} ⭐⭐⭐⭐⭐\n\nThis is why we do what we do. ${Math.floor(Math.random() * 500) + 100}+ happy homes and counting.\n\nWant to join them? 📞 [phone number]\n\n#FiveStars #${catTag} #HappyCustomers #CleaningService` },
+
+          // GOAL: Human connection — introduce the team
+          { type: 'social_post', title: `👋 Meet ${getTeamMemberName()}`, body: `Behind every clean home is an amazing person.\n\nMeet ${getTeamMemberName()}! \n\n⭐ ${Math.floor(Math.random() * 5) + 1} years with ${name}\n🏠 Cleaned ${Math.floor(Math.random() * 500) + 200}+ homes\n❤️ Favorite part of the job: "${getTeamMemberQuote()}"\n\n${getTeamMemberName()} is available for bookings this week. Request them when you call!\n\n#TeamSpotlight #${catTag} #MeetTheTeam #CleaningProfessionals` },
+
+          // GOAL: Seasonal relevance — timely, not generic
+          { type: 'social_post', title: `🌤️ ${getSeasonalTitle()}`, body: `${getSeasonalBody()}\n\nAt ${name}, we're fully booked for ${season} but adding extra slots this week.\n\n📞 Call now: [phone number]\n\n#SeasonalCleaning #${catTag} #SpringCleaning #HomeMaintenance` },
+
+          // GOAL: Direct offer — the "why book now" post
+          { type: 'social_post', title: `🎯 Special Offer: ${getOfferTitle()}`, body: `${getOfferBody()}\n\n⏰ This week only — ${getOfferLimit()}.\n\nHow to claim:\n1️⃣ Call [phone number]\n2️⃣ Mention this post\n3️⃣ Get ${getOfferDiscount()}\n\n${name} — quality you can see, results you can trust.\n\n#SpecialOffer #${catTag} #CleaningDeals #LocalOffer` },
+
+          // 4 Google Business Profile posts — optimized for local search
+          { type: 'google_post', title: `📍 This Week at ${name}`, body: `This week at ${name}: We're helping ${Math.floor(Math.random() * 15) + 5} families in [service area] get their homes ${getSeasonalCleaningPhrase()}. Book your spot before they fill up! Call [phone number]. #LocalSEO #${catTag}` },
+
+          { type: 'google_post', title: `🧹 Service Spotlight: ${getServiceSpotlight()}`, body: `Did you know we offer ${getServiceSpotlight().toLowerCase()}? It's one of our most requested services this ${season}. Our team is trained and certified. Starting at ${Math.floor(Math.random() * 50) + 99}. Call [phone number] for a free quote. #${catTag} #ServiceSpotlight` },
+
+          { type: 'google_post', title: `⭐ Customer Review Highlight`, body: `"${getShortTestimonial()}" ⭐⭐⭐⭐⭐ — from a happy customer in [neighborhood]. We love hearing this! Ready to join our 5-star family? Call [phone number]. #CustomerLove #${catTag}` },
+
+          { type: 'google_post', title: `${getSeasonalGBPTitle()}`, body: `${getSeasonalGBPBody()} Call [phone number] or visit [website] to schedule. Limited availability. #${catTag} #LocalSEO` },
+
+          // Newsletter — real value, not fluff
+          { type: 'email', title: `📬 ${name} Weekly: ${getNewsletterSubject()}`, body: `Subject: ${getNewsletterSubject()}\n\nHi [Customer Name],\n\nHope you're having a great week! Here's what's new at ${name}:\n\n🏠 ${getNewsletterTip()}\n\n📅 ${getNewsletterReminder()}\n\n🎁 EXCLUSIVE: Show this email and get ${getNewsletterOffer()} on your next booking.\n\n📞 Book your next cleaning: [phone number]\n💻 Or visit: [booking link]\n\nStay clean,\nThe ${name} Team\n\nP.S. We're booking ${Math.floor(Math.random() * 14) + 7} days out — schedule now to lock in your spot!` },
+
+          // Review reply templates — professional, not robotic
+          { type: 'review_reply', title: `5-Star Reply — Enthusiastic`, body: `${getRandomGreeting()}! We're absolutely thrilled to hear you had a great experience with ${name}. Thank you so much for taking the time to share this — it means the world to our team. We look forward to seeing you again soon! 🏠✨` },
+
+          { type: 'review_reply', title: `5-Star Reply — Grateful`, body: `Thank you for the wonderful review! Our team works hard to make every home shine, and feedback like yours makes it all worth it. We appreciate you choosing ${name} and can't wait to serve you again! ⭐` },
+
+          { type: 'review_reply', title: `4-Star Reply — Appreciative`, body: `Thank you for your kind words! We're glad you enjoyed your experience. We're always looking to improve — if there's anything that would make your next visit a 5-star experience, we'd love to hear about it. Please reach out anytime!` },
+
+          { type: 'review_reply', title: `3-Star Reply — Helpful`, body: `Thank you for your honest feedback — we truly appreciate it. We'd love the opportunity to address your concerns and make things right. Please contact us directly at [phone/email] so we can understand what happened and find a solution. Your satisfaction is our priority.` },
+
+          { type: 'review_reply', title: `1-2 Star Reply — Professional`, body: `We're sorry to hear your experience didn't meet expectations. This isn't the standard we strive for at ${name}, and we'd like to make this right. Please reach out to us at [phone/email] so we can personally address your concerns. We appreciate you giving us the opportunity to improve.` },
         ];
 
         for (const item of items) {
