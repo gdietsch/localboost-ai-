@@ -204,7 +204,7 @@ router.post('/follow-up-emails', async (req, res) => {
       try {
         // Check if we already sent a follow-up (stored in a followup flag)
         const existing = await query(
-          `SELECT id FROM content_items WHERE audit_id = ${safe(biz.id)} AND type = 'followup_sent' LIMIT 1`
+          `SELECT id FROM content_items WHERE audit_id = ${safe(biz.id)} AND type = 'email' AND title LIKE '[followup]%' LIMIT 1`
         );
         if (existing && existing.length > 0) continue;
 
@@ -244,7 +244,7 @@ router.post('/follow-up-emails', async (req, res) => {
 
         if (plunkRes.ok) {
           // Mark follow-up as sent
-          await execute(`INSERT INTO content_items (audit_id, type, title, body, status) VALUES (${safe(biz.id)}, 'followup_sent', 'Follow-up email sent', 'sent', 'approved')`);
+          await execute(`INSERT INTO content_items (audit_id, type, title, body, status) VALUES (${safe(biz.id)}, 'email', '[followup] Follow-up email sent', 'sent', 'approved')`);
           sent++;
           console.log(`📧 Follow-up sent to ${biz.email}`);
         }
