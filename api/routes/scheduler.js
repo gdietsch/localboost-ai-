@@ -49,15 +49,20 @@ const testimonials = [
   'After having twins, keeping up with housework became impossible. ${name} literally saved my sanity.',
   'We\'ve tried three other cleaning services. ${name} is the only one that actually cleans everything without being asked.',
   'The detail they put into cleaning baseboards and corners is incredible. You can tell they actually care.',
+  'Moving is stressful enough, but ${name} handled the deep clean perfectly. We got our full security deposit back!',
+  'The best decision I made this month was booking ${name}. It is such a relief to come home to a fresh house.',
 ];
-const shortTestimonials = ['Absolutely amazing service!','Best cleaning we\'ve ever had','Thorough, professional, and friendly','Worth every penny','They went above and beyond'];
-const educationTopics = ['Hard Water vs Soft Water','The Truth About Antibacterial Cleaners','Why Your Rugs Smell Musty','The Hidden Dirt in Your Kitchen','What Vacuums Don\'t Tell You'];
+const shortTestimonials = ['Absolutely amazing service!','Best cleaning we\'ve ever had','Thorough, professional, and friendly','Worth every penny','They went above and beyond','Spotless results every time','Highly recommend their team'];
+const educationTopics = ['Hard Water vs Soft Water','The Truth About Antibacterial Cleaners','Why Your Rugs Smell Musty','The Hidden Dirt in Your Kitchen','What Vacuums Don\'t Tell You','Pet Hair Removal Hacks','The Dangers of Mixing Cleaning Chemicals','Why Professional Window Cleaning Matters'];
 const educationFacts = [
   'hard water leaves mineral deposits that attract more dirt, making your surfaces look dull within days',
   'antibacterial cleaners can actually breed stronger bacteria if not used correctly — most homes don\'t need them',
   'musty rug smell is usually caused by trapped moisture at the pad level, not the rug itself',
   'your kitchen sponge has more bacteria than your toilet seat — and most cleaners don\'t sanitize properly',
   'most vacuums recirculate fine dust particles back into the air you breathe — HEPA is not optional',
+  'pet hair has microscopic barbs that lock into carpet fibers, requiring specialized agitation to remove',
+  'mixing bleach and ammonia creates toxic chloramine gas — always check labels before DIY cleaning',
+  'professional squeegees remove the microscopic film that attracts dust, keeping windows clean 3x longer than spray-and-wipe',
 ];
 const techniques = [
   'hospital-grade HEPA filtration with H13-rated vacuum systems',
@@ -65,18 +70,21 @@ const techniques = [
   'microfiber-only protocols that trap dirt instead of pushing it around',
   'color-coded cloth systems that prevent cross-contamination between rooms',
   'telescoping wands and extension tools that clean where others don\'t reach',
+  'steam-sanitization for high-touch surfaces without harsh chemicals',
+  'high-speed orbital scrubbing for deep tile and grout restoration',
 ];
-const offers = ['15% off your first deep clean','a free carpet spot treatment','a complimentary fridge wipe-down','free window cleaning with any deep clean','a free oven interior clean'];
-const offerTitles = ['Spring Refresh Package','Deep Clean + Free Add-On','New Customer Special','Refer-a-Friend Bonus','Seasonal Deep Clean Discount'];
+const offers = ['15% off your first deep clean','a free carpet spot treatment','a complimentary fridge wipe-down','free window cleaning with any deep clean','a free oven interior clean','\$20 off your first recurring service','a free sanitization upgrade for high-touch areas'];
+const offerTitles = ['Spring Refresh Package','Deep Clean + Free Add-On','New Customer Special','Refer-a-Friend Bonus','Seasonal Deep Clean Discount','The "Gift of Time" Package','Move-In/Move-Out Special'];
 const offerBodies = [
   'Book a full home deep clean this week and we\'ll include a complimentary ${getRandomExtra()} — no extra charge.',
   'Refer a friend who books, and you both get ${Math.floor(Math.random() * 25) + 10}% off your next clean.',
   'First time with ${name}? Enjoy ${Math.floor(Math.random() * 20) + 10}% off your first booking. Because you deserve to experience the difference.',
   'Book 3 cleanings upfront and your 4th is on us. That\'s how confident we are you\'ll love us.',
+  'Sign up for bi-weekly service this month and get your first Deep Clean at the regular maintenance rate.',
 ];
-const offerLimits = ['limited to first 5 bookings','this week only','while availability lasts','limited to new customers'];
-const offerDiscounts = ['15% off','a free add-on service','\$30 off your first clean','a complimentary touch-up clean'];
-const transformationTypes = ['Full Home Deep Clean','Kitchen Deep Clean','Carpet & Upholstery','Move-Out Clean','Post-Construction Clean'];
+const offerLimits = ['limited to first 5 bookings','this week only','while availability lasts','limited to new customers','first-come, first-served'];
+const offerDiscounts = ['15% off','a free add-on service','\$30 off your first clean','a complimentary touch-up clean','a free room upgrade'];
+const transformationTypes = ['Full Home Deep Clean','Kitchen Deep Clean','Carpet & Upholstery','Move-Out Clean','Post-Construction Clean','Tile & Grout Restoration','Pet-Stain Recovery'];
 const newsletterTips = [
   'Pro tip: Run your ceiling fans before we arrive — it helps circulate air and prevents dust from settling back after cleaning.',
   'Did you know? Cleaning your dishwasher filter once a month can add years to its life. We include this in every kitchen deep clean.',

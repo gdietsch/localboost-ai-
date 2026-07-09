@@ -1,18 +1,13 @@
 /**
  * Subscription routes for LocalBoost AI.
- * POST /api/subscribe — Creates business, audit, generates content, creates Stripe invoice.
+ * POST /api/subscribe — Creates business, audit, generates content, records pending payment.
+ * Invoicing is handled separately via the team's managed Stripe account.
  */
 const express = require('express');
 const { query, execute } = require('../db.js');
-const Stripe = require('stripe');
 
 const router = express.Router();
 router.use(express.json());
-
-function getStripe() {
-  const key = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder';
-  return new Stripe(key);
-}
 
 async function generateFirstWeekContent(auditId, bizName, bizCategory) {
   const safe = (s) => `'${String(s).replace(/'/g, "''")}'`;
@@ -73,41 +68,7 @@ router.post('/', async (req, res) => {
     // Generate first week of content
     const itemCount = await generateFirstWeekContent(auditId, name, category);
 
-    // Create Stripe invoice
-    let invoiceUrl = null;
-    try {
-      const stripe = getStripe();
-      // Find or create customer
-      let customers = await stripe.customers.list({ email, limit: 1 });
-      let customer = customers.data?.[0];
-      if (!customer) {
-        customer = await stripe.customers.create({ email, name, metadata: { business_id: String(businessId) } });
-      }
-
-      // Create invoice item for $149
-      await stripe.invoiceItems.create({
-        customer: customer.id,
-        amount: 14900,
-        currency: 'usd',
-        description: 'LocalBoost AI — Monthly Subscription (first month)',
-      });
-
-      // Create and finalize invoice
-      const invoice = await stripe.invoices.create({
-        customer: customer.id,
-        collection_method: 'send_invoice',
-        days_until_due: 7,
-        metadata: { business_id: String(businessId), audit_id: String(auditId) },
-      });
-
-      const finalizedInvoice = await stripe.invoices.finalizeInvoice(invoice.id);
-      invoiceUrl = finalizedInvoice.hosted_invoice_url;
-    } catch (stripeErr) {
-      console.error('Stripe invoice creation failed:', stripeErr.message);
-      // Don't fail — subscription still recorded
-    }
-
-    // Record payment
+    // Record pending payment (invoice created manually by team)
     await execute(`INSERT INTO payments (business_id, email, amount, currency, status, type) VALUES (${safe(businessId)}, ${safe(email)}, 14900, 'usd', 'pending', 'subscription')`);
 
     res.status(201).json({
@@ -115,10 +76,7 @@ router.post('/', async (req, res) => {
       businessId,
       auditId,
       itemCount,
-      invoiceUrl,
-      message: invoiceUrl
-        ? `Subscription created! Check your email for the invoice.`
-        : `Subscription recorded. We'll invoice you at ${email}.`,
+      message: `You're signed up! We'll send your invoice to ${email} within 24 hours. Your first week of content is ready.`,
     });
   } catch (err) {
     console.error('Subscription error:', err);
